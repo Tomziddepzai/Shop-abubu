@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RBXViet - Shop Roblox Số 1 Việt Nam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg:       #08080f;
+  --bg2:      #0d0d1c;
+  --card:     #111122;
+  --card2:    #181830;
+  --border:   rgba(255,30,80,0.22);
+  --primary:  #ff1e50;
+  --pglow:    rgba(255,30,80,0.4);
+  --pink:     #ff6b9d;
+  --gold:     #ffd700;
+  --gglow:    rgba(255,215,0,0.3);
+  --cyan:     #00d4ff;
+  --green:    #00ff88;
+  --text:     #f0f0f8;
+  --text2:    #aaaacc;
+  --text3:    #55556e;
+  --fd:       'Orbitron', sans-serif;
+  --fb:       'Be Vietnam Pro', sans-serif;
+  --r:        12px;
+  --rs:       8px;
+  --tr:       all 0.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--primary);border-radius:3px;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 15% 0%,rgba(255,30,80,.07) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 85% 100%,rgba(0,212,255,.05) 0%,transparent 60%);pointer-events:none;z-index:0;}
+
+/* ── TICKER ── */
+#ann{background:linear-gradient(90deg,#ff1e50,#ff6b35,#ffd700,#ff6b35,#ff1e50);background-size:300% 100%;animation:gshift 5s linear infinite;padding:7px 0;overflow:hidden;position:relative;z-index:100;}
+@keyframes gshift{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+.tick{display:inline-flex;align-items:center;gap:36px;animation:tick 32s linear infinite;font-size:12.5px;font-weight:700;color:#fff;text-shadow:0 0 8px rgba(0,0,0,.3);white-space:nowrap;}
+.tick-sep{width:5px;height:5px;background:rgba(255,255,255,.55);border-radius:50%;display:inline-block;}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── HEADER ── */
+#hdr{background:rgba(8,8,15,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:90;}
+.hi{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:16px;height:62px;padding:0 20px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+.logo-ic{width:36px;height:36px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 0 18px var(--pglow);}
+.logo-tx{font-family:var(--fd);font-size:19px;font-weight:900;background:linear-gradient(135deg,#fff 0%,var(--pink) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;}
+.cnav{display:flex;gap:3px;flex:1;overflow-x:auto;scrollbar-width:none;}
+.cnav::-webkit-scrollbar{display:none;}
+.cbtn{display:flex;align-items:center;gap:6px;padding:7px 13px;border:1px solid transparent;background:transparent;color:var(--text2);font-family:var(--fb);font-size:13px;font-weight:500;border-radius:var(--rs);cursor:pointer;white-space:nowrap;transition:var(--tr);}
+.cbtn:hover{background:rgba(255,30,80,.1);color:var(--text);border-color:rgba(255,30,80,.25);}
+.cbtn.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 0 18px var(--pglow);}
+.hacts{display:flex;align-items:center;gap:7px;flex-shrink:0;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:var(--rs);font-family:var(--fb);font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr);border:none;text-decoration:none;}
+.btn-pr{background:var(--primary);color:#fff;box-shadow:0 4px 14px var(--pglow);}
+.btn-pr:hover{background:#ff4070;transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,30,80,.5);}
+.btn-ol{background:transparent;color:var(--text);border:1px solid var(--border);}
+.btn-ol:hover{border-color:var(--primary);color:var(--primary);}
+.btn-gh{background:rgba(255,255,255,.06);color:var(--text);border:1px solid rgba(255,255,255,.09);}
+.btn-gh:hover{background:rgba(255,255,255,.1);}
+.cart-wrap{position:relative;}
+.cart-badge{position:absolute;top:-6px;right:-6px;width:17px;height:17px;background:var(--gold);color:#000;border-radius:50%;font-size:9px;font-weight:700;display:none;align-items:center;justify-content:center;}
+.udrop{position:relative;}
+.ubtn{display:flex;align-items:center;gap:7px;padding:5px 11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:var(--rs);color:var(--text);font-size:13px;font-weight:500;cursor:pointer;transition:var(--tr);}
+.ubtn:hover{border-color:var(--primary);}
+.uav{width:26px;height:26px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.ddm{position:absolute;top:calc(100% + 8px);right:0;background:var(--card);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:7px;min-width:175px;box-shadow:0 8px 30px rgba(0,0,0,.5);z-index:200;display:none;}
+.udrop.open .ddm{display:block;}
+.ddi{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:7px;font-size:13px;color:var(--text2);cursor:pointer;transition:var(--tr);}
+.ddi:hover{background:rgba(255,255,255,.06);color:var(--text);}
+.ddi.danger:hover{background:rgba(255,30,80,.1);color:var(--primary);}
+.dd-div{height:1px;background:rgba(255,255,255,.06);margin:5px 0;}
+
+/* ── LIVE FEED ── */
+#lfeed{background:rgba(13,13,28,.85);border-bottom:1px solid var(--border);padding:5px 20px;overflow:hidden;position:relative;z-index:1;}
+.lfi{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:12px;}
+.lv-lbl{display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--green);flex-shrink:0;}
+.lv-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(1.3)}}
+.feed-scr{flex:1;overflow:hidden;}
+.feed-c{display:inline-flex;gap:38px;animation:feedS 28s linear infinite;font-size:12px;color:var(--text2);white-space:nowrap;}
+.fi{display:inline-flex;align-items:center;gap:5px;}
+.fu{color:var(--gold);font-weight:600;}
+.fa2{color:var(--text3);}
+.fp{color:var(--text);font-weight:500;}
+.fpr{color:var(--primary);font-weight:600;}
+.ft{color:var(--text3);font-size:11px;}
+@keyframes feedS{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── MAIN ── */
+main{max-width:1400px;margin:0 auto;padding:22px 20px;position:relative;z-index:1;}
+
+/* ── HERO ── */
+#hero{display:grid;grid-template-columns:1fr 310px;gap:14px;margin-bottom:26px;}
+.hero-m{background:linear-gradient(135deg,#1a0a1e 0%,#0d0a2a 55%,#0a0f1e 100%);border-radius:16px;border:1px solid var(--border);overflow:hidden;position:relative;height:250px;display:flex;align-items:center;padding:36px 40px;}
+.hero-m::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff1e50' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");}
+.hero-cnt{position:relative;z-index:1;}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,30,80,.13);border:1px solid rgba(255,30,80,.28);color:var(--primary);font-size:11.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:13px;text-transform:uppercase;letter-spacing:.5px;}
+.hero-t{font-family:var(--fd);font-size:30px;font-weight:900;line-height:1.1;margin-bottom:7px;background:linear-gradient(135deg,#fff 0%,var(--pink) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{color:var(--text2);font-size:13.5px;margin-bottom:18px;}
+.hero-orbs{position:absolute;right:40px;bottom:-10px;display:flex;gap:8px;align-items:flex-end;}
+.orb{border-radius:50%;animation:fl 3s ease-in-out infinite;}
+.orb1{width:70px;height:70px;background:radial-gradient(circle,rgba(255,30,80,.7) 0%,rgba(255,30,80,.15) 60%,transparent 100%);animation-delay:0s;}
+.orb2{width:50px;height:50px;background:radial-gradient(circle,rgba(255,215,0,.7) 0%,rgba(255,215,0,.15) 60%,transparent 100%);animation-delay:.9s;}
+.orb3{width:90px;height:90px;background:radial-gradient(circle,rgba(0,212,255,.5) 0%,rgba(0,212,255,.1) 60%,transparent 100%);animation-delay:.45s;}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-side{display:flex;flex-direction:column;gap:14px;}
+.hs-card{flex:1;background:var(--card);border-radius:12px;border:1px solid rgba(255,255,255,.06);padding:18px;position:relative;overflow:hidden;cursor:pointer;transition:var(--tr);}
+.hs-card:hover{border-color:var(--primary);box-shadow:0 8px 28px rgba(255,30,80,.18);transform:translateY(-2px);}
+.hs-icon{font-size:26px;margin-bottom:7px;}
+.hs-title{font-family:var(--fd);font-size:13.5px;font-weight:700;margin-bottom:3px;}
+.hs-sub{font-size:11.5px;color:var(--text3);}
+.hs-badge{position:absolute;top:11px;right:11px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
+.sc{background:var(--card);border:1px solid rgba(255,255,255,.055);border-radius:var(--r);padding:16px 18px;display:flex;align-items:center;gap:13px;transition:var(--tr);}
+.sc:hover{border-color:var(--border);transform:translateY(-2px);}
+.sc-ic{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.sc-v{font-family:var(--fd);font-size:20px;font-weight:700;}
+.sc-l{font-size:11.5px;color:var(--text3);margin-top:2px;}
+
+/* ── SECTION HEADER ── */
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.sec-title{display:flex;align-items:center;gap:9px;font-family:var(--fd);font-size:17px;font-weight:700;}
+.sec-title::before{content:'';width:4px;height:20px;background:var(--primary);border-radius:2px;box-shadow:0 0 9px var(--pglow);}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:7px;margin-bottom:18px;padding:4px;background:rgba(255,255,255,.028);border-radius:var(--r);border:1px solid rgba(255,255,255,.055);overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tb{display:flex;align-items:center;gap:7px;padding:9px 16px;background:transparent;border:none;border-radius:var(--rs);color:var(--text2);font-family:var(--fb);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:var(--tr);flex-shrink:0;}
+.tb:hover{color:var(--text);background:rgba(255,255,255,.04);}
+.tb.active{background:var(--primary);color:#fff;box-shadow:0 4px 14px var(--pglow);}
+.tc{background:rgba(255,255,255,.18);border-radius:10px;padding:1px 7px;font-size:10.5px;font-weight:700;}
+.tb.active .tc{background:rgba(255,255,255,.25);}
+
+/* ── PRODUCT GRID ── */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:14px;}
+.pcard{background:var(--card);border:1px solid rgba(255,255,255,.055);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:var(--tr);position:relative;}
+.pcard:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 10px 36px rgba(255,30,80,.22);}
+.pcard:hover .pov{opacity:1;}
+.pimg{width:100%;height:145px;background:linear-gradient(135deg,#1a1a30 0%,#241424 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.pimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.pph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:48px;opacity:.55;}
+.pov{position:absolute;inset:0;background:rgba(255,30,80,.08);opacity:0;transition:var(--tr);pointer-events:none;}
+.pbadge{position:absolute;top:9px;left:9px;font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.4px;z-index:2;}
+.bg-hot{background:var(--primary);color:#fff;}
+.bg-new{background:var(--green);color:#000;}
+.bg-sale{background:var(--gold);color:#000;}
+.pinfo{padding:13px;}
+.pcat{font-size:10px;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.pname{font-weight:600;font-size:13.5px;margin-bottom:5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.pdesc{font-size:11.5px;color:var(--text3);margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+.sbar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;margin:8px 0;overflow:hidden;}
+.sfill{height:100%;background:var(--primary);border-radius:2px;}
+.pfoot{display:flex;align-items:center;justify-content:space-between;}
+.pprice{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--primary);}
+.psold{font-size:10.5px;color:var(--text3);display:flex;align-items:center;gap:3px;margin-bottom:5px;}
+.pbuy{background:var(--primary);color:#fff;border:none;padding:6px 13px;border-radius:7px;font-size:11.5px;font-weight:600;cursor:pointer;transition:var(--tr);display:flex;align-items:center;gap:4px;}
+.pbuy:hover{background:#ff4070;box-shadow:0 4px 13px var(--pglow);}
+.empty{grid-column:1/-1;text-align:center;padding:55px 20px;color:var(--text3);}
+.empty i{font-size:46px;margin-bottom:14px;display:block;opacity:.35;}
+
+/* ── NAP THE ── */
+.nts{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-top:26px;}
+.nt-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;}
+.mg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:7px;}
+.mg-btn{padding:9px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:7px;color:var(--text);font-family:var(--fb);font-size:12.5px;font-weight:600;cursor:pointer;transition:var(--tr);text-align:center;}
+.mg-btn:hover,.mg-btn.active{background:rgba(255,30,80,.14);border-color:var(--primary);color:var(--primary);}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:38px 20px 18px;margin-top:46px;position:relative;z-index:1;}
+.fi2{max-width:1400px;margin:0 auto;}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:38px;margin-bottom:28px;}
+.fbrand p{font-size:12.5px;color:var(--text3);line-height:1.75;margin-top:12px;}
+.fsoc{display:flex;gap:9px;margin-top:14px;}
+.fsb{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:var(--text2);text-decoration:none;font-size:13px;transition:var(--tr);}
+.fsb:hover{background:var(--primary);border-color:var(--primary);color:#fff;transform:translateY(-2px);}
+.fcol h4{font-family:var(--fd);font-size:12px;font-weight:700;color:#fff;margin-bottom:14px;letter-spacing:1px;text-transform:uppercase;}
+.fcol ul{list-style:none;}
+.fcol ul li{margin-bottom:9px;}
+.fcol ul li a{font-size:12.5px;color:var(--text3);text-decoration:none;transition:var(--tr);display:flex;align-items:center;gap:7px;}
+.fcol ul li a:hover{color:var(--primary);}
+.fbot{border-top:1px solid rgba(255,255,255,.055);padding-top:18px;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--text3);}
+
+/* ── MODALS ── */
+.moverlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(12px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s ease;}
+.moverlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:18px;width:92%;max-width:470px;max-height:90vh;overflow-y:auto;transform:translateY(18px) scale(.96);transition:transform .28s ease;box-shadow:0 24px 70px rgba(0,0,0,.65);}
+.moverlay.open .modal{transform:translateY(0) scale(1);}
+.mlg{max-width:680px;}
+.mxl{max-width:880px;}
+.mhdr{padding:22px 22px 0;display:flex;align-items:center;justify-content:space-between;}
+.mtitle{font-family:var(--fd);font-size:17px;font-weight:700;}
+.mclose{width:30px;height:30px;border-radius:7px;background:rgba(255,255,255,.055);border:none;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--tr);}
+.mclose:hover{background:rgba(255,30,80,.18);color:var(--primary);}
+.mbody{padding:22px;}
+
+/* AUTH */
+.atabs{display:flex;gap:4px;background:rgba(255,255,255,.035);border-radius:9px;padding:4px;margin-bottom:22px;}
+.atab{flex:1;padding:9px;background:transparent;border:none;border-radius:7px;color:var(--text2);font-family:var(--fb);font-size:13.5px;font-weight:600;cursor:pointer;transition:var(--tr);}
+.atab.active{background:var(--primary);color:#fff;}
+
+/* FORM */
+.fg{margin-bottom:14px;}
+.fl{display:block;font-size:12.5px;font-weight:600;color:var(--text2);margin-bottom:7px;}
+.fi3{width:100%;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:var(--rs);padding:11px 13px;color:var(--text);font-family:var(--fb);font-size:13.5px;transition:var(--tr);outline:none;}
+.fi3:focus{border-color:var(--primary);background:rgba(255,30,80,.05);box-shadow:0 0 0 3px rgba(255,30,80,.1);}
+.fi3::placeholder{color:var(--text3);}
+textarea.fi3{resize:vertical;min-height:75px;}
+select.fi3{cursor:pointer;}
+
+/* PRODUCT DETAIL */
+.pdtl{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.dtimg{border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#1a1a30 0%,#241424 100%);aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:75px;position:relative;}
+.dtimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.dtcat{font-size:11px;color:var(--primary);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;}
+.dtname{font-family:var(--fd);font-size:19px;font-weight:700;margin-bottom:10px;line-height:1.3;}
+.dtdesc{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:14px;}
+.dtatrs{display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+.dta{display:flex;align-items:center;justify-content:space-between;padding:7px 11px;background:rgba(255,255,255,.035);border-radius:7px;font-size:12.5px;}
+.dta-k{color:var(--text3);}
+.dtprice{font-family:var(--fd);font-size:26px;font-weight:900;color:var(--primary);margin-bottom:14px;}
+
+/* CART */
+.citems{max-height:290px;overflow-y:auto;margin-bottom:14px;display:flex;flex-direction:column;gap:9px;}
+.citem{display:flex;align-items:center;gap:11px;padding:11px;background:rgba(255,255,255,.035);border-radius:9px;}
+.ci-ic{font-size:26px;flex-shrink:0;width:40px;text-align:center;}
+.ci-info{flex:1;}
+.ci-nm{font-weight:600;font-size:13.5px;margin-bottom:2px;}
+.ci-pr{font-size:12.5px;color:var(--primary);font-weight:600;}
+.ci-rm{background:none;border:none;color:var(--text3);cursor:pointer;font-size:15px;padding:4px 7px;transition:var(--tr);}
+.ci-rm:hover{color:var(--primary);}
+.ctot{padding:14px;background:rgba(255,30,80,.07);border:1px solid rgba(255,30,80,.18);border-radius:9px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.ctot-l{font-size:13.5px;color:var(--text2);}
+.ctot-v{font-family:var(--fd);font-size:21px;font-weight:700;color:var(--primary);}
+
+/* ADMIN */
+.adm{display:grid;grid-template-columns:210px 1fr;gap:0;min-height:490px;}
+.asb{background:rgba(255,255,255,.025);border-right:1px solid rgba(255,255,255,.055);padding:14px;display:flex;flex-direction:column;gap:3px;border-radius:12px 0 0 12px;}
+.anb{display:flex;align-items:center;gap:9px;padding:9px 13px;background:transparent;border:none;border-radius:7px;color:var(--text2);font-family:var(--fb);font-size:12.5px;font-weight:500;cursor:pointer;transition:var(--tr);text-align:left;width:100%;}
+.anb:hover{background:rgba(255,255,255,.055);color:var(--text);}
+.anb.active{background:var(--primary);color:#fff;}
+.acnt{padding:18px;overflow-y:auto;max-height:490px;}
+.apl{display:flex;flex-direction:column;gap:9px;}
+.api{display:flex;align-items:center;gap:11px;padding:11px;background:rgba(255,255,255,.035);border-radius:9px;border:1px solid rgba(255,255,255,.055);}
+.api-ic{font-size:22px;width:34px;text-align:center;flex-shrink:0;}
+.api-inf{flex:1;}
+.api-nm{font-weight:600;font-size:12.5px;}
+.api-mt{font-size:10.5px;color:var(--text3);}
+.aa{display:flex;gap:5px;}
+.abs2{padding:5px 9px;border-radius:6px;border:none;font-size:11.5px;font-weight:600;cursor:pointer;transition:var(--tr);}
+.ab-ed{background:rgba(0,212,255,.13);color:var(--cyan);}
+.ab-ed:hover{background:rgba(0,212,255,.28);}
+.ab-dl{background:rgba(255,30,80,.13);color:var(--primary);}
+.ab-dl:hover{background:rgba(255,30,80,.28);}
+
+/* TOAST */
+#tc{position:fixed;top:76px;right:18px;z-index:9999;display:flex;flex-direction:column;gap:9px;}
+.toast{display:flex;align-items:center;gap:11px;padding:13px 16px;background:var(--card);border:1px solid rgba(255,255,255,.09);border-radius:11px;box-shadow:0 8px 28px rgba(0,0,0,.45);min-width:270px;animation:tin .3s ease;}
+.toast.success{border-left:3px solid var(--green);}
+.toast.error{border-left:3px solid var(--primary);}
+.toast.info{border-left:3px solid var(--cyan);}
+.t-tx{flex:1;font-size:12.5px;font-weight:500;}
+@keyframes tin{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+
+/* SPINNER */
+.spin{width:38px;height:38px;border:3px solid rgba(255,30,80,.18);border-top-color:var(--primary);border-radius:50%;animation:spinA .8s linear infinite;margin:40px auto;}
+@keyframes spinA{to{transform:rotate(360deg)}}
+
+/* ALERTS */
+.alert{padding:12px 14px;border-radius:9px;font-size:12.5px;display:flex;align-items:flex-start;gap:9px;margin-bottom:14px;}
+.a-info{background:rgba(0,212,255,.09);border:1px solid rgba(0,212,255,.18);color:var(--cyan);}
+.a-warn{background:rgba(255,215,0,.09);border:1px solid rgba(255,215,0,.18);color:var(--gold);}
+.a-ok{background:rgba(0,255,136,.09);border:1px solid rgba(0,255,136,.18);color:var(--green);}
+
+/* UTILS */
+.hidden{display:none!important;}
+.wf{width:100%;}
+@media(max-width:1024px){#hero{grid-template-columns:1fr;}.hero-side{flex-direction:row;}.hs-card{flex:1;}.stats{grid-template-columns:repeat(2,1fr);}.fgrid{grid-template-columns:1fr 1fr;}}
+@media(max-width:768px){.cnav{display:none;}.stats{grid-template-columns:repeat(2,1fr);}.pgrid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));}.pdtl{grid-template-columns:1fr;}.adm{grid-template-columns:1fr;}.asb{flex-direction:row;overflow-x:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.055);border-radius:12px 12px 0 0;padding:9px;}.fgrid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div id="ann">
+  <div style="overflow:hidden;display:flex;">
+    <div class="tick" id="tick">
+      <span>🎮 CHÀO MỪNG ĐẾN VỚI RBXVIET - SHOP ROBLOX SỐ 1 VIỆT NAM</span><span class="tick-sep"></span>
+      <span>💳 NẠP THẺ ATM KHUYẾN MÃI 10% GIÁ TRỊ</span><span class="tick-sep"></span>
+      <span>🏆 ĐÃ PHỤC VỤ HƠN 50,000 KHÁCH HÀNG</span><span class="tick-sep"></span>
+      <span>⚡ GIAO HÀNG TỰ ĐỘNG TRONG 3 PHÚT</span><span class="tick-sep"></span>
+      <span>🎁 MUA ACC TẶNG NGAY GAMEPASS MIỄN PHÍ</span><span class="tick-sep"></span>
+      <span>🔒 ĐẢM BẢO UY TÍN - HOÀN TIỀN NẾU LỖI</span><span class="tick-sep"></span>
+      <!-- duplicate for seamless loop -->
+      <span>🎮 CHÀO MỪNG ĐẾN VỚI RBXVIET - SHOP ROBLOX SỐ 1 VIỆT NAM</span><span class="tick-sep"></span>
+      <span>💳 NẠP THẺ ATM KHUYẾN MÃI 10% GIÁ TRỊ</span><span class="tick-sep"></span>
+      <span>🏆 ĐÃ PHỤC VỤ HƠN 50,000 KHÁCH HÀNG</span><span class="tick-sep"></span>
+      <span>⚡ GIAO HÀNG TỰ ĐỘNG TRONG 3 PHÚT</span><span class="tick-sep"></span>
+      <span>🎁 MUA ACC TẶNG NGAY GAMEPASS MIỄN PHÍ</span><span class="tick-sep"></span>
+      <span>🔒 ĐẢM BẢO UY TÍN - HOÀN TIỀN NẾU LỖI</span><span class="tick-sep"></span>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="hdr">
+  <div class="hi">
+    <a class="logo" href="#">
+      <div class="logo-ic">🎮</div>
+      <span class="logo-tx">RBXViet</span>
+    </a>
+    <nav class="cnav">
+      <button class="cbtn active" onclick="goTab('all',this)"><i class="fas fa-th"></i> Tất cả</button>
+      <button class="cbtn" onclick="goTab('account',this)"><i class="fas fa-user-circle"></i> Tài khoản</button>
+      <button class="cbtn" onclick="goTab('robux',this)"><i class="fas fa-coins"></i> Robux</button>
+      <button class="cbtn" onclick="goTab('gamepass',this)"><i class="fas fa-gamepad"></i> GamePass</button>
+      <button class="cbtn" onclick="goTab('item',this)"><i class="fas fa-magic"></i> Items</button>
+      <button class="cbtn" onclick="goTab('service',this)"><i class="fas fa-hands-helping"></i> Cày thuê</button>
+    </nav>
+    <div class="hacts">
+      <div class="cart-wrap">
+        <button class="btn btn-gh" onclick="openM('m-cart')"><i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge" id="cbadge">0</span>
+        </button>
+      </div>
+      <div id="g-acts">
+        <button class="btn btn-ol" onclick="openAuth('login')"><i class="fas fa-sign-in-alt"></i> Đăng nhập</button>
+        <button class="btn btn-pr" onclick="openAuth('register')" style="margin-left:5px"><i class="fas fa-user-plus"></i> Đăng ký</button>
+      </div>
+      <div id="u-acts" class="hidden">
+        <div class="udrop" id="udrop">
+          <div class="ubtn" onclick="toggleDD()">
+            <div class="uav" id="uav">U</div>
+            <span id="uname">User</span>
+            <i class="fas fa-chevron-down" style="font-size:9px;color:var(--text3)"></i>
+          </div>
+          <div class="ddm">
+            <div class="ddi" onclick="openM('m-orders')"><i class="fas fa-history"></i> Lịch sử mua</div>
+            <div class="ddi hidden" id="adm-btn" onclick="openM('m-admin')"><i class="fas fa-cog"></i> Admin Panel</div>
+            <div class="dd-div"></div>
+            <div class="ddi danger" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- LIVE FEED -->
+<div id="lfeed">
+  <div class="lfi">
+    <div class="lv-lbl"><div class="lv-dot"></div>LIVE</div>
+    <div class="feed-scr"><div class="feed-c" id="feed-c"></div></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-m">
+      <div class="hero-cnt">
+        <div class="hero-tag"><i class="fas fa-fire"></i>&nbsp;HOT DEAL THÁNG NÀY</div>
+        <h1 class="hero-t">Shop Roblox<br>Số 1 Việt Nam</h1>
+        <p class="hero-sub">Uy tín · Giá rẻ · Giao hàng tự động 24/7</p>
+        <div style="display:flex;gap:9px">
+          <button class="btn btn-pr" onclick="goTab('all',null);document.getElementById('sec-sp').scrollIntoView({behavior:'smooth'})">
+            <i class="fas fa-shopping-bag"></i> Mua ngay
+          </button>
+          <button class="btn btn-gh" onclick="goTab('service',null);document.getElementById('sec-sp').scrollIntoView({behavior:'smooth'})">
+            <i class="fas fa-headset"></i> Cày thuê
+          </button>
+        </div>
+      </div>
+      <div class="hero-orbs">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="hs-card" onclick="goTab('account',null)">
+        <div class="hs-icon">👤</div>
+        <div class="hs-title">Tài khoản Roblox</div>
+        <div class="hs-sub">Hàng trăm acc giá rẻ, đảm bảo</div>
+        <span class="hs-badge bg-hot">HOT</span>
+      </div>
+      <div class="hs-card" onclick="goTab('robux',null)">
+        <div class="hs-icon">💎</div>
+        <div class="hs-title">Nạp Robux</div>
+        <div class="hs-sub">Giá tốt nhất · Giao hàng tức thì</div>
+        <span class="hs-badge bg-sale">SALE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="sc"><div class="sc-ic" style="background:rgba(255,30,80,.13)">🛒</div>
+      <div><div class="sc-v" id="st-ord">—</div><div class="sc-l">Đơn hàng đã bán</div></div></div>
+    <div class="sc"><div class="sc-ic" style="background:rgba(255,215,0,.13)">👥</div>
+      <div><div class="sc-v" id="st-usr">—</div><div class="sc-l">Khách hàng tin tưởng</div></div></div>
+    <div class="sc"><div class="sc-ic" style="background:rgba(0,255,136,.13)">⭐</div>
+      <div><div class="sc-v">4.9/5</div><div class="sc-l">Đánh giá trung bình</div></div></div>
+    <div class="sc"><div class="sc-ic" style="background:rgba(0,212,255,.13)">⚡</div>
+      <div><div class="sc-v">&lt; 3 phút</div><div class="sc-l">Thời gian giao hàng</div></div></div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section id="sec-sp">
+    <div class="sec-hdr">
+      <h2 class="sec-title">Sản phẩm</h2>
+      <span id="adm-add-link" class="hidden" onclick="openM('m-admin')" style="font-size:13px;color:var(--primary);cursor:pointer;display:none">
+        <i class="fas fa-plus"></i> Thêm sản phẩm
+      </span>
+    </div>
+    <div class="tabs">
+      <button class="tb active" data-cat="all" onclick="filterP('all',this)"><i class="fas fa-th"></i> Tất cả <span class="tc" id="c-all">0</span></button>
+      <button class="tb" data-cat="account" onclick="filterP('account',this)"><i class="fas fa-user-circle"></i> Tài khoản <span class="tc" id="c-account">0</span></button>
+      <button class="tb" data-cat="robux" onclick="filterP('robux',this)"><i class="fas fa-coins"></i> Robux <span class="tc" id="c-robux">0</span></button>
+      <button class="tb" data-cat="gamepass" onclick="filterP('gamepass',this)"><i class="fas fa-gamepad"></i> GamePass <span class="tc" id="c-gamepass">0</span></button>
+      <button class="tb" data-cat="item" onclick="filterP('item',this)"><i class="fas fa-magic"></i> Items <span class="tc" id="c-item">0</span></button>
+      <button class="tb" data-cat="service" onclick="filterP('service',this)"><i class="fas fa-hands-helping"></i> Cày thuê <span class="tc" id="c-service">0</span></button>
+    </div>
+    <div class="pgrid" id="pgrid"><div class="spin"></div></div>
+  </section>
+
+  <!-- NẠP THẺ -->
+  <section class="nts hidden" id="nap-the">
+    <div class="sec-hdr" style="margin-bottom:0"><h2 class="sec-title">Nạp thẻ cào</h2></div>
+    <div class="nt-grid">
+      <div>
+        <div class="fg">
+          <label class="fl">Nhà mạng</label>
+          <select class="fi3" id="nt-nm"><option>Viettel</option><option>Mobifone</option><option>Vinaphone</option><option>Vietnamobile</option><option>Gmobile</option></select>
+        </div>
+        <div class="fg">
+          <label class="fl">Mệnh giá</label>
+          <div class="mg-grid">
+            <button class="mg-btn active" onclick="selMG(this,10000)">10K</button>
+            <button class="mg-btn" onclick="selMG(this,20000)">20K</button>
+            <button class="mg-btn" onclick="selMG(this,30000)">30K</button>
+            <button class="mg-btn" onclick="selMG(this,50000)">50K</button>
+            <button class="mg-btn" onclick="selMG(this,100000)">100K</button>
+            <button class="mg-btn" onclick="selMG(this,200000)">200K</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="fg"><label class="fl">Mã thẻ</label><input type="text" class="fi3" id="nt-ma" placeholder="Nhập mã thẻ..."></div>
+        <div class="fg"><label class="fl">Số serial</label><input type="text" class="fi3" id="nt-sl" placeholder="Nhập số serial..."></div>
+        <button class="btn btn-pr wf" style="justify-content:center;margin-top:7px" onclick="submitNT()"><i class="fas fa-bolt"></i> Nạp thẻ ngay</button>
+      </div>
+    </div>
+    <div class="alert a-warn" style="margin-top:14px;margin-bottom:0">
+      <i class="fas fa-exclamation-triangle"></i>
+      <span>Thẻ xử lý tự động 1–5 phút. Không nhập lại thẻ đã nạp để tránh mất tiền.</span>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi2">
+    <div class="fgrid">
+      <div class="fbrand">
+        <a class="logo" href="#"><div class="logo-ic">🎮</div><span class="logo-tx">RBXViet</span></a>
+        <p>Shop bán đồ Roblox uy tín số 1 Việt Nam. Cam kết giá tốt nhất, giao hàng tự động, hỗ trợ 24/7.</p>
+        <div class="fsoc">
+          <a class="fsb" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="fsb" href="#"><i class="fab fa-discord"></i></a>
+          <a class="fsb" href="#"><i class="fab fa-youtube"></i></a>
+          <a class="fsb" href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="fcol">
+        <h4>Sản phẩm</h4>
+        <ul>
+          <li><a href="#" onclick="goTab('account',null)"><i class="fas fa-chevron-right" style="font-size:9px"></i> Tài khoản Roblox</a></li>
+          <li><a href="#" onclick="goTab('robux',null)"><i class="fas fa-chevron-right" style="font-size:9px"></i> Nạp Robux</a></li>
+          <li><a href="#" onclick="goTab('gamepass',null)"><i class="fas fa-chevron-right" style="font-size:9px"></i> GamePass</a></li>
+          <li><a href="#" onclick="goTab('item',null)"><i class="fas fa-chevron-right" style="font-size:9px"></i> Items / Vật phẩm</a></li>
+          <li><a href="#" onclick="goTab('service',null)"><i class="fas fa-chevron-right" style="font-size:9px"></i> Cày thuê dịch vụ</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Hỗ trợ</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right" style="font-size:9px"></i> Hướng dẫn mua hàng</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right" style="font-size:9px"></i> Chính sách hoàn tiền</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right" style="font-size:9px"></i> Câu hỏi thường gặp</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right" style="font-size:9px"></i> Liên hệ admin</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>Liên hệ</h4>
+        <ul>
+          <li><a href="#"><i class="fab fa-facebook" style="color:#1877f2"></i> Facebook Fanpage</a></li>
+          <li><a href="#"><i class="fab fa-discord" style="color:#7289da"></i> Discord Server</a></li>
+          <li><a href="#"><i class="fab fa-youtube" style="color:#ff0000"></i> Youtube Channel</a></li>
+          <li><a href="#"><i class="fas fa-envelope" style="color:var(--primary)"></i> Email hỗ trợ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© 2024 RBXViet. All rights reserved.</span>
+      <span>Không liên kết chính thức với Roblox Corporation.</span>
+    </div>
+  </div>
+</footer>
+
+<div id="tc"></div>
+
+<!-- ===================== MODALS ===================== -->
+
+<!-- AUTH -->
+<div class="moverlay" id="m-auth">
+  <div class="modal">
+    <div class="mhdr"><div class="mtitle">Tài khoản</div><button class="mclose" onclick="closeM('m-auth')"><i class="fas fa-times"></i></button></div>
+    <div class="mbody">
+      <div class="atabs">
+        <button class="atab active" id="at-li" onclick="switchAuth('login')">Đăng nhập</button>
+        <button class="atab" id="at-rg" onclick="switchAuth('register')">Đăng ký</button>
+      </div>
+      <div id="f-login">
+        <div class="fg"><label class="fl">Email</label><input type="email" class="fi3" id="li-em" placeholder="email@example.com"></div>
+        <div class="fg"><label class="fl">Mật khẩu</label><input type="password" class="fi3" id="li-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Đăng nhập</button>
+      </div>
+      <div id="f-register" class="hidden">
+        <div class="fg"><label class="fl">Tên hiển thị</label><input type="text" class="fi3" id="rg-nm" placeholder="Tên của bạn"></div>
+        <div class="fg"><label class="fl">Email</label><input type="email" class="fi3" id="rg-em" placeholder="email@example.com"></div>
+        <div class="fg"><label class="fl">Mật khẩu</label><input type="password" class="fi3" id="rg-pw" placeholder="Ít nhất 6 ký tự" onkeydown="if(event.key==='Enter')doRegister()"></div>
+        <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="doRegister()"><i class="fas fa-user-plus"></i> Tạo tài khoản</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL -->
+<div class="moverlay" id="m-prod">
+  <div class="modal mlg">
+    <div class="mhdr"><div class="mtitle" id="m-prod-title">Chi tiết sản phẩm</div><button class="mclose" onclick="closeM('m-prod')"><i class="fas fa-times"></i></button></div>
+    <div class="mbody" id="m-prod-body"></div>
+  </div>
+</div>
+
+<!-- CART -->
+<div class="moverlay" id="m-cart">
+  <div class="modal">
+    <div class="mhdr"><div class="mtitle">🛒 Giỏ hàng</div><button class="mclose" onclick="closeM('m-cart')"><i class="fas fa-times"></i></button></div>
+    <div class="mbody">
+      <div class="citems" id="citems"></div>
+      <div class="ctot"><span class="ctot-l">Tổng cộng</span><span class="ctot-v" id="ctot">0đ</span></div>
+      <button class="btn btn-pr wf" style="justify-content:center;padding:13px;font-size:14.5px" onclick="checkout()"><i class="fas fa-credit-card"></i> Thanh toán ngay</button>
+      <p style="text-align:center;font-size:11.5px;color:var(--text3);margin-top:11px"><i class="fas fa-lock"></i> Giao dịch bảo mật bởi Firebase</p>
+    </div>
+  </div>
+</div>
+
+<!-- ORDERS HISTORY -->
+<div class="moverlay" id="m-orders">
+  <div class="modal">
+    <div class="mhdr"><div class="mtitle">📋 Lịch sử đơn hàng</div><button class="mclose" onclick="closeM('m-orders')"><i class="fas fa-times"></i></button></div>
+    <div class="mbody" id="m-orders-body"><div class="spin"></div></div>
+  </div>
+</div>
+
+<!-- PURCHASE SUCCESS -->
+<div class="moverlay" id="m-success">
+  <div class="modal">
+    <div class="mhdr"><div class="mtitle">✅ Mua hàng thành công!</div><button class="mclose" onclick="closeM('m-success')"><i class="fas fa-times"></i></button></div>
+    <div class="mbody" id="m-success-body"></div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="moverlay" id="m-admin">
+  <div class="modal mxl">
+    <div class="mhdr"><div class="mtitle">⚙️ Admin Panel</div><button class="mclose" onclick="closeM('m-admin')"><i class="fas fa-times"></i></button></div>
+    <div class="mbody" style="padding:14px">
+      <div class="adm">
+        <div class="asb">
+          <button class="anb active" onclick="admTab('products',this)"><i class="fas fa-box"></i> Sản phẩm</button>
+          <button class="anb" onclick="admTab('add',this)"><i class="fas fa-plus"></i> Thêm SP</button>
+          <button class="anb" onclick="admTab('orders',this)"><i class="fas fa-list"></i> Đơn hàng</button>
+          <button class="anb" onclick="admTab('napthe',this)"><i class="fas fa-credit-card"></i> Nạp thẻ</button>
+          <button class="anb" onclick="admTab('feed',this)"><i class="fas fa-bell"></i> Live Feed</button>
+          <button class="anb" onclick="admTab('users',this)"><i class="fas fa-users"></i> Users</button>
+        </div>
+        <div class="acnt" id="acnt"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FIREBASE + APP JS ===================== -->
+<script type="module">
+import { initializeApp }               from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+         onAuthStateChanged, signOut, updateProfile }
+                                        from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
+import { getDatabase, ref, set, get, push, onValue, update, remove, serverTimestamp, query, orderByChild, limitToLast }
+                                        from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js';
+
+// ══════════════════════════════════════════
+//  🔧 THAY THẾ BẰNG FIREBASE CONFIG CỦA BẠN
+// ══════════════════════════════════════════
+const firebaseConfig = {
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "YOUR_PROJECT.firebaseapp.com",
+  databaseURL:       "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+  projectId:         "YOUR_PROJECT_ID",
+  storageBucket:     "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
+};
+// ══════════════════════════════════════════
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getDatabase(app);
+
+// ── STATE ──
+let curUser   = null;
+let isAdmin   = false;
+let cart      = JSON.parse(localStorage.getItem('rbxviet_cart') || '[]');
+let products  = [];
+let curCat    = 'all';
+let selMG_val = 10000;
+let editId    = null;
+let curAdmTab = 'products';
+
+// ── ICONS / NAMES ──
+const ICONS = { account:'👤', robux:'💎', gamepass:'🎮', item:'✨', service:'⚡' };
+const NAMES = { account:'Tài khoản', robux:'Robux', gamepass:'GamePass', item:'Items', service:'Cày thuê' };
+
+// ── AUTH STATE ──
+onAuthStateChanged(auth, async user => {
+  curUser = user;
+  if (user) {
+    const snap = await get(ref(db, `users/${user.uid}/isAdmin`));
+    isAdmin = snap.exists() && snap.val() === true;
+    const name = user.displayName || user.email.split('@')[0];
+    document.getElementById('uname').textContent = name;
+    document.getElementById('uav').textContent = name[0].toUpperCase();
+    document.getElementById('g-acts').classList.add('hidden');
+    document.getElementById('u-acts').classList.remove('hidden');
+    if (isAdmin) {
+      document.getElementById('adm-btn').classList.remove('hidden');
+      document.getElementById('adm-add-link').style.display = 'inline-flex';
+      document.getElementById('adm-add-link').classList.remove('hidden');
+    }
+  } else {
+    isAdmin = false;
+    document.getElementById('g-acts').classList.remove('hidden');
+    document.getElementById('u-acts').classList.add('hidden');
+    document.getElementById('adm-btn').classList.add('hidden');
+    document.getElementById('adm-add-link').style.display = 'none';
+  }
+});
+
+// ── AUTH ──
+window.doLogin = async () => {
+  const em = document.getElementById('li-em').value.trim();
+  const pw = document.getElementById('li-pw').value;
+  if (!em || !pw) return toast('Điền đầy đủ thông tin!','error');
+  try {
+    await signInWithEmailAndPassword(auth, em, pw);
+    closeM('m-auth');
+    toast('Đăng nhập thành công! 🎉','success');
+  } catch(e){ toast(authErr(e.code),'error'); }
+};
+
+window.doRegister = async () => {
+  const nm = document.getElementById('rg-nm').value.trim();
+  const em = document.getElementById('rg-em').value.trim();
+  const pw = document.getElementById('rg-pw').value;
+  if (!nm||!em||!pw) return toast('Điền đầy đủ thông tin!','error');
+  if (pw.length < 6) return toast('Mật khẩu ít nhất 6 ký tự!','error');
+  try {
+    const {user} = await createUserWithEmailAndPassword(auth, em, pw);
+    await updateProfile(user, {displayName: nm});
+    await set(ref(db, `users/${user.uid}`), { displayName:nm, email:em, isAdmin:false, balance:0, createdAt:Date.now() });
+    closeM('m-auth');
+    toast(`Đăng ký thành công! Chào ${nm} 🎉`,'success');
+  } catch(e){ toast(authErr(e.code),'error'); }
+};
+
+window.doLogout = async () => {
+  await signOut(auth);
+  toast('Đã đăng xuất!','info');
+  document.getElementById('udrop').classList.remove('open');
+};
+
+function authErr(code) {
+  return ({ 'auth/email-already-in-use':'Email đã được dùng!',
+    'auth/invalid-email':'Email không hợp lệ!', 'auth/wrong-password':'Sai mật khẩu!',
+    'auth/user-not-found':'Tài khoản không tồn tại!', 'auth/weak-password':'Mật khẩu quá yếu!',
+    'auth/invalid-credential':'Email hoặc mật khẩu không đúng!' })[code] || 'Đã có lỗi xảy ra!';
+}
+
+// ── PRODUCTS ──
+function loadProducts() {
+  onValue(ref(db,'products'), snap => {
+    products = [];
+    if (snap.exists()) products = Object.entries(snap.val()).map(([id,p])=>({id,...p}));
+    renderProducts(curCat);
+    updateCounts();
+    updateStats();
+  });
+}
+
+function updateCounts() {
+  ['all','account','robux','gamepass','item','service'].forEach(c => {
+    const n = c==='all' ? products.length : products.filter(p=>p.category===c).length;
+    const el = document.getElementById(`c-${c}`);
+    if (el) el.textContent = n;
+  });
+}
+
+function updateStats() {
+  const totalSold = products.reduce((s,p)=>s+(p.sold||0),0);
+  document.getElementById('st-ord').textContent = totalSold.toLocaleString('vi-VN');
+  get(ref(db,'users')).then(snap => {
+    const n = snap.exists() ? Object.keys(snap.val()).length : 0;
+    document.getElementById('st-usr').textContent = n.toLocaleString('vi-VN');
+  });
+}
+
+function renderProducts(cat) {
+  const grid = document.getElementById('pgrid');
+  const list = cat==='all' ? products : products.filter(p=>p.category===cat);
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty"><i class="fas fa-box-open"></i><p>${isAdmin?'Chưa có sản phẩm. Thêm trong Admin Panel!':'Vui lòng quay lại sau!'}</p></div>`;
+    return;
+  }
+  grid.innerHTML = list.map(p => {
+    const pct = p.stock||p.sold ? Math.min(100,((p.sold||0)/((p.stock||0)+(p.sold||0)))*100) : 0;
+    return `<div class="pcard" onclick="openProd('${p.id}')">
+      <div class="pimg">
+        ${p.image?`<img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'">`:''}
+        <div class="pph">${ICONS[p.category]||'📦'}</div>
+        <div class="pov"></div>
+        ${p.featured?'<span class="pbadge bg-hot">HOT</span>':''}
+        ${p.isNew?'<span class="pbadge bg-new" style="left:auto;right:9px">NEW</span>':''}
+      </div>
+      <div class="pinfo">
+        <div class="pcat">${NAMES[p.category]||'Khác'}</div>
+        <div class="pname">${p.name}</div>
+        <div class="pdesc">${p.description||'Xem chi tiết để biết thêm'}</div>
+        <div class="sbar"><div class="sfill" style="width:${pct}%"></div></div>
+        <div class="pfoot">
+          <div><span class="pprice">${fmtP(p.price)}</span></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
+            <div class="psold"><i class="fas fa-fire"></i>${p.sold||0} đã bán</div>
+            <button class="pbuy" onclick="event.stopPropagation();addCart('${p.id}')"><i class="fas fa-plus"></i> Thêm</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.filterP = (cat, btn) => {
+  curCat = cat;
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else { const b=document.querySelector(`[data-cat="${cat}"]`); if(b) b.classList.add('active'); }
+  renderProducts(cat);
+  document.getElementById('nap-the').classList.toggle('hidden', cat!=='robux');
+};
+
+window.goTab = (cat, btn) => {
+  // sync header nav buttons
+  document.querySelectorAll('.cbtn').forEach(b=>b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  filterP(cat, null);
+  document.getElementById('sec-sp').scrollIntoView({behavior:'smooth'});
+};
+
+// ── PRODUCT DETAIL ──
+window.openProd = id => {
+  const p = products.find(x=>x.id===id);
+  if (!p) return;
+  document.getElementById('m-prod-title').textContent = p.name;
+  document.getElementById('m-prod-body').innerHTML = `
+    <div class="pdtl">
+      <div class="dtimg">${p.image?`<img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'">`:''}
+        <span style="position:absolute">${ICONS[p.category]||'📦'}</span></div>
+      <div>
+        <div class="dtcat">${NAMES[p.category]}</div>
+        <div class="dtname">${p.name}</div>
+        <div class="dtdesc">${p.description||'Sản phẩm chất lượng, đảm bảo uy tín.'}</div>
+        <div class="dtatrs">
+          <div class="dta"><span class="dta-k">Tồn kho</span>
+            <span style="font-weight:600;color:${(p.stock||0)>0?'var(--green)':'var(--primary)'}">${(p.stock||0)>0?p.stock+' sản phẩm':'Hết hàng'}</span></div>
+          <div class="dta"><span class="dta-k">Đã bán</span><span style="font-weight:600">${p.sold||0} sp</span></div>
+          ${p.details?Object.entries(p.details).map(([k,v])=>`<div class="dta"><span class="dta-k">${k}</span><span style="font-weight:600">${v}</span></div>`).join(''):''}
+        </div>
+        <div class="dtprice">${fmtP(p.price)}</div>
+        <div style="display:flex;gap:9px">
+          <button class="btn btn-pr" style="flex:1;justify-content:center" onclick="addCart('${p.id}');closeM('m-prod')"><i class="fas fa-shopping-cart"></i> Thêm giỏ</button>
+          <button class="btn btn-ol" onclick="addCart('${p.id}');closeM('m-prod');openM('m-cart');renderCart()"><i class="fas fa-bolt"></i> Mua ngay</button>
+        </div>
+      </div>
+    </div>`;
+  openM('m-prod');
+};
+
+// ── CART ──
+window.addCart = id => {
+  const p = products.find(x=>x.id===id);
+  if (!p) return;
+  if ((p.stock||0)<=0) return toast('Sản phẩm đã hết hàng!','error');
+  const ex = cart.find(c=>c.id===id);
+  if (ex) ex.qty=(ex.qty||1)+1;
+  else cart.push({id,name:p.name,price:p.price,category:p.category,qty:1});
+  saveCart();
+  toast(`Đã thêm "${p.name}" 🛒`,'success');
+};
+
+window.rmCart = id => {
+  cart = cart.filter(c=>c.id!==id);
+  saveCart();
+  renderCart();
+};
+
+function saveCart() {
+  localStorage.setItem('rbxviet_cart', JSON.stringify(cart));
+  const n = cart.reduce((s,c)=>s+(c.qty||1),0);
+  const badge = document.getElementById('cbadge');
+  badge.textContent = n;
+  badge.style.display = n>0 ? 'flex' : 'none';
+}
+
+function renderCart() {
+  const list = document.getElementById('citems');
+  const totEl = document.getElementById('ctot');
+  if (!cart.length) {
+    list.innerHTML = `<div class="empty" style="padding:28px"><i class="fas fa-shopping-cart"></i><p>Giỏ hàng trống</p></div>`;
+    totEl.textContent = '0đ'; return;
+  }
+  let total = 0;
+  list.innerHTML = cart.map(c => {
+    const sub = c.price*(c.qty||1); total+=sub;
+    return `<div class="citem">
+      <div class="ci-ic">${ICONS[c.category]||'📦'}</div>
+      <div class="ci-info">
+        <div class="ci-nm">${c.name}</div>
+        <div class="ci-pr">${fmtP(c.price)} × ${c.qty||1} = ${fmtP(sub)}</div>
+      </div>
+      <button class="ci-rm" onclick="rmCart('${c.id}')"><i class="fas fa-trash"></i></button>
+    </div>`;
+  }).join('');
+  totEl.textContent = fmtP(total);
+}
+
+window.checkout = async () => {
+  if (!curUser) { closeM('m-cart'); openAuth('login'); toast('Vui lòng đăng nhập!','info'); return; }
+  if (!cart.length) return toast('Giỏ hàng trống!','error');
+  try {
+    const orderId = Date.now().toString();
+    const total = cart.reduce((s,c)=>s+c.price*(c.qty||1),0);
+    await set(ref(db,`orders/${orderId}`), {
+      userId:curUser.uid, userEmail:curUser.email, items:cart,
+      total, status:'completed', timestamp:Date.now()
+    });
+    for (const item of cart) {
+      const pRef = ref(db,`products/${item.id}`);
+      const snap = await get(pRef);
+      if (snap.exists()) {
+        const pd = snap.val();
+        await update(pRef, { sold:(pd.sold||0)+(item.qty||1), stock:Math.max(0,(pd.stock||0)-(item.qty||1)) });
+      }
+    }
+    addFeed(curUser.displayName||'Ẩn danh', cart[0].name, total);
+    showSuccess(cart, total, orderId);
+    cart=[]; saveCart(); closeM('m-cart');
+  } catch(e){ console.error(e); toast('Lỗi xử lý đơn hàng!','error'); }
+};
+
+function showSuccess(items, total, oid) {
+  document.getElementById('m-success-body').innerHTML = `
+    <div class="alert a-ok"><i class="fas fa-check-circle"></i><span>Đơn hàng đã được xử lý thành công!</span></div>
+    <div style="margin-bottom:14px">
+      <div style="font-size:12.5px;color:var(--text3);margin-bottom:9px">Mã đơn: <strong style="color:var(--gold)">#${oid.slice(-8).toUpperCase()}</strong></div>
+      ${items.map(i=>`<div class="dta" style="margin-bottom:7px"><span class="dta-k">${i.name} ×${i.qty||1}</span><span style="font-weight:600;color:var(--primary)">${fmtP(i.price*(i.qty||1))}</span></div>`).join('')}
+      <div style="padding:12px;background:rgba(255,30,80,.07);border-radius:8px;display:flex;justify-content:space-between;margin-top:10px">
+        <span style="font-weight:600">Tổng thanh toán</span>
+        <span style="color:var(--primary);font-family:var(--fd);font-weight:700">${fmtP(total)}</span>
+      </div>
+    </div>
+    <div class="alert a-info"><i class="fas fa-info-circle"></i><span>Thông tin sản phẩm được ghi lại trong lịch sử đơn hàng của bạn.</span></div>
+    <button class="btn btn-pr wf" style="justify-content:center" onclick="closeM('m-success')"><i class="fas fa-check"></i> Hoàn tất</button>`;
+  openM('m-success');
+}
+
+// ── ORDERS ──
+window.loadOrders = async () => {
+  const el = document.getElementById('m-orders-body');
+  el.innerHTML = '<div class="spin"></div>';
+  const snap = await get(ref(db,'orders'));
+  if (!snap.exists()) { el.innerHTML='<div class="empty" style="padding:40px"><i class="fas fa-list"></i><p>Chưa có đơn hàng</p></div>'; return; }
+  const all = Object.entries(snap.val()).filter(([,o])=>o.userId===curUser?.uid).reverse();
+  if (!all.length) { el.innerHTML='<div class="empty" style="padding:40px"><i class="fas fa-list"></i><p>Bạn chưa có đơn hàng nào</p></div>'; return; }
+  el.innerHTML = `<div class="apl">${all.map(([id,o])=>`
+    <div class="api">
+      <div class="api-ic">🧾</div>
+      <div class="api-inf">
+        <div class="api-nm">${fmtP(o.total)} · ${o.items?.length||0} sản phẩm</div>
+        <div class="api-mt">${new Date(o.timestamp).toLocaleString('vi-VN')} · <span style="color:var(--green)">${o.status}</span></div>
+      </div>
+    </div>`).join('')}</div>`;
+};
+
+// ── LIVE FEED ──
+function loadFeed() {
+  const feedRef = query(ref(db,'feed'), orderByChild('timestamp'), limitToLast(20));
+  onValue(feedRef, snap => {
+    let items = [];
+    if (snap.exists()) snap.forEach(c=>items.push(c.val()));
+    if (!items.length) items = defaultFeed();
+    const html = items.map(i=>`<span class="fi">🔔 <span class="fu">${i.user}</span><span class="fa2">vừa mua</span><span class="fp">${i.product}</span><span class="fpr">${fmtP(i.price)}</span><span class="ft">${i.time||'vừa xong'}</span></span>`).join('');
+    const el = document.getElementById('feed-c');
+    el.innerHTML = html + html; // duplicate for loop
+  });
+}
+
+function defaultFeed() {
+  return [
+    {user:'Ng***uyên',product:'Acc Roblox Level 50',price:35000,time:'5 phút trước'},
+    {user:'Tr***Minh',product:'400 Robux Package',price:25000,time:'12 phút trước'},
+    {user:'Ph***Linh',product:'GamePass Blox Fruits',price:45000,time:'18 phút trước'},
+    {user:'Le***Hoa',product:'Cày thuê Level 20',price:80000,time:'25 phút trước'},
+    {user:'Ng***uyên',product:'Acc Roblox Level 50',price:35000,time:'5 phút trước'},
+    {user:'Tr***Minh',product:'400 Robux Package',price:25000,time:'12 phút trước'},
+    {user:'Ph***Linh',product:'GamePass Blox Fruits',price:45000,time:'18 phút trước'},
+    {user:'Le***Hoa',product:'Cày thuê Level 20',price:80000,time:'25 phút trước'},
+  ];
+}
+
+async function addFeed(name, product, price) {
+  try {
+    await push(ref(db,'feed'), { user:maskName(name), product, price, time:'vừa xong', timestamp:Date.now() });
+  } catch(e){}
+}
+
+function maskName(n) { if(!n||n.length<3) return n; return n[0]+'***'+n.slice(-1); }
+
+// ── NAP THE ──
+window.selMG = (btn, val) => {
+  document.querySelectorAll('.mg-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selMG_val = val;
+};
+
+window.submitNT = async () => {
+  if (!curUser) { openAuth('login'); toast('Đăng nhập để nạp thẻ!','info'); return; }
+  const nm = document.getElementById('nt-nm').value;
+  const ma = document.getElementById('nt-ma').value.trim();
+  const sl = document.getElementById('nt-sl').value.trim();
+  if (!ma||!sl) return toast('Nhập mã thẻ và serial!','error');
+  try {
+    await push(ref(db,'napthe'), { userId:curUser.uid, userEmail:curUser.email, nhamang:nm, mathe:ma, serial:sl, menhgia:selMG_val, status:'pending', timestamp:Date.now() });
+    document.getElementById('nt-ma').value='';
+    document.getElementById('nt-sl').value='';
+    toast('Đã gửi thẻ! Đang xử lý...','success');
+  } catch(e){ toast('Lỗi khi nạp thẻ!','error'); }
+};
+
+// ── ADMIN ──
+window.admTab = (tab, btn) => {
+  curAdmTab = tab;
+  document.querySelectorAll('.anb').forEach(b=>b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderAdm(tab);
+};
+
+function renderAdm(tab) {
+  const el = document.getElementById('acnt');
+  if (tab==='products') {
+    el.innerHTML = `<h3 style="font-family:var(--fd);font-size:14px;margin-bottom:14px">Danh sách (${products.length})</h3>
+    <div class="apl">${!products.length?'<div class="empty" style="padding:30px"><i class="fas fa-box-open"></i><p>Chưa có sp</p></div>':
+    products.map(p=>`<div class="api">
+      <div class="api-ic">${ICONS[p.category]||'📦'}</div>
+      <div class="api-inf">
+        <div class="api-nm">${p.name}</div>
+        <div class="api-mt">${NAMES[p.category]} · ${fmtP(p.price)} · Kho:${p.stock||0} · Bán:${p.sold||0}</div>
+      </div>
+      <div class="aa">
+        <button class="abs2 ab-ed" onclick="editP('${p.id}')"><i class="fas fa-edit"></i></button>
+        <button class="abs2 ab-dl" onclick="delP('${p.id}')"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>`).join('')}</div>`;
+  }
+  else if (tab==='add') {
+    el.innerHTML = `<h3 style="font-family:var(--fd);font-size:14px;margin-bottom:14px">${editId?'✏️ Sửa sản phẩm':'➕ Thêm sản phẩm'}</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="fg"><label class="fl">Tên *</label><input type="text" class="fi3" id="p-nm" placeholder="Acc Roblox Level 100"></div>
+      <div class="fg"><label class="fl">Danh mục *</label><select class="fi3" id="p-cat">
+        <option value="account">Tài khoản</option><option value="robux">Robux</option>
+        <option value="gamepass">GamePass</option><option value="item">Items</option><option value="service">Cày thuê</option>
+      </select></div>
+      <div class="fg"><label class="fl">Giá (VNĐ) *</label><input type="number" class="fi3" id="p-pr" placeholder="35000"></div>
+      <div class="fg"><label class="fl">Tồn kho</label><input type="number" class="fi3" id="p-st" value="1"></div>
+      <div class="fg" style="grid-column:1/-1"><label class="fl">Mô tả</label><textarea class="fi3" id="p-ds" placeholder="Mô tả sản phẩm..."></textarea></div>
+      <div class="fg" style="grid-column:1/-1"><label class="fl">Link ảnh (URL)</label><input type="url" class="fi3" id="p-im" placeholder="https://..."></div>
+      <div class="fg" style="grid-column:1/-1"><label class="fl">Thông tin giao hàng (hiện sau khi mua)</label><textarea class="fi3" id="p-cr" placeholder="Email: ... | Pass: ..."></textarea></div>
+      <div class="fg"><label class="fl">Thuộc tính key</label><input type="text" class="fi3" id="p-dk" placeholder="Level"></div>
+      <div class="fg"><label class="fl">Thuộc tính value</label><input type="text" class="fi3" id="p-dv" placeholder="100"></div>
+      <div class="fg" style="display:flex;align-items:center;gap:16px;grid-column:1/-1">
+        <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:12.5px;color:var(--text2)"><input type="checkbox" id="p-ft"> HOT</label>
+        <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:12.5px;color:var(--text2)"><input type="checkbox" id="p-nw"> NEW</label>
+      </div>
+    </div>
+    <div style="display:flex;gap:9px;margin-top:14px">
+      <button class="btn btn-pr" style="flex:1;justify-content:center" onclick="saveP()"><i class="fas fa-save"></i> ${editId?'Lưu':'Thêm'}</button>
+      ${editId?`<button class="btn btn-gh" onclick="editId=null;renderAdm('add')"><i class="fas fa-times"></i> Hủy</button>`:''}
+    </div>`;
+    if (editId) {
+      const p = products.find(x=>x.id===editId);
+      if (p) {
+        document.getElementById('p-nm').value=p.name||'';
+        document.getElementById('p-cat').value=p.category||'account';
+        document.getElementById('p-pr').value=p.price||'';
+        document.getElementById('p-st').value=p.stock||1;
+        document.getElementById('p-ds').value=p.description||'';
+        document.getElementById('p-im').value=p.image||'';
+        document.getElementById('p-cr').value=p.credentials||'';
+        document.getElementById('p-ft').checked=p.featured||false;
+        document.getElementById('p-nw').checked=p.isNew||false;
+        if (p.details){ const k=Object.keys(p.details)[0]; if(k){document.getElementById('p-dk').value=k;document.getElementById('p-dv').value=p.details[k];} }
+      }
+    }
+  }
+  else if (tab==='orders') {
+    el.innerHTML='<div class="spin"></div>';
+    get(ref(db,'orders')).then(snap=>{
+      if(!snap.exists()){el.innerHTML='<div class="empty" style="padding:40px"><i class="fas fa-list"></i><p>Chưa có đơn hàng</p></div>';return;}
+      const ords=Object.entries(snap.val()).reverse();
+      el.innerHTML=`<h3 style="font-family:var(--fd);font-size:14px;margin-bottom:14px">Tất cả đơn (${ords.length})</h3>
+      <div class="apl">${ords.map(([id,o])=>`<div class="api">
+        <div class="api-ic">🧾</div>
+        <div class="api-inf">
+          <div class="api-nm">${o.userEmail} · ${fmtP(o.total)}</div>
+          <div class="api-mt">${o.items?.length||0} sp · ${new Date(o.timestamp).toLocaleString('vi-VN')} · <span style="color:var(--green)">${o.status}</span></div>
+        </div>
+      </div>`).join('')}</div>`;
+    });
+  }
+  else if (tab==='napthe') {
+    el.innerHTML='<div class="spin"></div>';
+    get(ref(db,'napthe')).then(snap=>{
+      if(!snap.exists()){el.innerHTML='<div class="empty" style="padding:40px"><i class="fas fa-credit-card"></i><p>Chưa có yêu cầu nạp thẻ</p></div>';return;}
+      const nts=Object.entries(snap.val()).reverse();
+      el.innerHTML=`<h3 style="font-family:var(--fd);font-size:14px;margin-bottom:14px">Yêu cầu nạp thẻ (${nts.length})</h3>
+      <div class="apl">${nts.map(([id,n])=>`<div class="api">
+        <div class="api-ic">💳</div>
+        <div class="api-inf">
+          <div class="api-nm">${n.userEmail} · ${n.nhamang} · ${fmtP(n.menhgia)}</div>
+          <div class="api-mt">Mã: ${n.mathe} · SN: ${n.serial} · <span style="color:${n.status==='pending'?'var(--gold)':'var(--green)'}">${n.status}</span></div>
+        </div>
+        <div class="aa">
+          <button class="abs2 ab-ed" onclick="markNT('${id}','completed')">✅</button>
+          <button class="abs2 ab-dl" onclick="markNT('${id}','rejected')">❌</button>
+        </div>
+      </div>`).join('')}</div>`;
+    });
+  }
+  else if (tab==='feed') {
+    el.innerHTML=`<h3 style="font-family:var(--fd);font-size:14px;margin-bottom:14px">Thêm thông báo Feed</h3>
+    <div class="fg"><label class="fl">Tên (đã ẩn)</label><input type="text" class="fi3" id="fd-u" placeholder="Ng***uyên"></div>
+    <div class="fg"><label class="fl">Sản phẩm</label><input type="text" class="fi3" id="fd-p" placeholder="Acc Roblox Level 100"></div>
+    <div class="fg"><label class="fl">Giá</label><input type="number" class="fi3" id="fd-pr" placeholder="35000"></div>
+    <button class="btn btn-pr" onclick="addFeedManual()"><i class="fas fa-plus"></i> Thêm vào feed</button>`;
+  }
+  else if (tab==='users') {
+    el.innerHTML='<div class="spin"></div>';
+    get(ref(db,'users')).then(snap=>{
+      if(!snap.exists()){el.innerHTML='<div class="empty" style="padding:40px"><i class="fas fa-users"></i><p>Chưa có user</p></div>';return;}
+      const us=Object.entries(snap.val());
+      el.innerHTML=`<h3 style="font-family:var(--fd);font-size:14px;margin-bottom:14px">Người dùng (${us.length})</h3>
+      <div class="apl">${us.map(([uid,u])=>`<div class="api">
+        <div class="api-ic">${u.isAdmin?'👑':'👤'}</div>
+        <div class="api-inf">
+          <div class="api-nm">${u.displayName||'N/A'} ${u.isAdmin?'<span style="color:var(--gold);font-size:10px">ADMIN</span>':''}</div>
+          <div class="api-mt">${u.email} · ${new Date(u.createdAt||0).toLocaleDateString('vi-VN')}</div>
+        </div>
+        <div class="aa">
+          <button class="abs2 ab-ed" onclick="toggleAdmin('${uid}',${!u.isAdmin})">${u.isAdmin?'Hạ':'👑 Admin'}</button>
+        </div>
+      </div>`).join('')}</div>`;
+    });
+  }
+}
+
+window.saveP = async () => {
+  if (!isAdmin) return;
+  const nm=document.getElementById('p-nm').value.trim();
+  const pr=parseInt(document.getElementById('p-pr').value);
+  if (!nm||!pr) return toast('Điền tên và giá!','error');
+  const dk=document.getElementById('p-dk').value.trim();
+  const dv=document.getElementById('p-dv').value.trim();
+  const data = {
+    name:nm, category:document.getElementById('p-cat').value,
+    price:pr, stock:parseInt(document.getElementById('p-st').value)||1,
+    description:document.getElementById('p-ds').value.trim(),
+    image:document.getElementById('p-im').value.trim(),
+    credentials:document.getElementById('p-cr').value.trim(),
+    featured:document.getElementById('p-ft').checked,
+    isNew:document.getElementById('p-nw').checked,
+    details:dk&&dv?{[dk]:dv}:{}, sold:0, createdAt:Date.now()
+  };
+  try {
+    if (editId) { await update(ref(db,`products/${editId}`),data); toast('Đã cập nhật! ✅','success'); editId=null; }
+    else { await push(ref(db,'products'),data); toast('Đã thêm sản phẩm! ✅','success'); }
+    renderAdm('products'); document.querySelectorAll('.anb')[0].classList.add('active');
+    document.querySelectorAll('.anb')[1].classList.remove('active'); curAdmTab='products';
+  } catch(e){ toast('Lỗi khi lưu!','error'); }
+};
+
+window.editP = id => { editId=id; admTab('add', document.querySelectorAll('.anb')[1]); };
+window.delP  = async id => {
+  if (!confirm('Xác nhận xóa?')) return;
+  await remove(ref(db,`products/${id}`));
+  toast('Đã xóa!','info');
+};
+window.markNT = async (id,status) => {
+  await update(ref(db,`napthe/${id}`),{status});
+  toast(`Đã đánh dấu ${status}!`,'success');
+  renderAdm('napthe');
+};
+window.toggleAdmin = async (uid, val) => {
+  await update(ref(db,`users/${uid}`),{isAdmin:val});
+  toast(val?'Đã cấp Admin!':'Đã hạ quyền!','success');
+  renderAdm('users');
+};
+window.addFeedManual = async () => {
+  const u=document.getElementById('fd-u').value.trim();
+  const p=document.getElementById('fd-p').value.trim();
+  const pr=parseInt(document.getElementById('fd-pr').value);
+  if(!u||!p||!pr) return toast('Điền đầy đủ!','error');
+  await push(ref(db,'feed'),{user:u,product:p,price:pr,time:'vừa xong',timestamp:Date.now()});
+  toast('Đã thêm!','success');
+};
+
+// ── UTILS ──
+function fmtP(p){ return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'}).format(p||0); }
+
+window.toast = (msg, type='info') => {
+  const icons={success:'✅',error:'❌',info:'ℹ️',warning:'⚠️'};
+  const el=document.createElement('div');
+  el.className=`toast ${type}`;
+  el.innerHTML=`<span>${icons[type]}</span><span class="t-tx">${msg}</span>`;
+  document.getElementById('tc').appendChild(el);
+  setTimeout(()=>{ el.style.cssText='opacity:0;transform:translateX(18px);transition:all .3s ease'; setTimeout(()=>el.remove(),300); }, 3200);
+};
+
+window.openM = id => {
+  document.getElementById(id).classList.add('open');
+  if (id==='m-cart') renderCart();
+  if (id==='m-admin') renderAdm(curAdmTab);
+  if (id==='m-orders') loadOrders();
+};
+window.closeM = id => document.getElementById(id).classList.remove('open');
+window.openAuth = tab => { openM('m-auth'); switchAuth(tab); };
+window.switchAuth = tab => {
+  document.getElementById('at-li').classList.toggle('active',tab==='login');
+  document.getElementById('at-rg').classList.toggle('active',tab==='register');
+  document.getElementById('f-login').classList.toggle('hidden',tab!=='login');
+  document.getElementById('f-register').classList.toggle('hidden',tab!=='register');
+};
+window.toggleDD = () => document.getElementById('udrop').classList.toggle('open');
+
+document.querySelectorAll('.moverlay').forEach(o=>{
+  o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); });
+});
+document.addEventListener('click',e=>{
+  const dd=document.getElementById('udrop');
+  if(dd&&!dd.contains(e.target)) dd.classList.remove('open');
+});
+
+// ── INIT ──
+saveCart();
+loadProducts();
+loadFeed();
+</script>
+</body>
+</html>
