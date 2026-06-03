@@ -287,46 +287,40 @@ select.fi3{cursor:pointer;}
 
 /* ── MOBILE HEADER FIX ── */
 @media(max-width:560px){
-  /* Ẩn chữ trong nút, chỉ hiện icon */
   .hbtx{display:none;}
-  /* Thu nhỏ padding nút */
   .hacts .btn{padding:8px 10px;}
-  /* Giảm gap header */
   .hi{gap:8px;padding:0 12px;}
-  /* Thu nhỏ logo một chút */
   .logo-tx{font-size:15px;}
   .logo-ic{width:31px;height:31px;font-size:14px;}
-  /* Nếu đã đăng nhập: ẩn tên user, chỉ hiện avatar */
   .ubtn{padding:5px 8px;gap:5px;}
-  /* Margin-left nút đăng ký */
   #g-acts .btn-pr{margin-left:4px!important;}
-  /* Nạp thẻ 1 cột */
   .nt-grid{grid-template-columns:1fr;}
+  #hero{grid-template-columns:1fr;}
+  .hero-side{flex-direction:row;}
+  .hs-card{flex:1;}
+  .bal-chip{font-size:11px;padding:5px 8px;gap:4px;}
+}
+
+/* ── BALANCE CHIP ── */
+.bal-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 12px;
+  background:rgba(0,255,136,.1);
+  border:1px solid rgba(0,255,136,.25);
+  border-radius:20px;
+  cursor:pointer;
+  transition:var(--tr);
+  font-size:13px;font-weight:600;color:var(--green);
+}
+.bal-chip:hover{background:rgba(0,255,136,.18);transform:translateY(-1px);}
+.bal-plus{
+  width:18px;height:18px;background:var(--green);color:#000;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:900;
 }
 </style>
 </head>
 <body>
-
-<!-- ANNOUNCEMENT BAR -->
-<div id="ann">
-  <div style="overflow:hidden;display:flex;">
-    <div class="tick" id="tick">
-      <span>🎮 CHÀO MỪNG ĐẾN VỚI Abubu Roblox - SHOP ROBLOX SỐ 1 VIỆT NAM</span><span class="tick-sep"></span>
-      <span>💳 NẠP THẺ ATM KHUYẾN MÃI 10% GIÁ TRỊ</span><span class="tick-sep"></span>
-      <span>🏆 ĐÃ PHỤC VỤ HƠN 50,000 KHÁCH HÀNG</span><span class="tick-sep"></span>
-      <span>⚡ GIAO HÀNG TỰ ĐỘNG TRONG 3 PHÚT</span><span class="tick-sep"></span>
-      <span>🎁 MUA ACC TẶNG NGAY GAMEPASS MIỄN PHÍ</span><span class="tick-sep"></span>
-      <span>🔒 ĐẢM BẢO UY TÍN - HOÀN TIỀN NẾU LỖI</span><span class="tick-sep"></span>
-      <!-- duplicate for seamless loop -->
-      <span>🎮 CHÀO MỪNG ĐẾN VỚI Abubu Roblox - SHOP ROBLOX SỐ 1 VIỆT NAM</span><span class="tick-sep"></span>
-      <span>💳 NẠP THẺ ATM KHUYẾN MÃI 10% GIÁ TRỊ</span><span class="tick-sep"></span>
-      <span>🏆 ĐÃ PHỤC VỤ HƠN 50,000 KHÁCH HÀNG</span><span class="tick-sep"></span>
-      <span>⚡ GIAO HÀNG TỰ ĐỘNG TRONG 3 PHÚT</span><span class="tick-sep"></span>
-      <span>🎁 MUA ACC TẶNG NGAY GAMEPASS MIỄN PHÍ</span><span class="tick-sep"></span>
-      <span>🔒 ĐẢM BẢO UY TÍN - HOÀN TIỀN NẾU LỖI</span><span class="tick-sep"></span>
-    </div>
-  </div>
-</div>
 
 <!-- HEADER -->
 <header id="hdr">
@@ -335,15 +329,14 @@ select.fi3{cursor:pointer;}
       <div class="logo-ic">🎮</div>
       <span class="logo-tx">Abubu Roblox</span>
     </a>
-    <nav class="cnav">
-      <button class="cbtn active" onclick="goTab('all',this)"><i class="fas fa-th"></i> Tất cả</button>
-      <button class="cbtn" onclick="goTab('account',this)"><i class="fas fa-user-circle"></i> Tài khoản</button>
-      <button class="cbtn" onclick="goTab('robux',this)"><i class="fas fa-coins"></i> Robux</button>
-      <button class="cbtn" onclick="goTab('gamepass',this)"><i class="fas fa-gamepad"></i> GamePass</button>
-      <button class="cbtn" onclick="goTab('item',this)"><i class="fas fa-magic"></i> Items</button>
-      <button class="cbtn" onclick="goTab('service',this)"><i class="fas fa-hands-helping"></i> Cày thuê</button>
-    </nav>
+    <nav class="cnav" style="display:none"></nav>
     <div class="hacts">
+      <!-- Balance chip (shown when logged in) -->
+      <div id="bal-wrap" class="hidden bal-chip" onclick="openM('m-topup')" title="Nạp tiền">
+        <span>💰</span>
+        <span id="bal-val">0đ</span>
+        <span class="bal-plus">+</span>
+      </div>
       <div class="cart-wrap">
         <button class="btn btn-gh" onclick="openM('m-cart')"><i class="fas fa-shopping-cart"></i>
           <span class="cart-badge" id="cbadge">0</span>
@@ -362,6 +355,8 @@ select.fi3{cursor:pointer;}
           </div>
           <div class="ddm">
             <div class="ddi" onclick="openM('m-orders')"><i class="fas fa-history"></i> Lịch sử mua</div>
+            <div class="ddi" onclick="openM('m-topup')"><i class="fas fa-wallet"></i> Nạp số dư</div>
+            <div class="ddi" onclick="openM('m-chpw')"><i class="fas fa-key"></i> Đổi mật khẩu</div>
             <div class="ddi hidden" id="adm-btn" onclick="openM('m-admin')"><i class="fas fa-cog"></i> Admin Panel</div>
             <div class="dd-div"></div>
             <div class="ddi danger" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> Đăng xuất</div>
@@ -371,14 +366,6 @@ select.fi3{cursor:pointer;}
     </div>
   </div>
 </header>
-
-<!-- LIVE FEED -->
-<div id="lfeed">
-  <div class="lfi">
-    <div class="lv-lbl"><div class="lv-dot"></div>LIVE</div>
-    <div class="feed-scr"><div class="feed-c" id="feed-c"></div></div>
-  </div>
-</div>
 
 <!-- MAIN -->
 <main>
@@ -405,32 +392,20 @@ select.fi3{cursor:pointer;}
       </div>
     </div>
     <div class="hero-side">
-      <div class="hs-card" onclick="goTab('account',null)">
-        <div class="hs-icon">👤</div>
-        <div class="hs-title">Tài khoản Roblox</div>
-        <div class="hs-sub">Hàng trăm acc giá rẻ, đảm bảo</div>
-        <span class="hs-badge bg-hot">HOT</span>
+      <div class="hs-card" onclick="curUser?openM('m-topup'):openAuth('login')">
+        <div class="hs-icon">📱</div>
+        <div class="hs-title">Nạp bằng thẻ cào</div>
+        <div class="hs-sub">Viettel · Mobifone · Vinaphone</div>
+        <span class="hs-badge bg-hot">NHANH</span>
       </div>
-      <div class="hs-card" onclick="goTab('robux',null)">
-        <div class="hs-icon">💎</div>
-        <div class="hs-title">Nạp Robux</div>
-        <div class="hs-sub">Giá tốt nhất · Giao hàng tức thì</div>
-        <span class="hs-badge bg-sale">SALE</span>
+      <div class="hs-card" onclick="curUser?openTopupQR():openAuth('login')">
+        <div class="hs-icon">🏦</div>
+        <div class="hs-title">Nạp QR ngân hàng</div>
+        <div class="hs-sub">Tự động · Tối thiểu 10.000đ</div>
+        <span class="hs-badge bg-new">TỰ ĐỘNG</span>
       </div>
     </div>
   </section>
-
-  <!-- STATS -->
-  <div class="stats">
-    <div class="sc"><div class="sc-ic" style="background:rgba(255,30,80,.13)">🛒</div>
-      <div><div class="sc-v" id="st-ord">—</div><div class="sc-l">Đơn hàng đã bán</div></div></div>
-    <div class="sc"><div class="sc-ic" style="background:rgba(255,215,0,.13)">👥</div>
-      <div><div class="sc-v" id="st-usr">—</div><div class="sc-l">Khách hàng tin tưởng</div></div></div>
-    <div class="sc"><div class="sc-ic" style="background:rgba(0,255,136,.13)">⭐</div>
-      <div><div class="sc-v">4.9/5</div><div class="sc-l">Đánh giá trung bình</div></div></div>
-    <div class="sc"><div class="sc-ic" style="background:rgba(0,212,255,.13)">⚡</div>
-      <div><div class="sc-v">&lt; 3 phút</div><div class="sc-l">Thời gian giao hàng</div></div></div>
-  </div>
 
   <!-- PRODUCTS -->
   <section id="sec-sp">
@@ -451,38 +426,6 @@ select.fi3{cursor:pointer;}
     <div class="pgrid" id="pgrid"><div class="spin"></div></div>
   </section>
 
-  <!-- NẠP THẺ -->
-  <section class="nts hidden" id="nap-the">
-    <div class="sec-hdr" style="margin-bottom:0"><h2 class="sec-title">Nạp thẻ cào</h2></div>
-    <div class="nt-grid">
-      <div>
-        <div class="fg">
-          <label class="fl">Nhà mạng</label>
-          <select class="fi3" id="nt-nm"><option>Viettel</option><option>Mobifone</option><option>Vinaphone</option><option>Vietnamobile</option><option>Gmobile</option></select>
-        </div>
-        <div class="fg">
-          <label class="fl">Mệnh giá</label>
-          <div class="mg-grid">
-            <button class="mg-btn active" onclick="selMG(this,10000)">10K</button>
-            <button class="mg-btn" onclick="selMG(this,20000)">20K</button>
-            <button class="mg-btn" onclick="selMG(this,30000)">30K</button>
-            <button class="mg-btn" onclick="selMG(this,50000)">50K</button>
-            <button class="mg-btn" onclick="selMG(this,100000)">100K</button>
-            <button class="mg-btn" onclick="selMG(this,200000)">200K</button>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="fg"><label class="fl">Mã thẻ</label><input type="text" class="fi3" id="nt-ma" placeholder="Nhập mã thẻ..."></div>
-        <div class="fg"><label class="fl">Số serial</label><input type="text" class="fi3" id="nt-sl" placeholder="Nhập số serial..."></div>
-        <button class="btn btn-pr wf" style="justify-content:center;margin-top:7px" onclick="submitNT()"><i class="fas fa-bolt"></i> Nạp thẻ ngay</button>
-      </div>
-    </div>
-    <div class="alert a-warn" style="margin-top:14px;margin-bottom:0">
-      <i class="fas fa-exclamation-triangle"></i>
-      <span>Thẻ xử lý tự động 1–5 phút. Không nhập lại thẻ đã nạp để tránh mất tiền.</span>
-    </div>
-  </section>
 </main>
 
 <!-- FOOTER -->
@@ -547,17 +490,26 @@ select.fi3{cursor:pointer;}
       <div class="atabs">
         <button class="atab active" id="at-li" onclick="switchAuth('login')">Đăng nhập</button>
         <button class="atab" id="at-rg" onclick="switchAuth('register')">Đăng ký</button>
+        <button class="atab" id="at-fp" onclick="switchAuth('forgot')">Quên mật khẩu</button>
       </div>
       <div id="f-login">
         <div class="fg"><label class="fl">Email</label><input type="email" class="fi3" id="li-em" placeholder="email@example.com"></div>
         <div class="fg"><label class="fl">Mật khẩu</label><input type="password" class="fi3" id="li-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
         <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Đăng nhập</button>
+        <p style="text-align:center;margin-top:12px;font-size:12.5px;color:var(--text3)">
+          Quên mật khẩu? <span style="color:var(--primary);cursor:pointer" onclick="switchAuth('forgot')">Đặt lại ngay</span>
+        </p>
       </div>
       <div id="f-register" class="hidden">
         <div class="fg"><label class="fl">Tên hiển thị</label><input type="text" class="fi3" id="rg-nm" placeholder="Tên của bạn"></div>
         <div class="fg"><label class="fl">Email</label><input type="email" class="fi3" id="rg-em" placeholder="email@example.com"></div>
         <div class="fg"><label class="fl">Mật khẩu</label><input type="password" class="fi3" id="rg-pw" placeholder="Ít nhất 6 ký tự" onkeydown="if(event.key==='Enter')doRegister()"></div>
         <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="doRegister()"><i class="fas fa-user-plus"></i> Tạo tài khoản</button>
+      </div>
+      <div id="f-forgot" class="hidden">
+        <div class="alert a-info" style="margin-bottom:14px"><i class="fas fa-info-circle"></i><span>Nhập email đăng ký. Chúng tôi sẽ gửi link đặt lại mật khẩu.</span></div>
+        <div class="fg"><label class="fl">Email</label><input type="email" class="fi3" id="fp-em" placeholder="email@example.com" onkeydown="if(event.key==='Enter')doForgot()"></div>
+        <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="doForgot()"><i class="fas fa-paper-plane"></i> Gửi email đặt lại</button>
       </div>
     </div>
   </div>
@@ -578,7 +530,19 @@ select.fi3{cursor:pointer;}
     <div class="mbody">
       <div class="citems" id="citems"></div>
       <div class="ctot"><span class="ctot-l">Tổng cộng</span><span class="ctot-v" id="ctot">0đ</span></div>
-      <button class="btn btn-pr wf" style="justify-content:center;padding:13px;font-size:14.5px" onclick="checkout()"><i class="fas fa-credit-card"></i> Thanh toán ngay</button>
+      <!-- Balance info row -->
+      <div id="cart-bal-row" class="hidden" style="display:none;padding:10px 14px;background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.18);border-radius:9px;margin-bottom:12px;font-size:12.5px;color:var(--green);display:flex;justify-content:space-between;">
+        <span><i class="fas fa-wallet"></i> Số dư tài khoản</span>
+        <span id="cart-bal-display" style="font-weight:700">0đ</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <button class="btn btn-pr wf" style="justify-content:center;padding:12px;font-size:14px" onclick="checkoutBalance()">
+          <i class="fas fa-wallet"></i> Thanh toán bằng số dư
+        </button>
+        <button class="btn btn-gh wf" style="justify-content:center;padding:10px;font-size:13px" onclick="openM('m-topup');closeM('m-cart')">
+          <i class="fas fa-plus-circle"></i> Nạp thêm số dư
+        </button>
+      </div>
       <p style="text-align:center;font-size:11.5px;color:var(--text3);margin-top:11px"><i class="fas fa-lock"></i> Giao dịch bảo mật bởi Firebase</p>
     </div>
   </div>
@@ -600,6 +564,96 @@ select.fi3{cursor:pointer;}
   </div>
 </div>
 
+<!-- NẠP SỐ DƯ -->
+<div class="moverlay" id="m-topup">
+  <div class="modal">
+    <div class="mhdr"><div class="mtitle">💰 Nạp số dư</div><button class="mclose" onclick="closeM('m-topup')"><i class="fas fa-times"></i></button></div>
+    <div class="mbody">
+      <!-- Current balance -->
+      <div style="padding:12px 16px;background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.18);border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+        <span style="font-size:13px;color:var(--text2)"><i class="fas fa-wallet"></i> Số dư hiện tại</span>
+        <span style="font-family:var(--fd);font-size:20px;font-weight:700;color:var(--green)" id="topup-bal">0đ</span>
+      </div>
+      <!-- Method tabs -->
+      <div class="atabs" style="margin-bottom:18px">
+        <button class="atab active" id="tu-t1" onclick="switchTopup('card')">📱 Thẻ cào</button>
+        <button class="atab" id="tu-t2" onclick="switchTopup('qr')">🏦 QR ngân hàng</button>
+      </div>
+      <!-- Card tab -->
+      <div id="tu-card">
+        <div class="fg">
+          <label class="fl">Nhà mạng</label>
+          <select class="fi3" id="nt-nm"><option>Viettel</option><option>Mobifone</option><option>Vinaphone</option><option>Vietnamobile</option><option>Gmobile</option></select>
+        </div>
+        <div class="fg">
+          <label class="fl">Mệnh giá</label>
+          <div class="mg-grid">
+            <button class="mg-btn active" onclick="selMG(this,10000)">10K</button>
+            <button class="mg-btn" onclick="selMG(this,20000)">20K</button>
+            <button class="mg-btn" onclick="selMG(this,30000)">30K</button>
+            <button class="mg-btn" onclick="selMG(this,50000)">50K</button>
+            <button class="mg-btn" onclick="selMG(this,100000)">100K</button>
+            <button class="mg-btn" onclick="selMG(this,200000)">200K</button>
+          </div>
+        </div>
+        <div class="fg"><label class="fl">Mã thẻ</label><input type="text" class="fi3" id="nt-ma" placeholder="Nhập mã thẻ..."></div>
+        <div class="fg"><label class="fl">Số serial</label><input type="text" class="fi3" id="nt-sl" placeholder="Nhập số serial..."></div>
+        <button class="btn btn-pr wf" style="justify-content:center;margin-top:4px" onclick="submitNT()"><i class="fas fa-bolt"></i> Nạp thẻ</button>
+        <div class="alert a-warn" style="margin-top:12px;margin-bottom:0">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span>Thẻ xử lý 1–5 phút. Không nhập lại thẻ đã nạp.</span>
+        </div>
+      </div>
+      <!-- QR tab -->
+      <div id="tu-qr" class="hidden">
+        <div class="fg">
+          <label class="fl">Số tiền muốn nạp (tối thiểu 10.000đ)</label>
+          <div class="mg-grid">
+            <button class="mg-btn active" onclick="selQRAmt(this,10000)">10K</button>
+            <button class="mg-btn" onclick="selQRAmt(this,20000)">20K</button>
+            <button class="mg-btn" onclick="selQRAmt(this,50000)">50K</button>
+            <button class="mg-btn" onclick="selQRAmt(this,100000)">100K</button>
+            <button class="mg-btn" onclick="selQRAmt(this,200000)">200K</button>
+            <button class="mg-btn" onclick="selQRAmt(this,500000)">500K</button>
+          </div>
+        </div>
+        <div style="text-align:center;margin:16px 0">
+          <img id="qr-img" src="" alt="QR" style="width:200px;height:200px;border-radius:12px;border:3px solid var(--border);object-fit:cover">
+          <div style="margin-top:10px;font-size:12.5px;color:var(--text3)">Quét QR để chuyển khoản</div>
+          <div id="qr-note" style="margin-top:6px;font-family:var(--fd);font-size:13px;color:var(--gold)"></div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:14px;font-size:12.5px">
+          <div class="dta" style="margin-bottom:7px"><span class="dta-k">Ngân hàng</span><span style="font-weight:700">MB Bank</span></div>
+          <div class="dta" style="margin-bottom:7px"><span class="dta-k">Số TK</span><span style="font-weight:700" id="qr-stk">—</span></div>
+          <div class="dta" style="margin-bottom:7px"><span class="dta-k">Chủ TK</span><span style="font-weight:700" id="qr-ctk">—</span></div>
+          <div class="dta"><span class="dta-k">Nội dung</span><span style="font-weight:700;color:var(--primary)" id="qr-nd">—</span></div>
+        </div>
+        <div class="alert a-info" style="margin-top:12px;margin-bottom:0">
+          <i class="fas fa-info-circle"></i>
+          <span>Sau khi chuyển khoản, số dư sẽ được cộng tự động sau 1–10 phút. Vui lòng ghi đúng nội dung.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ĐỔI MẬT KHẨU -->
+<div class="moverlay" id="m-chpw">
+  <div class="modal">
+    <div class="mhdr"><div class="mtitle">🔑 Đổi mật khẩu</div><button class="mclose" onclick="closeM('m-chpw')"><i class="fas fa-times"></i></button></div>
+    <div class="mbody">
+      <div class="alert a-warn" style="margin-bottom:16px">
+        <i class="fas fa-shield-alt"></i>
+        <span>Nhập mật khẩu hiện tại để xác nhận danh tính trước khi đổi.</span>
+      </div>
+      <div class="fg"><label class="fl">Mật khẩu hiện tại</label><input type="password" class="fi3" id="cp-cur" placeholder="••••••••"></div>
+      <div class="fg"><label class="fl">Mật khẩu mới</label><input type="password" class="fi3" id="cp-new" placeholder="Ít nhất 6 ký tự"></div>
+      <div class="fg"><label class="fl">Xác nhận mật khẩu mới</label><input type="password" class="fi3" id="cp-cnf" placeholder="Nhập lại mật khẩu mới" onkeydown="if(event.key==='Enter')doChangePw()"></div>
+      <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="doChangePw()"><i class="fas fa-save"></i> Đổi mật khẩu</button>
+    </div>
+  </div>
+</div>
+
 <!-- ADMIN -->
 <div class="moverlay" id="m-admin">
   <div class="modal mxl">
@@ -611,7 +665,7 @@ select.fi3{cursor:pointer;}
           <button class="anb" onclick="admTab('add',this)"><i class="fas fa-plus"></i> Thêm SP</button>
           <button class="anb" onclick="admTab('orders',this)"><i class="fas fa-list"></i> Đơn hàng</button>
           <button class="anb" onclick="admTab('napthe',this)"><i class="fas fa-credit-card"></i> Nạp thẻ</button>
-          <button class="anb" onclick="admTab('feed',this)"><i class="fas fa-bell"></i> Live Feed</button>
+          <button class="anb" onclick="admTab('feed',this)"><i class="fas fa-qrcode"></i> Nạp QR</button>
           <button class="anb" onclick="admTab('users',this)"><i class="fas fa-users"></i> Users</button>
         </div>
         <div class="acnt" id="acnt"></div>
@@ -624,7 +678,8 @@ select.fi3{cursor:pointer;}
 <script type="module">
 import { initializeApp }               from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-         onAuthStateChanged, signOut, updateProfile }
+         onAuthStateChanged, signOut, updateProfile,
+         sendPasswordResetEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential }
                                         from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
 import { getDatabase, ref, set, get, push, onValue, update, remove, serverTimestamp, query, orderByChild, limitToLast }
                                         from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js';
@@ -651,12 +706,17 @@ const db   = getDatabase(app);
 // ── STATE ──
 let curUser   = null;
 let isAdmin   = false;
+let curBalance = 0;
 let cart      = JSON.parse(localStorage.getItem('rbxviet_cart') || '[]');
 let products  = [];
 let curCat    = 'all';
 let selMG_val = 10000;
+let selQR_val = 10000;
 let editId    = null;
 let curAdmTab = 'products';
+
+// ── BANK CONFIG (thay bằng thông tin ngân hàng của bạn) ──
+const BANK = { bank:'MB', stk:'2008999999999', ctk:'NGUYEN THE ANH', prefix:'NAPGAME' };
 
 // ── ICONS / NAMES ──
 const ICONS = { account:'👤', robux:'💎', gamepass:'🎮', item:'✨', service:'⚡' };
@@ -666,22 +726,36 @@ const NAMES = { account:'Tài khoản', robux:'Robux', gamepass:'GamePass', item
 onAuthStateChanged(auth, async user => {
   curUser = user;
   if (user) {
-    const snap = await get(ref(db, `users/${user.uid}/isAdmin`));
-    isAdmin = snap.exists() && snap.val() === true;
+    const snap = await get(ref(db, `users/${user.uid}`));
+    const udata = snap.exists() ? snap.val() : {};
+    isAdmin = udata.isAdmin === true;
+    curBalance = udata.balance || 0;
     const name = user.displayName || user.email.split('@')[0];
     document.getElementById('uname').textContent = name;
     document.getElementById('uav').textContent = name[0].toUpperCase();
     document.getElementById('g-acts').classList.add('hidden');
     document.getElementById('u-acts').classList.remove('hidden');
+    document.getElementById('bal-wrap').classList.remove('hidden');
+    document.getElementById('bal-val').textContent = fmtP(curBalance);
+    // Watch balance in realtime
+    onValue(ref(db, `users/${user.uid}/balance`), bSnap => {
+      curBalance = bSnap.exists() ? bSnap.val() : 0;
+      document.getElementById('bal-val').textContent = fmtP(curBalance);
+      const td = document.getElementById('topup-bal');
+      if (td) td.textContent = fmtP(curBalance);
+      const cd = document.getElementById('cart-bal-display');
+      if (cd) cd.textContent = fmtP(curBalance);
+    });
     if (isAdmin) {
       document.getElementById('adm-btn').classList.remove('hidden');
       document.getElementById('adm-add-link').style.display = 'inline-flex';
       document.getElementById('adm-add-link').classList.remove('hidden');
     }
   } else {
-    isAdmin = false;
+    isAdmin = false; curBalance = 0;
     document.getElementById('g-acts').classList.remove('hidden');
     document.getElementById('u-acts').classList.add('hidden');
+    document.getElementById('bal-wrap').classList.add('hidden');
     document.getElementById('adm-btn').classList.add('hidden');
     document.getElementById('adm-add-link').style.display = 'none';
   }
@@ -720,6 +794,36 @@ window.doLogout = async () => {
   document.getElementById('udrop').classList.remove('open');
 };
 
+window.doForgot = async () => {
+  const em = document.getElementById('fp-em').value.trim();
+  if (!em) return toast('Nhập email của bạn!','error');
+  try {
+    await sendPasswordResetEmail(auth, em);
+    toast('Đã gửi email đặt lại mật khẩu! Kiểm tra hộp thư.','success');
+    closeM('m-auth');
+  } catch(e){ toast(authErr(e.code),'error'); }
+};
+
+window.doChangePw = async () => {
+  if (!curUser) return toast('Chưa đăng nhập!','error');
+  const cur = document.getElementById('cp-cur').value;
+  const nw  = document.getElementById('cp-new').value;
+  const cnf = document.getElementById('cp-cnf').value;
+  if (!cur||!nw||!cnf) return toast('Điền đầy đủ thông tin!','error');
+  if (nw.length < 6) return toast('Mật khẩu mới ít nhất 6 ký tự!','error');
+  if (nw !== cnf) return toast('Mật khẩu xác nhận không khớp!','error');
+  try {
+    const cred = EmailAuthProvider.credential(curUser.email, cur);
+    await reauthenticateWithCredential(curUser, cred);
+    await updatePassword(curUser, nw);
+    closeM('m-chpw');
+    document.getElementById('cp-cur').value='';
+    document.getElementById('cp-new').value='';
+    document.getElementById('cp-cnf').value='';
+    toast('Đổi mật khẩu thành công! 🔑','success');
+  } catch(e){ toast(e.code==='auth/wrong-password'?'Mật khẩu hiện tại không đúng!':authErr(e.code),'error'); }
+};
+
 function authErr(code) {
   return ({ 'auth/email-already-in-use':'Email đã được dùng!',
     'auth/invalid-email':'Email không hợp lệ!', 'auth/wrong-password':'Sai mật khẩu!',
@@ -747,12 +851,7 @@ function updateCounts() {
 }
 
 function updateStats() {
-  const totalSold = products.reduce((s,p)=>s+(p.sold||0),0);
-  document.getElementById('st-ord').textContent = totalSold.toLocaleString('vi-VN');
-  get(ref(db,'users')).then(snap => {
-    const n = snap.exists() ? Object.keys(snap.val()).length : 0;
-    document.getElementById('st-usr').textContent = n.toLocaleString('vi-VN');
-  });
+  // Stats section removed - no-op
 }
 
 function renderProducts(cat) {
@@ -864,6 +963,10 @@ function saveCart() {
 function renderCart() {
   const list = document.getElementById('citems');
   const totEl = document.getElementById('ctot');
+  // Show balance row if logged in
+  const balRow = document.getElementById('cart-bal-row');
+  const balDisp = document.getElementById('cart-bal-display');
+  if (curUser && balRow) { balRow.style.display='flex'; if(balDisp) balDisp.textContent=fmtP(curBalance); }
   if (!cart.length) {
     list.innerHTML = `<div class="empty" style="padding:28px"><i class="fas fa-shopping-cart"></i><p>Giỏ hàng trống</p></div>`;
     totEl.textContent = '0đ'; return;
@@ -884,14 +987,26 @@ function renderCart() {
 }
 
 window.checkout = async () => {
+  // kept for compatibility – balance checkout is the main method
+  await checkoutBalance();
+};
+
+window.checkoutBalance = async () => {
   if (!curUser) { closeM('m-cart'); openAuth('login'); toast('Vui lòng đăng nhập!','info'); return; }
   if (!cart.length) return toast('Giỏ hàng trống!','error');
+  const total = cart.reduce((s,c)=>s+c.price*(c.qty||1),0);
+  if (curBalance < total) {
+    toast(`Số dư không đủ! Cần thêm ${fmtP(total-curBalance)}`, 'error');
+    setTimeout(()=>{ closeM('m-cart'); openM('m-topup'); },1200);
+    return;
+  }
   try {
     const orderId = Date.now().toString();
-    const total = cart.reduce((s,c)=>s+c.price*(c.qty||1),0);
+    // Deduct balance
+    await update(ref(db,`users/${curUser.uid}`), { balance: curBalance - total });
     await set(ref(db,`orders/${orderId}`), {
       userId:curUser.uid, userEmail:curUser.email, items:cart,
-      total, status:'completed', timestamp:Date.now()
+      total, status:'completed', payMethod:'balance', timestamp:Date.now()
     });
     for (const item of cart) {
       const pRef = ref(db,`products/${item.id}`);
@@ -901,7 +1016,6 @@ window.checkout = async () => {
         await update(pRef, { sold:(pd.sold||0)+(item.qty||1), stock:Math.max(0,(pd.stock||0)-(item.qty||1)) });
       }
     }
-    addFeed(curUser.displayName||'Ẩn danh', cart[0].name, total);
     showSuccess(cart, total, orderId);
     cart=[]; saveCart(); closeM('m-cart');
   } catch(e){ console.error(e); toast('Lỗi xử lý đơn hàng!','error'); }
@@ -1032,7 +1146,17 @@ function renderAdm(tab) {
       <div class="fg"><label class="fl">Giá (VNĐ) *</label><input type="number" class="fi3" id="p-pr" placeholder="35000"></div>
       <div class="fg"><label class="fl">Tồn kho</label><input type="number" class="fi3" id="p-st" value="1"></div>
       <div class="fg" style="grid-column:1/-1"><label class="fl">Mô tả</label><textarea class="fi3" id="p-ds" placeholder="Mô tả sản phẩm..."></textarea></div>
-      <div class="fg" style="grid-column:1/-1"><label class="fl">Link ảnh (URL)</label><input type="url" class="fi3" id="p-im" placeholder="https://..."></div>
+      <div class="fg" style="grid-column:1/-1">
+        <label class="fl">Ảnh sản phẩm</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="url" class="fi3" id="p-im" placeholder="URL ảnh (tự điền sau khi upload)..." style="flex:1">
+          <label style="display:flex;align-items:center;gap:5px;padding:10px 14px;background:var(--primary);color:#fff;border-radius:var(--rs);cursor:pointer;font-size:12.5px;font-weight:600;white-space:nowrap;flex-shrink:0">
+            <i class="fas fa-cloud-upload-alt"></i> ImgBB
+            <input type="file" accept="image/*" style="display:none" onchange="uploadImgBB(this,'p-im')">
+          </label>
+        </div>
+        <div id="p-im-preview" style="margin-top:8px"></div>
+      </div>
       <div class="fg" style="grid-column:1/-1"><label class="fl">Thông tin giao hàng (hiện sau khi mua)</label><textarea class="fi3" id="p-cr" placeholder="Email: ... | Pass: ..."></textarea></div>
       <div class="fg"><label class="fl">Thuộc tính key</label><input type="text" class="fi3" id="p-dk" placeholder="Level"></div>
       <div class="fg"><label class="fl">Thuộc tính value</label><input type="text" class="fi3" id="p-dv" placeholder="100"></div>
@@ -1045,6 +1169,14 @@ function renderAdm(tab) {
       <button class="btn btn-pr" style="flex:1;justify-content:center" onclick="saveP()"><i class="fas fa-save"></i> ${editId?'Lưu':'Thêm'}</button>
       ${editId?`<button class="btn btn-gh" onclick="editId=null;renderAdm('add')"><i class="fas fa-times"></i> Hủy</button>`:''}
     </div>`;
+    // Watch p-im changes to show preview
+    setTimeout(()=>{
+      const imInput = document.getElementById('p-im');
+      if (imInput) imInput.addEventListener('input', ()=>{
+        const prev = document.getElementById('p-im-preview');
+        if (prev && imInput.value) prev.innerHTML = `<img src="${imInput.value}" style="height:60px;border-radius:6px;border:1px solid var(--border)" onerror="this.style.display='none'">`;
+      });
+    }, 50);
     if (editId) {
       const p = products.find(x=>x.id===editId);
       if (p) {
@@ -1096,11 +1228,23 @@ function renderAdm(tab) {
     });
   }
   else if (tab==='feed') {
-    el.innerHTML=`<h3 style="font-family:var(--fd);font-size:14px;margin-bottom:14px">Thêm thông báo Feed</h3>
-    <div class="fg"><label class="fl">Tên (đã ẩn)</label><input type="text" class="fi3" id="fd-u" placeholder="Ng***uyên"></div>
-    <div class="fg"><label class="fl">Sản phẩm</label><input type="text" class="fi3" id="fd-p" placeholder="Acc Roblox Level 100"></div>
-    <div class="fg"><label class="fl">Giá</label><input type="number" class="fi3" id="fd-pr" placeholder="35000"></div>
-    <button class="btn btn-pr" onclick="addFeedManual()"><i class="fas fa-plus"></i> Thêm vào feed</button>`;
+    el.innerHTML='<div class="spin"></div>';
+    get(ref(db,'naptheqr')).then(snap=>{
+      if(!snap.exists()){el.innerHTML='<div class="empty" style="padding:40px"><i class="fas fa-qrcode"></i><p>Chưa có yêu cầu nạp QR</p></div>';return;}
+      const nts=Object.entries(snap.val()).reverse();
+      el.innerHTML=`<h3 style="font-family:var(--fd);font-size:14px;margin-bottom:14px">Nạp QR ngân hàng (${nts.length})</h3>
+      <div class="apl">${nts.map(([id,n])=>`<div class="api">
+        <div class="api-ic">🏦</div>
+        <div class="api-inf">
+          <div class="api-nm">${n.userEmail} · ${fmtP(n.amount)}</div>
+          <div class="api-mt">Nội dung: <strong>${n.note}</strong> · <span style="color:${n.status==='pending'?'var(--gold)':'var(--green)'}">${n.status}</span></div>
+        </div>
+        <div class="aa">
+          <button class="abs2 ab-ed" onclick="markQR('${id}',${n.amount},'${n.userId}')">✅</button>
+          <button class="abs2 ab-dl" onclick="markQRReject('${id}')">❌</button>
+        </div>
+      </div>`).join('')}</div>`;
+    });
   }
   else if (tab==='users') {
     el.innerHTML='<div class="spin"></div>';
@@ -1153,11 +1297,36 @@ window.delP  = async id => {
   await remove(ref(db,`products/${id}`));
   toast('Đã xóa!','info');
 };
-window.markNT = async (id,status) => {
-  await update(ref(db,`napthe/${id}`),{status});
-  toast(`Đã đánh dấu ${status}!`,'success');
+window.markNT = async (id, status) => {
+  const snap = await get(ref(db,`napthe/${id}`));
+  if (!snap.exists()) return;
+  const nt = snap.val();
+  await update(ref(db,`napthe/${id}`), {status});
+  // Auto-credit balance when confirmed
+  if (status === 'completed' && nt.userId) {
+    const uSnap = await get(ref(db,`users/${nt.userId}/balance`));
+    const cur = uSnap.exists() ? uSnap.val() : 0;
+    await update(ref(db,`users/${nt.userId}`), { balance: cur + (nt.menhgia||0) });
+    toast(`Đã duyệt + cộng ${fmtP(nt.menhgia)} vào tài khoản!`,'success');
+  } else {
+    toast(`Đã đánh dấu ${status}!`, status==='rejected'?'error':'success');
+  }
   renderAdm('napthe');
 };
+window.markQR = async (id, amount, userId) => {
+  await update(ref(db,`naptheqr/${id}`), {status:'completed'});
+  const uSnap = await get(ref(db,`users/${userId}/balance`));
+  const cur = uSnap.exists() ? uSnap.val() : 0;
+  await update(ref(db,`users/${userId}`), { balance: cur + amount });
+  toast(`Đã duyệt + cộng ${fmtP(amount)}!`,'success');
+  renderAdm('feed');
+};
+window.markQRReject = async id => {
+  await update(ref(db,`naptheqr/${id}`), {status:'rejected'});
+  toast('Đã từ chối yêu cầu!','error');
+  renderAdm('feed');
+};
+
 window.toggleAdmin = async (uid, val) => {
   await update(ref(db,`users/${uid}`),{isAdmin:val});
   toast(val?'Đã cấp Admin!':'Đã hạ quyền!','success');
@@ -1189,15 +1358,87 @@ window.openM = id => {
   if (id==='m-cart') renderCart();
   if (id==='m-admin') renderAdm(curAdmTab);
   if (id==='m-orders') loadOrders();
+  if (id==='m-topup') {
+    const tb = document.getElementById('topup-bal');
+    if (tb) tb.textContent = fmtP(curBalance);
+  }
 };
 window.closeM = id => document.getElementById(id).classList.remove('open');
 window.openAuth = tab => { openM('m-auth'); switchAuth(tab); };
 window.switchAuth = tab => {
+  ['login','register','forgot'].forEach(t => {
+    document.getElementById(`at-${t[0]}${t==='forgot'?'p':''}${t==='register'?'g':''}${t==='login'?'i':''}`)?.classList.toggle('active',tab===t);
+  });
   document.getElementById('at-li').classList.toggle('active',tab==='login');
   document.getElementById('at-rg').classList.toggle('active',tab==='register');
+  document.getElementById('at-fp').classList.toggle('active',tab==='forgot');
   document.getElementById('f-login').classList.toggle('hidden',tab!=='login');
   document.getElementById('f-register').classList.toggle('hidden',tab!=='register');
+  document.getElementById('f-forgot').classList.toggle('hidden',tab!=='forgot');
 };
+
+// ── TOPUP ──
+window.switchTopup = tab => {
+  document.getElementById('tu-t1').classList.toggle('active',tab==='card');
+  document.getElementById('tu-t2').classList.toggle('active',tab==='qr');
+  document.getElementById('tu-card').classList.toggle('hidden',tab!=='card');
+  document.getElementById('tu-qr').classList.toggle('hidden',tab!=='qr');
+  if (tab==='qr') buildQR(selQR_val);
+};
+
+window.selQRAmt = (btn, val) => {
+  document.querySelectorAll('#tu-qr .mg-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selQR_val = val;
+  buildQR(val);
+};
+
+function buildQR(amount) {
+  if (!curUser) return;
+  const note = `${BANK.prefix}${curUser.uid.slice(0,6).toUpperCase()}`;
+  const qrUrl = `https://img.vietqr.io/image/${BANK.bank}-${BANK.stk}-compact.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(BANK.ctk)}`;
+  const img = document.getElementById('qr-img');
+  if (img) img.src = qrUrl;
+  const nd = document.getElementById('qr-nd');
+  if (nd) nd.textContent = note;
+  const stk = document.getElementById('qr-stk');
+  if (stk) stk.textContent = BANK.stk;
+  const ctk = document.getElementById('qr-ctk');
+  if (ctk) ctk.textContent = BANK.ctk;
+  // Push pending QR topup to Firebase
+  if (curUser) {
+    push(ref(db,'naptheqr'), { userId:curUser.uid, userEmail:curUser.email,
+      amount, note, status:'pending', timestamp:Date.now() }).catch(()=>{});
+  }
+}
+
+window.openTopupQR = () => {
+  if (!curUser) { openAuth('login'); return; }
+  openM('m-topup');
+  setTimeout(()=>switchTopup('qr'), 100);
+};
+
+// ── IMGBB UPLOAD ──
+// 🔧 Thay bằng API key ImgBB của bạn tại https://api.imgbb.com/
+const IMGBB_KEY = '596ccf3842830fc7dee77cbb070dee9d';
+
+window.uploadImgBB = async (inputEl, targetId) => {
+  const file = inputEl.files[0];
+  if (!file) return;
+  if (file.size > 5*1024*1024) return toast('Ảnh tối đa 5MB!','error');
+  toast('Đang tải ảnh lên...','info');
+  const fd = new FormData();
+  fd.append('image', file);
+  try {
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`, { method:'POST', body:fd });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById(targetId).value = data.data.url;
+      toast('Tải ảnh thành công! ✅','success');
+    } else { toast('Lỗi upload ảnh!','error'); }
+  } catch(e){ toast('Lỗi kết nối ImgBB!','error'); }
+};
+
 window.toggleDD = () => document.getElementById('udrop').classList.toggle('open');
 
 document.querySelectorAll('.moverlay').forEach(o=>{
@@ -1211,7 +1452,6 @@ document.addEventListener('click',e=>{
 // ── INIT ──
 saveCart();
 loadProducts();
-loadFeed();
 </script>
 </body>
 </html>
