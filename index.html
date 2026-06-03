@@ -284,6 +284,25 @@ select.fi3{cursor:pointer;}
 .wf{width:100%;}
 @media(max-width:1024px){#hero{grid-template-columns:1fr;}.hero-side{flex-direction:row;}.hs-card{flex:1;}.stats{grid-template-columns:repeat(2,1fr);}.fgrid{grid-template-columns:1fr 1fr;}}
 @media(max-width:768px){.cnav{display:none;}.stats{grid-template-columns:repeat(2,1fr);}.pgrid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));}.pdtl{grid-template-columns:1fr;}.adm{grid-template-columns:1fr;}.asb{flex-direction:row;overflow-x:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.055);border-radius:12px 12px 0 0;padding:9px;}.fgrid{grid-template-columns:1fr;}}
+
+/* ── MOBILE HEADER FIX ── */
+@media(max-width:560px){
+  /* Ẩn chữ trong nút, chỉ hiện icon */
+  .hbtx{display:none;}
+  /* Thu nhỏ padding nút */
+  .hacts .btn{padding:8px 10px;}
+  /* Giảm gap header */
+  .hi{gap:8px;padding:0 12px;}
+  /* Thu nhỏ logo một chút */
+  .logo-tx{font-size:15px;}
+  .logo-ic{width:31px;height:31px;font-size:14px;}
+  /* Nếu đã đăng nhập: ẩn tên user, chỉ hiện avatar */
+  .ubtn{padding:5px 8px;gap:5px;}
+  /* Margin-left nút đăng ký */
+  #g-acts .btn-pr{margin-left:4px!important;}
+  /* Nạp thẻ 1 cột */
+  .nt-grid{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
@@ -331,14 +350,14 @@ select.fi3{cursor:pointer;}
         </button>
       </div>
       <div id="g-acts">
-        <button class="btn btn-ol" onclick="openAuth('login')"><i class="fas fa-sign-in-alt"></i> Đăng nhập</button>
-        <button class="btn btn-pr" onclick="openAuth('register')" style="margin-left:5px"><i class="fas fa-user-plus"></i> Đăng ký</button>
+        <button class="btn btn-ol" onclick="openAuth('login')"><i class="fas fa-sign-in-alt"></i><span class="hbtx"> Đăng nhập</span></button>
+        <button class="btn btn-pr" onclick="openAuth('register')" style="margin-left:5px"><i class="fas fa-user-plus"></i><span class="hbtx"> Đăng ký</span></button>
       </div>
       <div id="u-acts" class="hidden">
         <div class="udrop" id="udrop">
           <div class="ubtn" onclick="toggleDD()">
             <div class="uav" id="uav">U</div>
-            <span id="uname">User</span>
+            <span id="uname" class="hbtx">User</span>
             <i class="fas fa-chevron-down" style="font-size:9px;color:var(--text3)"></i>
           </div>
           <div class="ddm">
@@ -611,16 +630,17 @@ import { getDatabase, ref, set, get, push, onValue, update, remove, serverTimest
                                         from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js';
 
 // ══════════════════════════════════════════
-//  🔧 THAY THẾ BẰNG FIREBASE CONFIG CỦA BẠN
+//  ✅ Firebase config - shopabubu
 // ══════════════════════════════════════════
 const firebaseConfig = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT.firebaseapp.com",
-  databaseURL:       "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId:             "YOUR_APP_ID"
+  apiKey:            "AIzaSyByE3UrP9OdL-bvPAhS8TZeKrrAfDRaNWM",
+  authDomain:        "shopabubu.firebaseapp.com",
+  databaseURL:       "https://shopabubu-default-rtdb.firebaseio.com",
+  projectId:         "shopabubu",
+  storageBucket:     "shopabubu.firebasestorage.app",
+  messagingSenderId: "683715378166",
+  appId:             "1:683715378166:web:10279aed37fcf1ceb0a5d7",
+  measurementId:     "G-79L29J8KQN"
 };
 // ══════════════════════════════════════════
 
