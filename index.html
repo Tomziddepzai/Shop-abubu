@@ -55,7 +55,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .cbtn{display:flex;align-items:center;gap:6px;padding:7px 13px;border:1px solid transparent;background:transparent;color:var(--text2);font-family:var(--fb);font-size:13px;font-weight:500;border-radius:var(--rs);cursor:pointer;white-space:nowrap;transition:var(--tr);}
 .cbtn:hover{background:rgba(255,30,80,.1);color:var(--text);border-color:rgba(255,30,80,.25);}
 .cbtn.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 0 18px var(--pglow);}
-.hacts{display:flex;align-items:center;gap:7px;flex-shrink:0;}
+.hacts{display:flex;align-items:center;gap:7px;flex-shrink:0;margin-left:auto;}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:var(--rs);font-family:var(--fb);font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr);border:none;text-decoration:none;}
 .btn-pr{background:var(--primary);color:#fff;box-shadow:0 4px 14px var(--pglow);}
 .btn-pr:hover{background:#ff4070;transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,30,80,.5);}
@@ -545,8 +545,8 @@ select.fi3{cursor:pointer;}
         <div class="fg"><label class="fl">Email</label><input type="email" class="fi3" id="li-em" placeholder="email@example.com"></div>
         <div class="fg"><label class="fl">Mật khẩu</label><input type="password" class="fi3" id="li-pw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
         <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Đăng nhập</button>
-        <p style="text-align:center;margin-top:12px;font-size:12.5px;color:var(--text3)">
-          Quên mật khẩu? <span style="color:var(--primary);cursor:pointer" onclick="switchAuth('forgot')">Đặt lại ngay</span>
+        <p style="text-align:center;margin-top:13px;font-size:12.5px;color:var(--text3)">
+          Quên mật khẩu? <span style="color:var(--primary);cursor:pointer;font-weight:600" onclick="switchAuth('forgot')">Đặt lại ngay →</span>
         </p>
       </div>
       <div id="f-register" class="hidden">
@@ -556,9 +556,12 @@ select.fi3{cursor:pointer;}
         <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="doRegister()"><i class="fas fa-user-plus"></i> Tạo tài khoản</button>
       </div>
       <div id="f-forgot" class="hidden">
-        <div class="alert a-info" style="margin-bottom:14px"><i class="fas fa-info-circle"></i><span>Nhập email đăng ký. Link đặt lại sẽ được gửi về hộp thư của bạn. <strong>Lưu ý:</strong> Cần thêm domain vào Firebase Console → Auth → Authorized Domains.</span></div>
-        <div class="fg"><label class="fl">Email</label><input type="email" class="fi3" id="fp-em" placeholder="email@example.com" onkeydown="if(event.key==='Enter')doForgot()"></div>
+        <div class="fg" style="margin-bottom:16px">
+          <label class="fl">Email đăng ký</label>
+          <input type="email" class="fi3" id="fp-em" placeholder="email@example.com" onkeydown="if(event.key==='Enter')doForgot()">
+        </div>
         <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="doForgot()"><i class="fas fa-paper-plane"></i> Gửi email đặt lại</button>
+        <p style="text-align:center;margin-top:12px;font-size:12px;color:var(--text3)">Link đặt lại sẽ gửi về hộp thư của bạn</p>
       </div>
     </div>
   </div>
@@ -895,14 +898,18 @@ function showWelcomeBanner(name) {
 }
 
 // ── AUTH ──
+// #4 Email validator
+function isValidEmail(e){ return /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(e); }
+
 window.doLogin = async () => {
   const em = document.getElementById('li-em').value.trim();
   const pw = document.getElementById('li-pw').value;
-  if (!em || !pw) return toast('Điền đầy đủ thông tin!','error');
+  if (!em||!pw) return toast('Điền đầy đủ thông tin!','error');
+  if (!isValidEmail(em)) return toast('Email không đúng định dạng!\nVí dụ: ten@gmail.com','error','📧 Email không hợp lệ');
   try {
     await signInWithEmailAndPassword(auth, em, pw);
     closeM('m-auth');
-    toast('Đăng nhập thành công! 🎉','success');
+    toast('Đăng nhập thành công! 🎉','success','👋 Chào mừng');
   } catch(e){ toast(authErr(e.code),'error'); }
 };
 
@@ -911,13 +918,14 @@ window.doRegister = async () => {
   const em = document.getElementById('rg-em').value.trim();
   const pw = document.getElementById('rg-pw').value;
   if (!nm||!em||!pw) return toast('Điền đầy đủ thông tin!','error');
-  if (pw.length < 6) return toast('Mật khẩu ít nhất 6 ký tự!','error');
+  if (!isValidEmail(em)) return toast('Email không đúng định dạng!\nVí dụ: ten@gmail.com','error','📧 Email không hợp lệ');
+  if (pw.length<6) return toast('Mật khẩu ít nhất 6 ký tự!','error');
   try {
     const {user} = await createUserWithEmailAndPassword(auth, em, pw);
     await updateProfile(user, {displayName: nm});
-    await set(ref(db, `users/${user.uid}`), { displayName:nm, email:em, isAdmin:false, balance:0, createdAt:Date.now() });
+    await set(ref(db,`users/${user.uid}`), {displayName:nm, email:em, isAdmin:false, balance:0, createdAt:Date.now()});
     closeM('m-auth');
-    toast(`Đăng ký thành công! Chào ${nm} 🎉`,'success');
+    toast(`Đăng ký thành công! Chào ${nm} 🎮`,'success','🎉 Tài khoản mới');
   } catch(e){ toast(authErr(e.code),'error'); }
 };
 
@@ -930,9 +938,10 @@ window.doLogout = async () => {
 window.doForgot = async () => {
   const em = document.getElementById('fp-em').value.trim();
   if (!em) return toast('Nhập email của bạn!','error');
+  if (!isValidEmail(em)) return toast('Email không đúng định dạng!','error','📧 Email không hợp lệ');
   try {
     await sendPasswordResetEmail(auth, em);
-    toast('Đã gửi email đặt lại mật khẩu! Kiểm tra hộp thư.','success');
+    toast('Đã gửi! Kiểm tra hộp thư (kể cả Spam).','success','📧 Email đặt lại đã gửi');
     closeM('m-auth');
   } catch(e){ toast(authErr(e.code),'error'); }
 };
@@ -1312,16 +1321,38 @@ window.selMG = (btn, val) => {
 
 window.submitNT = async () => {
   if (!curUser) { openAuth('login'); toast('Đăng nhập để nạp thẻ!','info'); return; }
-  const nm = document.getElementById('nt-nm').value;
-  const ma = document.getElementById('nt-ma').value.trim();
-  const sl = document.getElementById('nt-sl').value.trim();
-  if (!ma||!sl) return toast('Nhập mã thẻ và serial!','error');
+  const nm  = document.getElementById('nt-nm').value;
+  const ma  = document.getElementById('nt-ma').value.trim();
+  const sl  = document.getElementById('nt-sl').value.trim();
+  // #2 Validate card format per carrier
+  const rules = {
+    Viettel:      { codeLen:[14,14], serialLen:[11,15], codeHint:'14 chữ số' },
+    Mobifone:     { codeLen:[12,12], serialLen:[12,15], codeHint:'12 chữ số' },
+    Vinaphone:    { codeLen:[12,14], serialLen:[12,14], codeHint:'12-14 chữ số' },
+    Vietnamobile: { codeLen:[10,16], serialLen:[10,16], codeHint:'10-16 chữ số' },
+    Gmobile:      { codeLen:[10,16], serialLen:[10,16], codeHint:'10-16 chữ số' },
+  };
+  const r = rules[nm] || rules.Gmobile;
+  if (!ma) return toast('Vui lòng nhập mã thẻ!','error');
+  if (!sl) return toast('Vui lòng nhập số serial!','error');
+  if (!/^\d+$/.test(ma)) return toast('Mã thẻ chỉ được chứa chữ số!','error');
+  if (!/^\d+$/.test(sl)) return toast('Số serial chỉ được chứa chữ số!','error');
+  if (ma.length < r.codeLen[0] || ma.length > r.codeLen[1])
+    return toast(`Mã thẻ ${nm} phải có ${r.codeHint}! (Bạn nhập ${ma.length} chữ số)`,'error');
+  if (sl.length < r.serialLen[0] || sl.length > r.serialLen[1])
+    return toast(`Serial ${nm} không đúng định dạng! (${sl.length} chữ số)`,'error');
+  if (/^(.)\1+$/.test(ma)) return toast('Mã thẻ không hợp lệ!','error');
+  if (ma === sl) return toast('Mã thẻ và serial không được giống nhau!','error');
   try {
-    await push(ref(db,'napthe'), { userId:curUser.uid, userEmail:curUser.email, nhamang:nm, mathe:ma, serial:sl, menhgia:selMG_val, status:'pending', timestamp:Date.now() });
-    document.getElementById('nt-ma').value='';
-    document.getElementById('nt-sl').value='';
-    toast('Đã gửi thẻ! Đang xử lý...','success');
-  } catch(e){ toast('Lỗi khi nạp thẻ!','error'); }
+    await push(ref(db,'napthe'), {
+      userId:curUser.uid, userEmail:curUser.email,
+      nhamang:nm, mathe:ma, serial:sl,
+      menhgia:selMG_val, status:'pending', timestamp:Date.now()
+    });
+    document.getElementById('nt-ma').value = '';
+    document.getElementById('nt-sl').value = '';
+    toast('Đã gửi thẻ! Admin đang xử lý...','success','📱 Nạp thẻ thành công');
+  } catch(e) { toast('Lỗi khi gửi thẻ! Thử lại.','error'); }
 };
 
 // ── ADMIN ──
@@ -1447,15 +1478,17 @@ function renderAdm(tab) {
       if(!snap.exists()){el.innerHTML='<div class="empty" style="padding:40px"><i class="fas fa-qrcode"></i><p>Chưa có yêu cầu nạp QR</p></div>';return;}
       const nts=Object.entries(snap.val()).reverse();
       el.innerHTML=`<h3 style="font-family:var(--fd);font-size:14px;margin-bottom:14px">Nạp QR ngân hàng (${nts.length})</h3>
-      <div class="apl">${nts.map(([id,n])=>`<div class="api">
+      <div class="apl">${nts.map(([id,n])=>`<div class="api" style="${n.status==='completed'?'opacity:.6':''}">
         <div class="api-ic">🏦</div>
         <div class="api-inf">
           <div class="api-nm">${n.userEmail} · ${fmtP(n.amount)}</div>
-          <div class="api-mt">Nội dung: <strong>${n.note}</strong> · <span style="color:${n.status==='pending'?'var(--gold)':'var(--green)'}">${n.status}</span></div>
+          <div class="api-mt">Nội dung: <strong>${n.note}</strong> · <span style="color:${n.status==='pending'?'var(--gold)':'var(--green)'}">${n.status==='completed'?'🔒 Đã duyệt':n.status}</span></div>
         </div>
         <div class="aa">
-          <button class="abs2 ab-ed" onclick="markQR('${id}',${n.amount},'${n.userId}')">✅</button>
-          <button class="abs2 ab-dl" onclick="markQRReject('${id}')">❌</button>
+          ${n.status==='pending'
+            ? `<button class="abs2 ab-ed" onclick="markQR('${id}',${n.amount},'${n.userId}')">✅</button>
+               <button class="abs2 ab-dl" onclick="markQRReject('${id}')">❌</button>`
+            : `<span style="font-size:11px;color:var(--green);padding:4px 8px">🔒 Khoá</span>`}
         </div>
       </div>`).join('')}</div>`;
     });
@@ -1481,28 +1514,48 @@ function renderAdm(tab) {
 }
 
 window.saveP = async () => {
-  if (!isAdmin) return;
-  const nm=document.getElementById('p-nm').value.trim();
-  const pr=parseInt(document.getElementById('p-pr').value);
-  if (!nm||!pr) return toast('Điền tên và giá!','error');
-  const dk=document.getElementById('p-dk').value.trim();
-  const dv=document.getElementById('p-dv').value.trim();
-  const data = {
-    name:nm, category:document.getElementById('p-cat').value,
-    price:pr, stock:parseInt(document.getElementById('p-st').value)||1,
-    description:document.getElementById('p-ds').value.trim(),
-    image:document.getElementById('p-im').value.trim(),
-    credentials:document.getElementById('p-cr').value.trim(),
-    featured:document.getElementById('p-ft').checked,
-    isNew:document.getElementById('p-nw').checked,
-    details:dk&&dv?{[dk]:dv}:{}, sold:0, createdAt:Date.now()
+  if (!isAdmin) return toast('Bạn không có quyền Admin!','error');
+  const nmEl = document.getElementById('p-nm');
+  const prEl = document.getElementById('p-pr');
+  if (!nmEl || !prEl) return toast('Lỗi: Form không tìm thấy. Hãy mở lại Admin Panel!','error');
+  const nm = nmEl.value.trim();
+  const pr = parseInt(prEl.value);
+  if (!nm) return toast('Vui lòng nhập tên sản phẩm!','error');
+  if (!pr || pr <= 0) return toast('Vui lòng nhập giá hợp lệ!','error');
+  const dk = document.getElementById('p-dk').value.trim();
+  const dv = document.getElementById('p-dv').value.trim();
+  const baseData = {
+    name: nm,
+    category: document.getElementById('p-cat').value,
+    price: pr,
+    stock: parseInt(document.getElementById('p-st').value) || 1,
+    description: document.getElementById('p-ds').value.trim(),
+    image: document.getElementById('p-im').value.trim(),
+    credentials: document.getElementById('p-cr').value.trim(),
+    featured: document.getElementById('p-ft').checked,
+    isNew: document.getElementById('p-nw').checked,
+    details: dk && dv ? {[dk]: dv} : {},
   };
   try {
-    if (editId) { await update(ref(db,`products/${editId}`),data); toast('Đã cập nhật! ✅','success'); editId=null; }
-    else { await push(ref(db,'products'),data); toast('Đã thêm sản phẩm! ✅','success'); }
-    renderAdm('products'); document.querySelectorAll('.anb')[0].classList.add('active');
-    document.querySelectorAll('.anb')[1].classList.remove('active'); curAdmTab='products';
-  } catch(e){ toast('Lỗi khi lưu!','error'); }
+    if (editId) {
+      // Edit: preserve sold count and createdAt, don't reset them
+      await update(ref(db, `products/${editId}`), baseData);
+      toast('Đã cập nhật sản phẩm!', 'success', '✅ Lưu thành công');
+      editId = null;
+    } else {
+      await push(ref(db, 'products'), { ...baseData, sold: 0, createdAt: Date.now() });
+      toast('Đã thêm sản phẩm mới!', 'success', '✅ Thêm thành công');
+    }
+    curAdmTab = 'products';
+    admTab('products', document.querySelector('.anb'));
+  } catch(e) {
+    console.error('saveP error:', e);
+    if (e.code === 'PERMISSION_DENIED') {
+      toast('Firebase từ chối quyền! Vào Firebase Console → Realtime Database → Rules → đổi thành: {"rules":{".read":"auth!=null",".write":"auth!=null"}}', 'error', '🔒 Lỗi quyền truy cập');
+    } else {
+      toast(`Lỗi: ${e.message || e.code || 'Không xác định'}`, 'error', '❌ Lưu thất bại');
+    }
+  }
 };
 
 window.editP = id => { editId=id; admTab('add', document.querySelectorAll('.anb')[1]); };
@@ -1535,12 +1588,12 @@ window.markQR = async (id, amount, userId) => {
   const uSnap = await get(ref(db,`users/${userId}/balance`));
   const cur = uSnap.exists() ? uSnap.val() : 0;
   await update(ref(db,`users/${userId}`), { balance: cur + amount });
-  toast(`Đã duyệt + cộng ${fmtP(amount)}!`,'success');
+  toast(`Đã duyệt + cộng ${fmtP(amount)}!`, 'success', '✅ Duyệt QR');
   renderAdm('feed');
 };
 window.markQRReject = async id => {
-  await remove(ref(db,`naptheqr/${id}`)); // #9 xóa luôn
-  toast('Đã từ chối và xóa yêu cầu QR', 'error', 'Từ chối nạp QR');
+  await remove(ref(db,`naptheqr/${id}`));
+  toast('Đã từ chối và xóa!','error','❌ Từ chối QR');
   renderAdm('feed');
 };
 
@@ -1598,16 +1651,23 @@ window.openM = id => {
 window.closeM = id => document.getElementById(id).classList.remove('open');
 window.openAuth = tab => { openM('m-auth'); switchAuth(tab); };
 window.switchAuth = tab => {
-  ['login','register','forgot'].forEach(t => {
-    document.getElementById(`at-${t[0]}${t==='forgot'?'p':''}${t==='register'?'g':''}${t==='login'?'i':''}`)?.classList.toggle('active',tab===t);
+  document.getElementById('at-li').classList.toggle('active', tab==='login');
+  document.getElementById('at-rg').classList.toggle('active', tab==='register');
+  document.getElementById('at-fp').classList.toggle('active', tab==='forgot');
+  document.getElementById('f-login').classList.toggle('hidden', tab!=='login');
+  document.getElementById('f-register').classList.toggle('hidden', tab!=='register');
+  document.getElementById('f-forgot').classList.toggle('hidden', tab!=='forgot');
+  // #6 Clear all inputs when switching tabs
+  ['li-em','li-pw','rg-nm','rg-em','rg-pw','fp-em'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
   });
-  document.getElementById('at-li').classList.toggle('active',tab==='login');
-  document.getElementById('at-rg').classList.toggle('active',tab==='register');
-  document.getElementById('at-fp').classList.toggle('active',tab==='forgot');
-  document.getElementById('f-login').classList.toggle('hidden',tab!=='login');
-  document.getElementById('f-register').classList.toggle('hidden',tab!=='register');
-  document.getElementById('f-forgot').classList.toggle('hidden',tab!=='forgot');
 };
+
+// #4 Email validation helper
+function isValidEmail(email) {
+  return /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email);
+}
 
 // ── TOPUP ──
 window.switchTopup = tab => {
@@ -1774,9 +1834,9 @@ loadProducts();
 <!-- #11 CSKH FLOATING -->
 <div id="cskh-wrap" style="position:fixed;bottom:96px;right:22px;z-index:498;display:flex;flex-direction:column;align-items:center;gap:9px">
   <div id="cskh-menu" style="display:none;flex-direction:column;gap:9px;align-items:center">
-    <a href="https://t.me/+84965126881" target="_blank" class="cskh-opt" style="background:#229ED9" title="Telegram"><i class="fab fa-telegram"></i></a>
-    <a href="https://zalo.me/0357" target="_blank" class="cskh-opt" style="background:#0068FF" title="Zalo"><span style="font-weight:800;font-size:12px">ZL</span></a>
-    <a href="https://discord.gg/abuburoblox" target="_blank" class="cskh-opt" style="background:#7289DA" title="Discord"><i class="fab fa-discord"></i></a>
+    <a href="https://t.me/yourusername" target="_blank" class="cskh-opt" style="background:#229ED9" title="Telegram"><i class="fab fa-telegram"></i></a>
+    <a href="https://zalo.me/0000000000" target="_blank" class="cskh-opt" style="background:#0068FF" title="Zalo"><span style="font-weight:800;font-size:12px">ZL</span></a>
+    <a href="https://discord.gg/yourserver" target="_blank" class="cskh-opt" style="background:#7289DA" title="Discord"><i class="fab fa-discord"></i></a>
   </div>
   <button id="cskh-btn" onclick="toggleCSKH()" style="width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--pink));border:none;border-radius:50%;cursor:pointer;font-size:20px;box-shadow:0 4px 18px var(--pglow);transition:transform .2s;display:flex;align-items:center;justify-content:center" title="Hỗ trợ">💬</button>
 </div>
