@@ -326,6 +326,14 @@ select.fi3{cursor:pointer;}
 /* UTILS */
 .hidden{display:none!important;}
 .wf{width:100%;}
+/* ── SORT BUTTONS #6 ── */
+.sort-btn{padding:6px 13px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:20px;color:var(--text2);font-family:var(--fb);font-size:12px;font-weight:600;cursor:pointer;transition:var(--tr);}
+.sort-btn:hover{border-color:var(--primary);color:var(--primary);}
+.sort-btn.active{background:rgba(255,30,80,.15);border-color:var(--primary);color:var(--primary);}
+/* ── CSKH #11 ── */
+.cskh-opt{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:transform .2s cubic-bezier(.34,1.56,.64,1);}
+.cskh-opt:hover{transform:scale(1.15);}
+#cskh-btn:hover{transform:scale(1.1)!important;}
 @media(max-width:1024px){#hero{grid-template-columns:1fr;}.hero-side{flex-direction:row;}.hs-card{flex:1;}.stats{grid-template-columns:repeat(2,1fr);}.fgrid{grid-template-columns:1fr 1fr;}}
 @media(max-width:768px){.cnav{display:none;}.stats{grid-template-columns:repeat(2,1fr);}.pgrid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));}.pdtl{grid-template-columns:1fr;}.adm{grid-template-columns:1fr;}.asb{flex-direction:row;overflow-x:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,.055);border-radius:12px 12px 0 0;padding:9px;}.fgrid{grid-template-columns:1fr;}}
 
@@ -375,16 +383,8 @@ select.fi3{cursor:pointer;}
     </a>
     <nav class="cnav" style="display:none"></nav>
     <div class="hacts">
-      <!-- Balance chip (shown when logged in) -->
       <div id="bal-wrap" class="hidden bal-chip" onclick="openM('m-topup')" title="Nạp tiền">
-        <span>💰</span>
-        <span id="bal-val">0đ</span>
-        <span class="bal-plus">+</span>
-      </div>
-      <div class="cart-wrap">
-        <button class="btn btn-gh" onclick="openM('m-cart')"><i class="fas fa-shopping-cart"></i>
-          <span class="cart-badge" id="cbadge">0</span>
-        </button>
+        <span>💰</span><span id="bal-val">0đ</span><span class="bal-plus">+</span>
       </div>
       <div id="g-acts">
         <button class="btn btn-ol" onclick="openAuth('login')"><i class="fas fa-sign-in-alt"></i><span class="hbtx"> Đăng nhập</span></button>
@@ -436,17 +436,14 @@ select.fi3{cursor:pointer;}
       </div>
     </div>
     <div class="hero-side">
-      <div class="hs-card" onclick="curUser?openM('m-topup'):openAuth('login')">
-        <div class="hs-icon">📱</div>
-        <div class="hs-title">Nạp bằng thẻ cào</div>
-        <div class="hs-sub">Viettel · Mobifone · Vinaphone</div>
-        <span class="hs-badge bg-hot">NHANH</span>
-      </div>
-      <div class="hs-card" onclick="curUser?openTopupQR():openAuth('login')">
-        <div class="hs-icon">🏦</div>
-        <div class="hs-title">Nạp QR ngân hàng</div>
-        <div class="hs-sub">Tự động · Tối thiểu 10.000đ</div>
-        <span class="hs-badge bg-new">TỰ ĐỘNG</span>
+      <div class="hs-card" style="cursor:default;flex:1">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font-family:var(--fd);font-size:13px;font-weight:700;color:var(--gold)">🏆 TOP NẠP THÁNG</div>
+          <div style="font-size:10.5px;color:var(--text3)" id="topnap-month"></div>
+        </div>
+        <div id="topnap-list" style="display:flex;flex-direction:column;gap:7px">
+          <div style="text-align:center;color:var(--text3);font-size:12.5px;padding:10px">Đang tải...</div>
+        </div>
       </div>
     </div>
   </section>
@@ -466,6 +463,13 @@ select.fi3{cursor:pointer;}
       <button class="tb" data-cat="gamepass" onclick="filterP('gamepass',this)"><i class="fas fa-gamepad"></i> GamePass <span class="tc" id="c-gamepass">0</span></button>
       <button class="tb" data-cat="item" onclick="filterP('item',this)"><i class="fas fa-magic"></i> Items <span class="tc" id="c-item">0</span></button>
       <button class="tb" data-cat="service" onclick="filterP('service',this)"><i class="fas fa-hands-helping"></i> Cày thuê <span class="tc" id="c-service">0</span></button>
+    </div>
+    <!-- #6 Sort filter -->
+    <div style="display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
+      <span style="font-size:12px;color:var(--text3)">Sắp xếp:</span>
+      <button class="sort-btn active" id="s-def" onclick="setSort('default',this)">Mặc định</button>
+      <button class="sort-btn" id="s-asc" onclick="setSort('asc',this)"><i class="fas fa-arrow-up"></i> Thấp → Cao</button>
+      <button class="sort-btn" id="s-desc" onclick="setSort('desc',this)"><i class="fas fa-arrow-down"></i> Cao → Thấp</button>
     </div>
     <div class="pgrid" id="pgrid"><div class="spin"></div></div>
   </section>
@@ -581,11 +585,8 @@ select.fi3{cursor:pointer;}
         <span id="cart-bal-display" style="font-weight:700">0đ</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:9px">
-        <button class="btn btn-pr wf" style="justify-content:center;padding:12px;font-size:14px" onclick="checkoutBalance()">
+        <button class="btn btn-pr wf" style="justify-content:center;padding:13px;font-size:14px" onclick="checkoutBalance()">
           <i class="fas fa-wallet"></i> Thanh toán bằng số dư
-        </button>
-        <button class="btn btn-gh wf" style="justify-content:center;padding:10px;font-size:13px" onclick="openM('m-topup');closeM('m-cart')">
-          <i class="fas fa-plus-circle"></i> Nạp thêm số dư
         </button>
       </div>
       <p style="text-align:center;font-size:11.5px;color:var(--text3);margin-top:11px"><i class="fas fa-lock"></i> Giao dịch bảo mật bởi Firebase</p>
@@ -593,11 +594,18 @@ select.fi3{cursor:pointer;}
   </div>
 </div>
 
-<!-- ORDERS HISTORY -->
+<!-- ORDERS HISTORY #5 -->
 <div class="moverlay" id="m-orders">
-  <div class="modal">
-    <div class="mhdr"><div class="mtitle">📋 Lịch sử đơn hàng</div><button class="mclose" onclick="closeM('m-orders')"><i class="fas fa-times"></i></button></div>
-    <div class="mbody" id="m-orders-body"><div class="spin"></div></div>
+  <div class="modal mlg">
+    <div class="mhdr"><div class="mtitle">📋 Lịch sử tài khoản</div><button class="mclose" onclick="closeM('m-orders')"><i class="fas fa-times"></i></button></div>
+    <div class="mbody" style="padding-top:12px">
+      <div class="atabs" style="margin-bottom:16px">
+        <button class="atab active" id="ht-buy" onclick="switchHistory('buy')">🛒 Mua hàng</button>
+        <button class="atab" id="ht-topup" onclick="switchHistory('topup')">💰 Nạp tiền</button>
+        <button class="atab" id="ht-bal" onclick="switchHistory('bal')">📊 Biến động số dư</button>
+      </div>
+      <div id="m-orders-body"><div class="spin"></div></div>
+    </div>
   </div>
 </div>
 
@@ -614,24 +622,30 @@ select.fi3{cursor:pointer;}
   <div class="modal">
     <div class="mhdr"><div class="mtitle">💰 Nạp số dư</div><button class="mclose" onclick="closeM('m-topup')"><i class="fas fa-times"></i></button></div>
     <div class="mbody">
-      <!-- Current balance -->
-      <div style="padding:12px 16px;background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.18);border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+      <div style="padding:11px 15px;background:rgba(0,255,136,.07);border:1px solid rgba(0,255,136,.18);border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
         <span style="font-size:13px;color:var(--text2)"><i class="fas fa-wallet"></i> Số dư hiện tại</span>
         <span style="font-family:var(--fd);font-size:20px;font-weight:700;color:var(--green)" id="topup-bal">0đ</span>
       </div>
-      <!-- Method tabs -->
-      <div class="atabs" style="margin-bottom:18px">
+      <div class="atabs" style="margin-bottom:16px">
         <button class="atab active" id="tu-t1" onclick="switchTopup('card')">📱 Thẻ cào</button>
         <button class="atab" id="tu-t2" onclick="switchTopup('qr')">🏦 QR ngân hàng</button>
       </div>
-      <!-- Card tab -->
+
+      <!-- ── CARD TAB ── -->
       <div id="tu-card">
         <div style="background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.2);border-radius:9px;padding:10px 13px;margin-bottom:14px;font-size:12.5px;color:var(--gold);display:flex;align-items:center;gap:8px">
           <i class="fas fa-percent"></i>
-          <span><strong>Chiết khấu 20%</strong> — Nạp thẻ 10.000đ → nhận <strong>8.000đ</strong> vào số dư</span>
+          <span><strong>Chiết khấu 20%</strong> — Nạp 10.000đ → nhận <strong>8.000đ</strong> vào số dư</span>
         </div>
+        <div class="fg">
           <label class="fl">Nhà mạng</label>
-          <select class="fi3" id="nt-nm"><option>Viettel</option><option>Mobifone</option><option>Vinaphone</option><option>Vietnamobile</option><option>Gmobile</option></select>
+          <select class="fi3" id="nt-nm">
+            <option value="Viettel">Viettel</option>
+            <option value="Mobifone">Mobifone</option>
+            <option value="Vinaphone">Vinaphone</option>
+            <option value="Vietnamobile">Vietnamobile</option>
+            <option value="Gmobile">Gmobile</option>
+          </select>
         </div>
         <div class="fg">
           <label class="fl">Mệnh giá</label>
@@ -644,23 +658,33 @@ select.fi3{cursor:pointer;}
             <button class="mg-btn" onclick="selMG(this,200000)">200K</button>
           </div>
         </div>
-        <div class="fg"><label class="fl">Mã thẻ</label><input type="text" class="fi3" id="nt-ma" placeholder="Nhập mã thẻ..."></div>
-        <div class="fg"><label class="fl">Số serial</label><input type="text" class="fi3" id="nt-sl" placeholder="Nhập số serial..."></div>
-        <button class="btn btn-pr wf" style="justify-content:center;margin-top:4px" onclick="submitNT()"><i class="fas fa-bolt"></i> Nạp thẻ</button>
+        <div class="fg">
+          <label class="fl">Mã thẻ <span style="color:var(--text3);font-weight:400">(chỉ số, không dấu cách)</span></label>
+          <input type="text" class="fi3" id="nt-ma" placeholder="VD: 123456789012" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')">
+        </div>
+        <div class="fg">
+          <label class="fl">Số serial <span style="color:var(--text3);font-weight:400">(chỉ số, không dấu cách)</span></label>
+          <input type="text" class="fi3" id="nt-sl" placeholder="VD: 098765432100" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')">
+        </div>
+        <button class="btn btn-pr wf" style="justify-content:center;margin-top:4px" onclick="submitNT()"><i class="fas fa-bolt"></i> Nạp thẻ ngay</button>
         <div class="alert a-warn" style="margin-top:12px;margin-bottom:0">
           <i class="fas fa-exclamation-triangle"></i>
-          <span>Thẻ xử lý 1–5 phút. Không nhập lại thẻ đã nạp.</span>
+          <span>Thẻ xử lý 1–5 phút. Không nhập lại thẻ đã nạp. Admin duyệt thủ công.</span>
         </div>
       </div>
-      <!-- QR tab -->
+
+      <!-- ── QR TAB ── -->
       <div id="tu-qr" class="hidden">
-        <!-- #11 Mã định danh -->
-        <div style="background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.25);border-radius:10px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between">
+        <div style="background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.25);border-radius:10px;padding:11px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between">
           <span style="font-size:12.5px;color:var(--text2)">🔑 Mã định danh của bạn</span>
-          <span id="user-code-display" style="font-family:var(--fd);font-size:16px;font-weight:900;color:var(--gold);letter-spacing:2px">—</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span id="user-code-display" style="font-family:var(--fd);font-size:16px;font-weight:900;color:var(--gold);letter-spacing:2px">—</span>
+            <button onclick="copyText(document.getElementById('user-code-display').textContent)" style="background:rgba(255,215,0,.15);border:none;color:var(--gold);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:11px">Copy</button>
+          </div>
         </div>
-          <label class="fl">Số tiền muốn nạp (tối thiểu 10.000đ)</label>
-          <div class="mg-grid">
+        <div class="fg">
+          <label class="fl">Chọn số tiền muốn nạp</label>
+          <div class="mg-grid" id="qr-mg-grid">
             <button class="mg-btn active" onclick="selQRAmt(this,10000)">10K</button>
             <button class="mg-btn" onclick="selQRAmt(this,20000)">20K</button>
             <button class="mg-btn" onclick="selQRAmt(this,50000)">50K</button>
@@ -669,20 +693,31 @@ select.fi3{cursor:pointer;}
             <button class="mg-btn" onclick="selQRAmt(this,500000)">500K</button>
           </div>
         </div>
-        <div style="text-align:center;margin:16px 0">
-          <img id="qr-img" src="" alt="QR" style="width:200px;height:200px;border-radius:12px;border:3px solid var(--border);object-fit:cover">
-          <div style="margin-top:10px;font-size:12.5px;color:var(--text3)">Quét QR để chuyển khoản</div>
-          <div id="qr-note" style="margin-top:6px;font-family:var(--fd);font-size:13px;color:var(--gold)"></div>
-        </div>
-        <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:14px;font-size:12.5px">
-          <div class="dta" style="margin-bottom:7px"><span class="dta-k">Ngân hàng</span><span style="font-weight:700">MB Bank</span></div>
-          <div class="dta" style="margin-bottom:7px"><span class="dta-k">Số TK</span><span style="font-weight:700" id="qr-stk">—</span></div>
-          <div class="dta" style="margin-bottom:7px"><span class="dta-k">Chủ TK</span><span style="font-weight:700" id="qr-ctk">—</span></div>
-          <div class="dta"><span class="dta-k">Nội dung</span><span style="font-weight:700;color:var(--primary)" id="qr-nd">—</span></div>
-        </div>
-        <div class="alert a-info" style="margin-top:12px;margin-bottom:0">
-          <i class="fas fa-info-circle"></i>
-          <span>Sau khi chuyển khoản, số dư sẽ được cộng tự động sau 1–10 phút. Vui lòng ghi đúng nội dung.</span>
+        <!-- #3 QR chỉ tạo khi bấm nút, không tự spam Firebase -->
+        <button class="btn btn-pr wf" style="justify-content:center;margin:12px 0 4px" onclick="createQRRequest()">
+          <i class="fas fa-qrcode"></i> Tạo mã QR chuyển khoản
+        </button>
+        <div id="qr-result" style="display:none">
+          <div style="text-align:center;margin:14px 0">
+            <img id="qr-img" src="" alt="QR" style="width:195px;height:195px;border-radius:12px;border:3px solid var(--border)">
+            <div style="margin-top:8px;font-size:12px;color:var(--text3)">Quét để chuyển khoản</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border-radius:10px;padding:13px;font-size:12.5px">
+            <div class="dta" style="margin-bottom:7px"><span class="dta-k">Ngân hàng</span><span style="font-weight:700">MB Bank</span></div>
+            <div class="dta" style="margin-bottom:7px"><span class="dta-k">Số TK</span><span style="font-weight:700" id="qr-stk">—</span></div>
+            <div class="dta" style="margin-bottom:7px"><span class="dta-k">Chủ TK</span><span style="font-weight:700" id="qr-ctk">—</span></div>
+            <div class="dta">
+              <span class="dta-k">Nội dung CK</span>
+              <div style="display:flex;align-items:center;gap:7px">
+                <span style="font-weight:700;color:var(--primary)" id="qr-nd">—</span>
+                <button onclick="copyText(document.getElementById('qr-nd').textContent)" style="background:rgba(255,30,80,.15);border:none;color:var(--primary);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:11px">Copy</button>
+              </div>
+            </div>
+          </div>
+          <div class="alert a-info" style="margin-top:12px;margin-bottom:0">
+            <i class="fas fa-info-circle"></i>
+            <span>Ghi <strong>đúng nội dung</strong> khi chuyển. Admin xác nhận thủ công trong 5–30 phút.</span>
+          </div>
         </div>
       </div>
     </div>
@@ -731,7 +766,8 @@ select.fi3{cursor:pointer;}
 import { initializeApp }               from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
          onAuthStateChanged, signOut, updateProfile,
-         sendPasswordResetEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential }
+         sendPasswordResetEmail, updatePassword, EmailAuthProvider,
+         reauthenticateWithCredential, setPersistence, browserLocalPersistence }
                                         from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js';
 import { getDatabase, ref, set, get, push, onValue, update, remove, serverTimestamp, query, orderByChild, limitToLast }
                                         from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js';
@@ -754,6 +790,8 @@ const firebaseConfig = {
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getDatabase(app);
+// #1 #12 Auth persistence - giữ đăng nhập qua refresh
+setPersistence(auth, browserLocalPersistence).catch(()=>{});
 
 // ── STATE ──
 let curUser   = null;
@@ -762,10 +800,13 @@ let curBalance = 0;
 let cart      = JSON.parse(localStorage.getItem('rbxviet_cart') || '[]');
 let products  = [];
 let curCat    = 'all';
+let curSort   = 'default'; // #6
 let selMG_val = 10000;
 let selQR_val = 10000;
+let pendingSvcId = null; // #7
 let editId    = null;
 let curAdmTab = 'products';
+let curHistTab = 'buy'; // #5
 
 // ── BANK CONFIG (thay bằng thông tin ngân hàng của bạn) ──
 // BANK config below near ImgBB
@@ -946,44 +987,77 @@ function updateStats() {
   // Stats section removed - no-op
 }
 
+window.setSort = (s, btn) => {
+  curSort = s;
+  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderProducts(curCat);
+};
+
+// #7 Service note
+let pendingSvcProduct = null;
+window.openServiceNote = id => {
+  const p = products.find(x=>x.id===id);
+  if (!p) return;
+  pendingSvcProduct = p;
+  document.getElementById('m-note-product').innerHTML = `${ICONS.service} <strong>${p.name}</strong> — ${fmtP(p.price)}`;
+  document.getElementById('svc-acc').value = '';
+  document.getElementById('svc-note').value = '';
+  openM('m-note');
+};
+window.confirmServiceAdd = () => {
+  if (!pendingSvcProduct) return;
+  const acc = document.getElementById('svc-acc').value.trim();
+  const note = document.getElementById('svc-note').value.trim();
+  if (!acc) return toast('Nhập tên tài khoản Roblox!','error');
+  const p = pendingSvcProduct;
+  const ex = cart.find(c=>c.id===p.id);
+  if (ex) ex.qty=(ex.qty||1)+1;
+  else cart.push({id:p.id,name:p.name,price:p.price,category:p.category,qty:1,serviceAcc:acc,serviceNote:note});
+  saveCart();
+  closeM('m-note');
+  toast(`Đã thêm "${p.name}" vào giỏ 🛒`,'success');
+};
+
 function renderProducts(cat) {
   const grid = document.getElementById('pgrid');
   let list = cat==='all' ? products : products.filter(p=>p.category===cat);
-  // #13 Sort: in-stock first, out-of-stock to bottom
+  // #13 out-of-stock last, #6 price sort
   list = [...list].sort((a,b)=>{
-    const aOk = (a.stock||0) > 0, bOk = (b.stock||0) > 0;
-    if (aOk && !bOk) return -1;
-    if (!aOk && bOk) return 1;
+    const aOk=(a.stock||0)>0, bOk=(b.stock||0)>0;
+    if(aOk&&!bOk) return -1; if(!aOk&&bOk) return 1;
+    if(curSort==='asc') return (a.price||0)-(b.price||0);
+    if(curSort==='desc') return (b.price||0)-(a.price||0);
     return 0;
   });
   if (!list.length) {
-    grid.innerHTML = `<div class="empty"><i class="fas fa-box-open"></i><p>${isAdmin?'Chưa có sản phẩm. Thêm trong Admin Panel!':'Vui lòng quay lại sau!'}</p></div>`;
+    grid.innerHTML=`<div class="empty"><i class="fas fa-box-open"></i><p>${isAdmin?'Thêm sản phẩm trong Admin Panel!':'Vui lòng quay lại sau!'}</p></div>`;
     return;
   }
   grid.innerHTML = list.map(p => {
-    const pct = p.stock||p.sold ? Math.min(100,((p.sold||0)/((p.stock||0)+(p.sold||0)))*100) : 0;
-    const outOfStock = (p.stock||0) <= 0;
-    return `<div class="pcard${outOfStock?' oos':''}" onclick="openProd('${p.id}')" style="${outOfStock?'opacity:.55;':''}">
+    const pct=p.stock||p.sold?Math.min(100,((p.sold||0)/((p.stock||0)+(p.sold||0)))*100):0;
+    const oos=(p.stock||0)<=0;
+    const addAction=p.category==='service'?`openServiceNote('${p.id}')`:`addCart('${p.id}')`;
+    return `<div class="pcard${oos?' oos':''}" onclick="openProd('${p.id}')" style="${oos?'opacity:.55':''}">
       <div class="pimg">
-        ${p.image?`<img src="${p.image}" alt="${p.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1"
-          onerror="this.style.display='none'" onload="">`:''}
+        ${p.image?`<img src="${p.image}" alt="${p.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1" onerror="this.style.display='none'">`:''}
         <div class="pph" style="z-index:0">${ICONS[p.category]||'📦'}</div>
         <div class="pov" style="z-index:2"></div>
         ${p.featured?'<span class="pbadge bg-hot" style="z-index:3">HOT</span>':''}
         ${p.isNew?'<span class="pbadge bg-new" style="left:auto;right:9px;z-index:3">NEW</span>':''}
-        ${outOfStock?'<span style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);color:var(--primary);font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px;z-index:3;white-space:nowrap">HẾT HÀNG</span>':''}
+        ${oos?'<span style="position:absolute;bottom:7px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.8);color:var(--primary);font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;z-index:3">HẾT HÀNG</span>':''}
       </div>
       <div class="pinfo">
         <div class="pcat">${NAMES[p.category]||'Khác'}</div>
         <div class="pname">${p.name}</div>
-        <div class="pdesc">${p.description||'Xem chi tiết để biết thêm'}</div>
+        <div class="pdesc">${p.description||'Xem chi tiết'}</div>
         <div class="sbar"><div class="sfill" style="width:${pct}%"></div></div>
         <div class="pfoot">
           <div><span class="pprice">${fmtP(p.price)}</span></div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
             <div class="psold"><i class="fas fa-fire"></i>${p.sold||0} đã bán</div>
-            <button class="pbuy" ${outOfStock?'disabled style="opacity:.4;cursor:not-allowed"':''} onclick="event.stopPropagation();${outOfStock?'':` addCart('${p.id}')`}">
-              <i class="fas fa-${outOfStock?'ban':'plus'}"></i> ${outOfStock?'Hết':'Thêm'}
+            <button class="pbuy" ${oos?'disabled style="opacity:.4;cursor:not-allowed"':''} onclick="event.stopPropagation();${oos?'':addAction}">
+              <i class="fas fa-${oos?'ban':p.category==='service'?'headset':'plus'}"></i> ${oos?'Hết':p.category==='service'?'Đặt':'Thêm'}
             </button>
           </div>
         </div>
@@ -1577,10 +1651,86 @@ function buildQR(amount) {
     amount, note, status:'pending', timestamp:Date.now() }).catch(()=>{});
 }
 
-window.openTopupQR = () => {
+// ── TOPUP QR - #3 only create record on button click ──
+window.selQRAmt = (btn, val) => {
+  document.querySelectorAll('#qr-mg-grid .mg-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selQR_val = val;
+  // #3 don't auto-push, just update the code display
+  const codeEl = document.getElementById('user-code-display');
+  if (codeEl && curUser) codeEl.textContent = getUserCode();
+};
+
+window.createQRRequest = async () => {
   if (!curUser) { openAuth('login'); return; }
-  openM('m-topup');
-  setTimeout(()=>switchTopup('qr'), 100);
+  const code = getUserCode();
+  const note = `${BANK.prefix}${code}`;
+  const qrUrl = `https://img.vietqr.io/image/${BANK.bank}-${BANK.stk}-compact.png?amount=${selQR_val}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(BANK.ctk)}`;
+  document.getElementById('qr-img').src = qrUrl;
+  document.getElementById('qr-nd').textContent = note;
+  document.getElementById('qr-stk').textContent = BANK.stk;
+  document.getElementById('qr-ctk').textContent = BANK.ctk;
+  document.getElementById('qr-result').style.display = 'block';
+  // #3 only push once when user explicitly clicks
+  try {
+    await push(ref(db,'naptheqr'), { userId:curUser.uid, userEmail:curUser.email, userCode:code,
+      amount:selQR_val, note, status:'pending', timestamp:Date.now() });
+    toast('Đã tạo mã QR! Chuyển khoản và chờ admin xác nhận.','success','🏦 QR ngân hàng');
+  } catch(e) { toast('Lỗi tạo QR, thử lại!','error'); }
+};
+
+// #4 Copy text helper
+window.copyText = txt => {
+  navigator.clipboard.writeText(txt).then(()=>toast('Đã copy vào clipboard!','success','📋 Copy'))
+    .catch(()=>{ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast('Đã copy!','success','📋 Copy'); });
+};
+
+// #11 CSKH toggle
+window.toggleCSKH = () => {
+  const menu = document.getElementById('cskh-menu');
+  const btn = document.getElementById('cskh-btn');
+  const open = menu.style.display==='flex';
+  menu.style.display = open ? 'none' : 'flex';
+  btn.style.transform = open ? 'scale(1)' : 'scale(1.1) rotate(20deg)';
+};
+
+// #10 Load Top Nạp Tháng
+function loadTopNap() {
+  const now = new Date();
+  document.getElementById('topnap-month').textContent = `Tháng ${now.getMonth()+1}/${now.getFullYear()}`;
+  // Read completed napthe this month
+  get(ref(db,'napthe')).then(snap => {
+    const topMap = {};
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+    if (snap.exists()) {
+      snap.forEach(c => {
+        const d = c.val();
+        if (d.status==='completed' && d.timestamp >= startOfMonth) {
+          topMap[d.userEmail] = (topMap[d.userEmail]||0) + Math.floor((d.menhgia||0)*0.8);
+        }
+      });
+    }
+    const sorted = Object.entries(topMap).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    const medals = ['🥇','🥈','🥉','4️⃣','5️⃣'];
+    const el = document.getElementById('topnap-list');
+    if (!el) return;
+    if (!sorted.length) { el.innerHTML='<div style="text-align:center;color:var(--text3);font-size:12px;padding:8px">Chưa có dữ liệu tháng này</div>'; return; }
+    el.innerHTML = sorted.map(([email,amt],i)=>`
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:rgba(255,255,255,.035);border-radius:8px">
+        <span style="font-size:14px">${medals[i]}</span>
+        <span style="font-size:12px;color:var(--text2);flex:1;margin:0 8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${email.split('@')[0].replace(/(.{3}).+/,'$1***')}</span>
+        <span style="font-size:12px;font-weight:700;color:var(--gold)">${fmtP(amt)}</span>
+      </div>`).join('');
+  }).catch(()=>{});
+}
+
+// #5 History tabs
+window.switchHistory = tab => {
+  curHistTab = tab;
+  ['buy','topup','bal'].forEach(t=>{
+    document.getElementById(`ht-${t}`)?.classList.toggle('active',t===tab);
+  });
+  loadOrders();
 };
 
 // ── IMGBB UPLOAD ──
@@ -1621,6 +1771,38 @@ document.addEventListener('click',e=>{
 saveCart();
 loadProducts();
 </script>
+<!-- #11 CSKH FLOATING -->
+<div id="cskh-wrap" style="position:fixed;bottom:96px;right:22px;z-index:498;display:flex;flex-direction:column;align-items:center;gap:9px">
+  <div id="cskh-menu" style="display:none;flex-direction:column;gap:9px;align-items:center">
+    <a href="https://t.me/+84965126881" target="_blank" class="cskh-opt" style="background:#229ED9" title="Telegram"><i class="fab fa-telegram"></i></a>
+    <a href="https://zalo.me/0357" target="_blank" class="cskh-opt" style="background:#0068FF" title="Zalo"><span style="font-weight:800;font-size:12px">ZL</span></a>
+    <a href="https://discord.gg/abuburoblox" target="_blank" class="cskh-opt" style="background:#7289DA" title="Discord"><i class="fab fa-discord"></i></a>
+  </div>
+  <button id="cskh-btn" onclick="toggleCSKH()" style="width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--pink));border:none;border-radius:50%;cursor:pointer;font-size:20px;box-shadow:0 4px 18px var(--pglow);transition:transform .2s;display:flex;align-items:center;justify-content:center" title="Hỗ trợ">💬</button>
+</div>
+
+<!-- #7 SERVICE NOTE MODAL -->
+<div class="moverlay" id="m-note">
+  <div class="modal">
+    <div class="mhdr"><div class="mtitle">⚡ Ghi chú dịch vụ</div><button class="mclose" onclick="closeM('m-note')"><i class="fas fa-times"></i></button></div>
+    <div class="mbody">
+      <div class="alert a-info" style="margin-bottom:14px"><i class="fas fa-info-circle"></i><span>Nhập thông tin cần thiết để admin thực hiện dịch vụ cày thuê cho bạn.</span></div>
+      <div id="m-note-product" style="background:rgba(255,255,255,.04);border-radius:9px;padding:12px;margin-bottom:14px;font-size:13px;font-weight:600"></div>
+      <div class="fg">
+        <label class="fl">Tên tài khoản Roblox</label>
+        <input type="text" class="fi3" id="svc-acc" placeholder="Tên tài khoản của bạn...">
+      </div>
+      <div class="fg">
+        <label class="fl">Ghi chú thêm (yêu cầu đặc biệt...)</label>
+        <textarea class="fi3" id="svc-note" placeholder="VD: Cày đến level 50, không dùng Robux..." style="height:80px"></textarea>
+      </div>
+      <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="confirmServiceAdd()">
+        <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- LOADING OVERLAY #2 -->
 <div id="auth-loading">
   <div class="load-logo">
