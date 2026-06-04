@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abubu Roblox - Shop Roblox Số 1 Việt Nam</title>
+<title>Abubu Roblox - Shop Số 1 Việt Nam</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -269,11 +269,55 @@ select.fi3{cursor:pointer;}
 .t-tx{flex:1;font-size:12.5px;font-weight:500;}
 @keyframes tin{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
 
+/* ── PREMIUM TOAST #7 ── */
+#tc{position:fixed;top:80px;right:18px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none;}
+.toast{display:flex;align-items:flex-start;gap:13px;padding:15px 16px;border-radius:16px;min-width:295px;max-width:370px;pointer-events:all;animation:tSlide .4s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;backdrop-filter:blur(24px);}
+.toast.success{background:linear-gradient(135deg,rgba(0,35,18,.97),rgba(0,18,9,.97));border:1px solid rgba(0,255,136,.28);box-shadow:0 8px 32px rgba(0,0,0,.55),0 0 0 1px rgba(0,255,136,.08),inset 0 1px 0 rgba(255,255,255,.06);}
+.toast.error{background:linear-gradient(135deg,rgba(40,0,12,.97),rgba(22,0,6,.97));border:1px solid rgba(255,30,80,.35);box-shadow:0 8px 32px rgba(0,0,0,.55),0 0 0 1px rgba(255,30,80,.08),inset 0 1px 0 rgba(255,255,255,.06);}
+.toast.info{background:linear-gradient(135deg,rgba(0,18,38,.97),rgba(0,9,20,.97));border:1px solid rgba(0,212,255,.28);box-shadow:0 8px 32px rgba(0,0,0,.55),0 0 0 1px rgba(0,212,255,.08),inset 0 1px 0 rgba(255,255,255,.06);}
+.toast.warning{background:linear-gradient(135deg,rgba(38,28,0,.97),rgba(20,14,0,.97));border:1px solid rgba(255,215,0,.28);box-shadow:0 8px 32px rgba(0,0,0,.55),0 0 0 1px rgba(255,215,0,.08),inset 0 1px 0 rgba(255,255,255,.06);}
+.toast::after{content:'';position:absolute;bottom:0;left:0;height:3px;width:100%;border-radius:0 0 16px 16px;animation:tBar 3.5s linear forwards;}
+.toast.success::after{background:linear-gradient(90deg,var(--green),rgba(0,255,136,.3));}
+.toast.error::after{background:linear-gradient(90deg,var(--primary),rgba(255,30,80,.3));}
+.toast.info::after{background:linear-gradient(90deg,var(--cyan),rgba(0,212,255,.3));}
+.toast.warning::after{background:linear-gradient(90deg,var(--gold),rgba(255,215,0,.3));}
+.t-ic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.toast.success .t-ic{background:rgba(0,255,136,.12);}
+.toast.error .t-ic{background:rgba(255,30,80,.12);}
+.toast.info .t-ic{background:rgba(0,212,255,.12);}
+.toast.warning .t-ic{background:rgba(255,215,0,.12);}
+.t-body{flex:1;min-width:0;}
+.t-title{font-weight:700;font-size:13px;margin-bottom:3px;}
+.toast.success .t-title{color:var(--green);}
+.toast.error .t-title{color:var(--primary);}
+.toast.info .t-title{color:var(--cyan);}
+.toast.warning .t-title{color:var(--gold);}
+.t-msg{font-size:12.5px;color:var(--text2);line-height:1.45;}
+.t-x{background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;line-height:1;padding:0 0 0 6px;transition:var(--tr);}
+.t-x:hover{color:#fff;}
+@keyframes tSlide{from{opacity:0;transform:translateX(24px) scale(.88)}to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes tBar{from{width:100%}to{width:0%}}
+
+/* ── FLOATING CART #8 ── */
+#fcart{position:fixed;bottom:26px;right:22px;width:58px;height:58px;background:var(--primary);border-radius:50%;display:none;align-items:center;justify-content:center;cursor:pointer;z-index:500;box-shadow:0 6px 24px var(--pglow),0 0 0 0 rgba(255,30,80,.4);font-size:22px;transition:transform .2s cubic-bezier(.34,1.56,.64,1);animation:fcartIn .4s cubic-bezier(.34,1.56,.64,1);}
+#fcart:hover{transform:scale(1.12);}
+#fcart:active{transform:scale(.95);}
+#fbadge{position:absolute;top:-5px;right:-5px;min-width:22px;height:22px;background:#fff;color:var(--primary);border-radius:11px;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 5px;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+@keyframes fcartIn{from{opacity:0;transform:scale(0) rotate(-180deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+.fcart-shake{animation:fShake .4s ease!important;}
+@keyframes fShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px) rotate(-5deg)}40%{transform:translateX(5px) rotate(5deg)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+
+/* ── LOADING OVERLAY #2 ── */
+#auth-loading{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;transition:opacity .4s ease;}
+#auth-loading.fade{opacity:0;pointer-events:none;}
+.load-logo{display:flex;align-items:center;gap:10px;}
+.load-logo-ic{width:50px;height:50px;background:var(--primary);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 0 30px var(--pglow);animation:lpulse 1.5s ease-in-out infinite;}
+@keyframes lpulse{0%,100%{box-shadow:0 0 20px var(--pglow)}50%{box-shadow:0 0 40px rgba(255,30,80,.8)}}
+
+
 /* SPINNER */
 .spin{width:38px;height:38px;border:3px solid rgba(255,30,80,.18);border-top-color:var(--primary);border-radius:50%;animation:spinA .8s linear infinite;margin:40px auto;}
 @keyframes spinA{to{transform:rotate(360deg)}}
-
-/* ALERTS */
 .alert{padding:12px 14px;border-radius:9px;font-size:12.5px;display:flex;align-items:flex-start;gap:9px;margin-bottom:14px;}
 .a-info{background:rgba(0,212,255,.09);border:1px solid rgba(0,212,255,.18);color:var(--cyan);}
 .a-warn{background:rgba(255,215,0,.09);border:1px solid rgba(255,215,0,.18);color:var(--gold);}
@@ -433,7 +477,7 @@ select.fi3{cursor:pointer;}
   <div class="fi2">
     <div class="fgrid">
       <div class="fbrand">
-        <a class="logo" href="#"><div class="logo-ic">🎮</div><span class="logo-tx">RBXViet</span></a>
+        <a class="logo" href="#"><div class="logo-ic">🎮</div><span class="logo-tx">Abubu Roblox</span></a>
         <p>Shop bán đồ Roblox uy tín số 1 Việt Nam. Cam kết giá tốt nhất, giao hàng tự động, hỗ trợ 24/7.</p>
         <div class="fsoc">
           <a class="fsb" href="#"><i class="fab fa-facebook-f"></i></a>
@@ -466,13 +510,14 @@ select.fi3{cursor:pointer;}
         <ul>
           <li><a href="#"><i class="fab fa-facebook" style="color:#1877f2"></i> Facebook Fanpage</a></li>
           <li><a href="#"><i class="fab fa-discord" style="color:#7289da"></i> Discord Server</a></li>
-          <li><a href="#"><i class="fab fa-youtube" style="color:#ff0000"></i> Youtube Channel</a></li>
+          <li><a href="#"><i class="fab fa-tiktok" style="color:#ff0050"></i> TikTok</a></li>
+          <li><a href="#"><svg style="width:14px;height:14px;fill:#00b4d8;vertical-align:middle;margin-right:2px" viewBox="0 0 24 24"><path d="M12.5 2C7 2 2.5 6.5 2.5 12S7 22 12.5 22c1.5 0 3-.3 4.3-.9l4.2 1.1-1.1-4.1c.7-1.4 1.1-2.9 1.1-4.6C21 6.5 17.8 2 12.5 2zm5.5 13.7l.7 2.6-2.6-.7-.4.2c-1 .5-2.1.8-3.2.8-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7c0 1.2-.3 2.3-.9 3.3l-.3.4-.3-.6z"/></svg> Zalo</a></li>
           <li><a href="#"><i class="fas fa-envelope" style="color:var(--primary)"></i> Email hỗ trợ</a></li>
         </ul>
       </div>
     </div>
     <div class="fbot">
-      <span>© 2024 RBXViet. All rights reserved.</span>
+      <span>© 2024 Abubu Roblox. All rights reserved.</span>
       <span>Không liên kết chính thức với Roblox Corporation.</span>
     </div>
   </div>
@@ -507,7 +552,7 @@ select.fi3{cursor:pointer;}
         <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="doRegister()"><i class="fas fa-user-plus"></i> Tạo tài khoản</button>
       </div>
       <div id="f-forgot" class="hidden">
-        <div class="alert a-info" style="margin-bottom:14px"><i class="fas fa-info-circle"></i><span>Nhập email đăng ký. Chúng tôi sẽ gửi link đặt lại mật khẩu.</span></div>
+        <div class="alert a-info" style="margin-bottom:14px"><i class="fas fa-info-circle"></i><span>Nhập email đăng ký. Link đặt lại sẽ được gửi về hộp thư của bạn. <strong>Lưu ý:</strong> Cần thêm domain vào Firebase Console → Auth → Authorized Domains.</span></div>
         <div class="fg"><label class="fl">Email</label><input type="email" class="fi3" id="fp-em" placeholder="email@example.com" onkeydown="if(event.key==='Enter')doForgot()"></div>
         <button class="btn btn-pr wf" style="justify-content:center;padding:13px" onclick="doForgot()"><i class="fas fa-paper-plane"></i> Gửi email đặt lại</button>
       </div>
@@ -581,7 +626,10 @@ select.fi3{cursor:pointer;}
       </div>
       <!-- Card tab -->
       <div id="tu-card">
-        <div class="fg">
+        <div style="background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.2);border-radius:9px;padding:10px 13px;margin-bottom:14px;font-size:12.5px;color:var(--gold);display:flex;align-items:center;gap:8px">
+          <i class="fas fa-percent"></i>
+          <span><strong>Chiết khấu 20%</strong> — Nạp thẻ 10.000đ → nhận <strong>8.000đ</strong> vào số dư</span>
+        </div>
           <label class="fl">Nhà mạng</label>
           <select class="fi3" id="nt-nm"><option>Viettel</option><option>Mobifone</option><option>Vinaphone</option><option>Vietnamobile</option><option>Gmobile</option></select>
         </div>
@@ -606,7 +654,11 @@ select.fi3{cursor:pointer;}
       </div>
       <!-- QR tab -->
       <div id="tu-qr" class="hidden">
-        <div class="fg">
+        <!-- #11 Mã định danh -->
+        <div style="background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.25);border-radius:10px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:12.5px;color:var(--text2)">🔑 Mã định danh của bạn</span>
+          <span id="user-code-display" style="font-family:var(--fd);font-size:16px;font-weight:900;color:var(--gold);letter-spacing:2px">—</span>
+        </div>
           <label class="fl">Số tiền muốn nạp (tối thiểu 10.000đ)</label>
           <div class="mg-grid">
             <button class="mg-btn active" onclick="selQRAmt(this,10000)">10K</button>
@@ -716,7 +768,7 @@ let editId    = null;
 let curAdmTab = 'products';
 
 // ── BANK CONFIG (thay bằng thông tin ngân hàng của bạn) ──
-const BANK = { bank:'MB', stk:'2008777777777', ctk:'NGUYEN THE ANH', prefix:'NAPGAME' };
+// BANK config below near ImgBB
 
 // ── ICONS / NAMES ──
 const ICONS = { account:'👤', robux:'💎', gamepass:'🎮', item:'✨', service:'⚡' };
@@ -725,6 +777,10 @@ const NAMES = { account:'Tài khoản', robux:'Robux', gamepass:'GamePass', item
 // ── AUTH STATE ──
 onAuthStateChanged(auth, async user => {
   curUser = user;
+  // #2 Hide loading overlay
+  const loader = document.getElementById('auth-loading');
+  if (loader) { loader.classList.add('fade'); setTimeout(()=>loader.style.display='none',450); }
+
   if (user) {
     const snap = await get(ref(db, `users/${user.uid}`));
     const udata = snap.exists() ? snap.val() : {};
@@ -737,7 +793,7 @@ onAuthStateChanged(auth, async user => {
     document.getElementById('u-acts').classList.remove('hidden');
     document.getElementById('bal-wrap').classList.remove('hidden');
     document.getElementById('bal-val').textContent = fmtP(curBalance);
-    // Watch balance in realtime
+    // Watch balance realtime
     onValue(ref(db, `users/${user.uid}/balance`), bSnap => {
       curBalance = bSnap.exists() ? bSnap.val() : 0;
       document.getElementById('bal-val').textContent = fmtP(curBalance);
@@ -751,6 +807,8 @@ onAuthStateChanged(auth, async user => {
       document.getElementById('adm-add-link').style.display = 'inline-flex';
       document.getElementById('adm-add-link').classList.remove('hidden');
     }
+    // #12 Welcome banner
+    showWelcomeBanner(name);
   } else {
     isAdmin = false; curBalance = 0;
     document.getElementById('g-acts').classList.remove('hidden');
@@ -760,6 +818,40 @@ onAuthStateChanged(auth, async user => {
     document.getElementById('adm-add-link').style.display = 'none';
   }
 });
+
+// #12 Welcome banner
+function showWelcomeBanner(name) {
+  if (!curUser) return;
+  const key = `wb_hide_${curUser.uid}`;
+  const hideUntil = localStorage.getItem(key);
+  if (hideUntil && Date.now() < parseInt(hideUntil)) return;
+  if (document.getElementById('welcome-banner')) return;
+  const el = document.createElement('div');
+  el.id = 'welcome-banner';
+  el.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(14px);z-index:3000;display:flex;align-items:center;justify-content:center';
+  el.innerHTML = `
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:34px 28px;max-width:360px;width:90%;text-align:center;animation:tSlide .45s cubic-bezier(.34,1.56,.64,1);box-shadow:0 24px 80px rgba(0,0,0,.7)">
+      <div style="font-size:58px;margin-bottom:12px">🎮</div>
+      <div style="font-family:var(--fd);font-size:19px;font-weight:900;margin-bottom:7px;background:linear-gradient(135deg,#fff,var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent">
+        Chào ${name}!
+      </div>
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:22px">
+        Chào mừng đến với <strong style="color:var(--primary)">Abubu Roblox Shop</strong> 🎉<br>
+        Số dư hiện tại: <strong style="color:var(--green)">${fmtP(curBalance)}</strong>
+      </p>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <button onclick="document.getElementById('welcome-banner').remove()"
+          style="padding:13px;background:var(--primary);color:#fff;border:none;border-radius:11px;font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px var(--pglow);transition:all .2s">
+          🚀 Vào mua sắm ngay!
+        </button>
+        <button onclick="localStorage.setItem('${key}',${Date.now()+2*3600*1000});document.getElementById('welcome-banner').remove()"
+          style="padding:10px;background:transparent;color:var(--text3);border:1px solid rgba(255,255,255,.09);border-radius:11px;font-family:var(--fb);font-size:12.5px;cursor:pointer">
+          Ẩn trong 2 giờ
+        </button>
+      </div>
+    </div>`;
+  document.body.appendChild(el);
+}
 
 // ── AUTH ──
 window.doLogin = async () => {
@@ -856,20 +948,30 @@ function updateStats() {
 
 function renderProducts(cat) {
   const grid = document.getElementById('pgrid');
-  const list = cat==='all' ? products : products.filter(p=>p.category===cat);
+  let list = cat==='all' ? products : products.filter(p=>p.category===cat);
+  // #13 Sort: in-stock first, out-of-stock to bottom
+  list = [...list].sort((a,b)=>{
+    const aOk = (a.stock||0) > 0, bOk = (b.stock||0) > 0;
+    if (aOk && !bOk) return -1;
+    if (!aOk && bOk) return 1;
+    return 0;
+  });
   if (!list.length) {
     grid.innerHTML = `<div class="empty"><i class="fas fa-box-open"></i><p>${isAdmin?'Chưa có sản phẩm. Thêm trong Admin Panel!':'Vui lòng quay lại sau!'}</p></div>`;
     return;
   }
   grid.innerHTML = list.map(p => {
     const pct = p.stock||p.sold ? Math.min(100,((p.sold||0)/((p.stock||0)+(p.sold||0)))*100) : 0;
-    return `<div class="pcard" onclick="openProd('${p.id}')">
+    const outOfStock = (p.stock||0) <= 0;
+    return `<div class="pcard${outOfStock?' oos':''}" onclick="openProd('${p.id}')" style="${outOfStock?'opacity:.55;':''}">
       <div class="pimg">
-        ${p.image?`<img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'">`:''}
-        <div class="pph">${ICONS[p.category]||'📦'}</div>
-        <div class="pov"></div>
-        ${p.featured?'<span class="pbadge bg-hot">HOT</span>':''}
-        ${p.isNew?'<span class="pbadge bg-new" style="left:auto;right:9px">NEW</span>':''}
+        ${p.image?`<img src="${p.image}" alt="${p.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1"
+          onerror="this.style.display='none'" onload="">`:''}
+        <div class="pph" style="z-index:0">${ICONS[p.category]||'📦'}</div>
+        <div class="pov" style="z-index:2"></div>
+        ${p.featured?'<span class="pbadge bg-hot" style="z-index:3">HOT</span>':''}
+        ${p.isNew?'<span class="pbadge bg-new" style="left:auto;right:9px;z-index:3">NEW</span>':''}
+        ${outOfStock?'<span style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);color:var(--primary);font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px;z-index:3;white-space:nowrap">HẾT HÀNG</span>':''}
       </div>
       <div class="pinfo">
         <div class="pcat">${NAMES[p.category]||'Khác'}</div>
@@ -880,7 +982,9 @@ function renderProducts(cat) {
           <div><span class="pprice">${fmtP(p.price)}</span></div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
             <div class="psold"><i class="fas fa-fire"></i>${p.sold||0} đã bán</div>
-            <button class="pbuy" onclick="event.stopPropagation();addCart('${p.id}')"><i class="fas fa-plus"></i> Thêm</button>
+            <button class="pbuy" ${outOfStock?'disabled style="opacity:.4;cursor:not-allowed"':''} onclick="event.stopPropagation();${outOfStock?'':` addCart('${p.id}')`}">
+              <i class="fas fa-${outOfStock?'ban':'plus'}"></i> ${outOfStock?'Hết':'Thêm'}
+            </button>
           </div>
         </div>
       </div>
@@ -894,7 +998,6 @@ window.filterP = (cat, btn) => {
   if (btn) btn.classList.add('active');
   else { const b=document.querySelector(`[data-cat="${cat}"]`); if(b) b.classList.add('active'); }
   renderProducts(cat);
-  document.getElementById('nap-the').classList.toggle('hidden', cat!=='robux');
 };
 
 window.goTab = (cat, btn) => {
@@ -912,8 +1015,10 @@ window.openProd = id => {
   document.getElementById('m-prod-title').textContent = p.name;
   document.getElementById('m-prod-body').innerHTML = `
     <div class="pdtl">
-      <div class="dtimg">${p.image?`<img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'">`:''}
-        <span style="position:absolute">${ICONS[p.category]||'📦'}</span></div>
+      <div class="dtimg" style="position:relative">
+        ${p.image?`<img src="${p.image}" alt="${p.name}" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12px;z-index:1">`:''}
+        <span style="z-index:0;position:absolute">${ICONS[p.category]||'📦'}</span>
+      </div>
       <div>
         <div class="dtcat">${NAMES[p.category]}</div>
         <div class="dtname">${p.name}</div>
@@ -955,9 +1060,24 @@ window.rmCart = id => {
 function saveCart() {
   localStorage.setItem('rbxviet_cart', JSON.stringify(cart));
   const n = cart.reduce((s,c)=>s+(c.qty||1),0);
+  // Header badge
   const badge = document.getElementById('cbadge');
   badge.textContent = n;
   badge.style.display = n>0 ? 'flex' : 'none';
+  // Floating cart #8
+  const fc = document.getElementById('fcart');
+  const fb = document.getElementById('fbadge');
+  if (fc) {
+    if (n > 0) {
+      fc.style.display = 'flex';
+      fb.textContent = n;
+      fc.classList.remove('fcart-shake');
+      void fc.offsetWidth; // reflow to restart animation
+      fc.classList.add('fcart-shake');
+    } else {
+      fc.style.display = 'none';
+    }
+  }
 }
 
 function renderCart() {
@@ -996,16 +1116,21 @@ window.checkoutBalance = async () => {
   if (!cart.length) return toast('Giỏ hàng trống!','error');
   const total = cart.reduce((s,c)=>s+c.price*(c.qty||1),0);
   if (curBalance < total) {
-    toast(`Số dư không đủ! Cần thêm ${fmtP(total-curBalance)}`, 'error');
-    setTimeout(()=>{ closeM('m-cart'); openM('m-topup'); },1200);
+    toast(`Cần thêm ${fmtP(total-curBalance)} để thanh toán`, 'error', 'Số dư không đủ');
+    setTimeout(()=>{ closeM('m-cart'); openM('m-topup'); },1400);
     return;
   }
   try {
     const orderId = Date.now().toString();
-    // Deduct balance
+    // Fetch credentials for each item
+    const enrichedItems = await Promise.all(cart.map(async item => {
+      const snap = await get(ref(db,`products/${item.id}`));
+      const pd = snap.exists() ? snap.val() : {};
+      return { ...item, credentials: pd.credentials||'', details: pd.details||{} };
+    }));
     await update(ref(db,`users/${curUser.uid}`), { balance: curBalance - total });
     await set(ref(db,`orders/${orderId}`), {
-      userId:curUser.uid, userEmail:curUser.email, items:cart,
+      userId:curUser.uid, userEmail:curUser.email, items:enrichedItems,
       total, status:'completed', payMethod:'balance', timestamp:Date.now()
     });
     for (const item of cart) {
@@ -1016,9 +1141,9 @@ window.checkoutBalance = async () => {
         await update(pRef, { sold:(pd.sold||0)+(item.qty||1), stock:Math.max(0,(pd.stock||0)-(item.qty||1)) });
       }
     }
-    showSuccess(cart, total, orderId);
+    showSuccess(enrichedItems, total, orderId);
     cart=[]; saveCart(); closeM('m-cart');
-  } catch(e){ console.error(e); toast('Lỗi xử lý đơn hàng!','error'); }
+  } catch(e){ console.error(e); toast('Đã xảy ra lỗi xử lý đơn hàng!','error'); }
 };
 
 function showSuccess(items, total, oid) {
@@ -1046,11 +1171,26 @@ window.loadOrders = async () => {
   const all = Object.entries(snap.val()).filter(([,o])=>o.userId===curUser?.uid).reverse();
   if (!all.length) { el.innerHTML='<div class="empty" style="padding:40px"><i class="fas fa-list"></i><p>Bạn chưa có đơn hàng nào</p></div>'; return; }
   el.innerHTML = `<div class="apl">${all.map(([id,o])=>`
-    <div class="api">
-      <div class="api-ic">🧾</div>
-      <div class="api-inf">
-        <div class="api-nm">${fmtP(o.total)} · ${o.items?.length||0} sản phẩm</div>
-        <div class="api-mt">${new Date(o.timestamp).toLocaleString('vi-VN')} · <span style="color:var(--green)">${o.status}</span></div>
+    <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span style="font-family:var(--fd);font-size:12px;color:var(--gold)">#${id.slice(-8).toUpperCase()}</span>
+        <span style="font-size:11px;color:var(--text3)">${new Date(o.timestamp).toLocaleString('vi-VN')}</span>
+      </div>
+      ${(o.items||[]).map(item=>`
+        <div style="background:rgba(255,255,255,.03);border-radius:9px;padding:10px;margin-bottom:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:${item.credentials?'8px':'0'}">
+            <span style="font-weight:600;font-size:13px">${ICONS[item.category]||'📦'} ${item.name}</span>
+            <span style="color:var(--primary);font-weight:700;font-size:13px">${fmtP(item.price*(item.qty||1))}</span>
+          </div>
+          ${item.credentials?`
+            <div style="background:rgba(0,0,0,.3);border:1px solid rgba(255,30,80,.2);border-radius:7px;padding:9px;font-family:monospace;font-size:12px;color:var(--green);word-break:break-all">
+              <div style="font-size:10px;color:var(--text3);margin-bottom:4px;font-family:var(--fb)">🔑 Thông tin tài khoản</div>
+              ${item.credentials}
+            </div>`:''}
+        </div>`).join('')}
+      <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:10px;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:12px;color:var(--text3)">Thanh toán bằng số dư</span>
+        <span style="font-family:var(--fd);font-size:15px;font-weight:700;color:var(--primary)">${fmtP(o.total)}</span>
       </div>
     </div>`).join('')}</div>`;
 };
@@ -1301,15 +1441,18 @@ window.markNT = async (id, status) => {
   const snap = await get(ref(db,`napthe/${id}`));
   if (!snap.exists()) return;
   const nt = snap.val();
-  await update(ref(db,`napthe/${id}`), {status});
-  // Auto-credit balance when confirmed
   if (status === 'completed' && nt.userId) {
+    // #6 Chiết khấu 20%: nạp 10k → nhận 8k
+    const credited = Math.floor((nt.menhgia||0) * 0.8);
     const uSnap = await get(ref(db,`users/${nt.userId}/balance`));
     const cur = uSnap.exists() ? uSnap.val() : 0;
-    await update(ref(db,`users/${nt.userId}`), { balance: cur + (nt.menhgia||0) });
-    toast(`Đã duyệt + cộng ${fmtP(nt.menhgia)} vào tài khoản!`,'success');
-  } else {
-    toast(`Đã đánh dấu ${status}!`, status==='rejected'?'error':'success');
+    await update(ref(db,`napthe/${id}`), {status});
+    await update(ref(db,`users/${nt.userId}`), { balance: cur + credited });
+    toast(`Cộng ${fmtP(credited)} vào tài khoản (sau chiết khấu 20%)`, 'success', '✅ Đã duyệt nạp thẻ');
+  } else if (status === 'rejected') {
+    // #9 Xóa luôn khi từ chối
+    await remove(ref(db,`napthe/${id}`));
+    toast('Đã từ chối và xóa yêu cầu', 'error', 'Từ chối nạp thẻ');
   }
   renderAdm('napthe');
 };
@@ -1322,8 +1465,8 @@ window.markQR = async (id, amount, userId) => {
   renderAdm('feed');
 };
 window.markQRReject = async id => {
-  await update(ref(db,`naptheqr/${id}`), {status:'rejected'});
-  toast('Đã từ chối yêu cầu!','error');
+  await remove(ref(db,`naptheqr/${id}`)); // #9 xóa luôn
+  toast('Đã từ chối và xóa yêu cầu QR', 'error', 'Từ chối nạp QR');
   renderAdm('feed');
 };
 
@@ -1344,13 +1487,28 @@ window.addFeedManual = async () => {
 // ── UTILS ──
 function fmtP(p){ return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'}).format(p||0); }
 
-window.toast = (msg, type='info') => {
-  const icons={success:'✅',error:'❌',info:'ℹ️',warning:'⚠️'};
-  const el=document.createElement('div');
-  el.className=`toast ${type}`;
-  el.innerHTML=`<span>${icons[type]}</span><span class="t-tx">${msg}</span>`;
+window.toast = (msg, type='info', title='') => {
+  const cfg = {
+    success:{icon:'✅',def:'Thành công'},
+    error:  {icon:'🔴',def:'Lỗi'},
+    info:   {icon:'💡',def:'Thông báo'},
+    warning:{icon:'⚠️',def:'Cảnh báo'},
+  };
+  const c = cfg[type]||cfg.info;
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `
+    <div class="t-ic">${c.icon}</div>
+    <div class="t-body">
+      <div class="t-title">${title||c.def}</div>
+      <div class="t-msg">${msg}</div>
+    </div>
+    <button class="t-x" onclick="this.closest('.toast').remove()">✕</button>`;
   document.getElementById('tc').appendChild(el);
-  setTimeout(()=>{ el.style.cssText='opacity:0;transform:translateX(18px);transition:all .3s ease'; setTimeout(()=>el.remove(),300); }, 3200);
+  setTimeout(()=>{
+    el.style.cssText='opacity:0;transform:translateX(24px) scale(.88);transition:all .3s ease';
+    setTimeout(()=>el.remove(),320);
+  }, 3600);
 };
 
 window.openM = id => {
@@ -1393,9 +1551,16 @@ window.selQRAmt = (btn, val) => {
   buildQR(val);
 };
 
+function getUserCode() {
+  if (!curUser) return '';
+  // Mã định danh: 2 ký tự đầu + 6 ký tự cuối UID, viết hoa
+  return ('AB' + curUser.uid.slice(-6)).toUpperCase();
+}
+
 function buildQR(amount) {
   if (!curUser) return;
-  const note = `${BANK.prefix}${curUser.uid.slice(0,6).toUpperCase()}`;
+  const code = getUserCode();
+  const note = `${BANK.prefix}${code}`;
   const qrUrl = `https://img.vietqr.io/image/${BANK.bank}-${BANK.stk}-compact.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(BANK.ctk)}`;
   const img = document.getElementById('qr-img');
   if (img) img.src = qrUrl;
@@ -1405,11 +1570,11 @@ function buildQR(amount) {
   if (stk) stk.textContent = BANK.stk;
   const ctk = document.getElementById('qr-ctk');
   if (ctk) ctk.textContent = BANK.ctk;
-  // Push pending QR topup to Firebase
-  if (curUser) {
-    push(ref(db,'naptheqr'), { userId:curUser.uid, userEmail:curUser.email,
-      amount, note, status:'pending', timestamp:Date.now() }).catch(()=>{});
-  }
+  // Show user code prominently
+  const codeEl = document.getElementById('user-code-display');
+  if (codeEl) codeEl.textContent = code;
+  push(ref(db,'naptheqr'), { userId:curUser.uid, userEmail:curUser.email, userCode:code,
+    amount, note, status:'pending', timestamp:Date.now() }).catch(()=>{});
 }
 
 window.openTopupQR = () => {
@@ -1421,6 +1586,9 @@ window.openTopupQR = () => {
 // ── IMGBB UPLOAD ──
 // 🔧 Thay bằng API key ImgBB của bạn tại https://api.imgbb.com/
 const IMGBB_KEY = '596ccf3842830fc7dee77cbb070dee9d';
+
+// ── BANK CONFIG ──
+const BANK = { bank:'MB', stk:'0123456789', ctk:'NGUYEN VAN A', prefix:'AbubuRoblox' };
 
 window.uploadImgBB = async (inputEl, targetId) => {
   const file = inputEl.files[0];
@@ -1453,5 +1621,21 @@ document.addEventListener('click',e=>{
 saveCart();
 loadProducts();
 </script>
+<!-- LOADING OVERLAY #2 -->
+<div id="auth-loading">
+  <div class="load-logo">
+    <div class="load-logo-ic">🎮</div>
+    <span style="font-family:var(--fd);font-size:22px;font-weight:900;background:linear-gradient(135deg,#fff,var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Abubu Roblox</span>
+  </div>
+  <div class="spin" style="margin:0"></div>
+  <p style="font-size:12.5px;color:var(--text3)">Đang kết nối...</p>
+</div>
+
+<!-- FLOATING CART #8 -->
+<div id="fcart" onclick="openM('m-cart')">
+  🛒
+  <div id="fbadge">0</div>
+</div>
+
 </body>
 </html>
