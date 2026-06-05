@@ -840,19 +840,21 @@ onAuthStateChanged(auth, async user => {
       if (cd) cd.textContent = fmtP(curBalance);
     });
     if (isAdmin) {
-      document.getElementById('adm-btn').classList.remove('hidden');
-      document.getElementById('adm-add-link').style.display = 'inline-flex';
-      document.getElementById('adm-add-link').classList.remove('hidden');
+      const admBtn = document.getElementById('adm-btn');
+      const admLink = document.getElementById('adm-add-link');
+      if (admBtn) admBtn.classList.remove('hidden');
+      if (admLink) { admLink.style.display = 'inline-flex'; admLink.classList.remove('hidden'); }
     }
-    // #12 Welcome banner
     showWelcomeBanner(name);
   } else {
     isAdmin = false; curBalance = 0;
     document.getElementById('g-acts').classList.remove('hidden');
     document.getElementById('u-acts').classList.add('hidden');
     document.getElementById('bal-wrap').classList.add('hidden');
-    document.getElementById('adm-btn').classList.add('hidden');
-    document.getElementById('adm-add-link').style.display = 'none';
+    const admBtn = document.getElementById('adm-btn');
+    const admLink = document.getElementById('adm-add-link');
+    if (admBtn) admBtn.classList.add('hidden');
+    if (admLink) admLink.style.display = 'none';
   }
 });
 
@@ -1149,19 +1151,18 @@ window.rmCart = id => {
 function saveCart() {
   localStorage.setItem('rbxviet_cart', JSON.stringify(cart));
   const n = cart.reduce((s,c)=>s+(c.qty||1),0);
-  // Header badge
+  // Header badge (đã xóa nút cart trên header, bỏ qua nếu không có)
   const badge = document.getElementById('cbadge');
-  badge.textContent = n;
-  badge.style.display = n>0 ? 'flex' : 'none';
+  if (badge) { badge.textContent = n; badge.style.display = n>0 ? 'flex' : 'none'; }
   // Floating cart #8
   const fc = document.getElementById('fcart');
   const fb = document.getElementById('fbadge');
   if (fc) {
     if (n > 0) {
       fc.style.display = 'flex';
-      fb.textContent = n;
+      if (fb) fb.textContent = n;
       fc.classList.remove('fcart-shake');
-      void fc.offsetWidth; // reflow to restart animation
+      void fc.offsetWidth;
       fc.classList.add('fcart-shake');
     } else {
       fc.style.display = 'none';
@@ -1699,49 +1700,19 @@ window.switchTopup = tab => {
 };
 
 window.selQRAmt = (btn, val) => {
-  document.querySelectorAll('#tu-qr .mg-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  selQR_val = val;
-  buildQR(val);
-};
-
-function getUserCode() {
-  if (!curUser) return '';
-  // Mã định danh: 2 ký tự đầu + 6 ký tự cuối UID, viết hoa
-  return ('AB' + curUser.uid.slice(-6)).toUpperCase();
-}
-
-function buildQR(amount) {
-  if (!curUser) return;
-  const code = getUserCode();
-  const note = `${BANK.prefix}${code}`;
-  const qrUrl = `https://img.vietqr.io/image/${BANK.bank}-${BANK.stk}-compact.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(BANK.ctk)}`;
-  const img = document.getElementById('qr-img');
-  if (img) img.src = qrUrl;
-  const nd = document.getElementById('qr-nd');
-  if (nd) nd.textContent = note;
-  const stk = document.getElementById('qr-stk');
-  if (stk) stk.textContent = BANK.stk;
-  const ctk = document.getElementById('qr-ctk');
-  if (ctk) ctk.textContent = BANK.ctk;
-  // Show user code prominently
-  const codeEl = document.getElementById('user-code-display');
-  if (codeEl) codeEl.textContent = code;
-  push(ref(db,'naptheqr'), { userId:curUser.uid, userEmail:curUser.email, userCode:code,
-    amount, note, status:'pending', timestamp:Date.now() }).catch(()=>{});
-}
-
-// ── TOPUP QR - #3 only create record on button click ──
-window.selQRAmt = (btn, val) => {
   document.querySelectorAll('#qr-mg-grid .mg-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   selQR_val = val;
-  // #3 don't auto-push, just update the code display
   const codeEl = document.getElementById('user-code-display');
   if (codeEl && curUser) codeEl.textContent = getUserCode();
 };
 
-window.createQRRequest = async () => {
+function getUserCode() {
+  if (!curUser) return '';
+  return ('AB' + curUser.uid.slice(-6)).toUpperCase();
+}
+
+// ── TOPUP QR - chỉ push Firebase khi user bấm nút ──window.createQRRequest = async () => {
   if (!curUser) { openAuth('login'); return; }
   const code = getUserCode();
   const note = `${BANK.prefix}${code}`;
@@ -1848,8 +1819,9 @@ document.addEventListener('click',e=>{
 });
 
 // ── INIT ──
-saveCart();
+try { saveCart(); } catch(e) { console.warn('saveCart init:', e); }
 loadProducts();
+loadTopNap();
 </script>
 <!-- #11 CSKH FLOATING -->
 <div id="cskh-wrap" style="position:fixed;bottom:96px;right:22px;z-index:498;display:flex;flex-direction:column;align-items:center;gap:9px">
