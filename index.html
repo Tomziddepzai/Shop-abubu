@@ -521,7 +521,7 @@ select.fi3{cursor:pointer;}
       </div>
     </div>
     <div class="fbot">
-      <span>© 2024 Abubu Roblox. All rights reserved.</span>
+      <span>© 2026 Abubu Roblox. All rights reserved.</span>
       <span>Không liên kết chính thức với Roblox Corporation.</span>
     </div>
   </div>
@@ -793,8 +793,16 @@ const firebaseConfig = {
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getDatabase(app);
-// #1 #12 Auth persistence - giữ đăng nhập qua refresh
 setPersistence(auth, browserLocalPersistence).catch(()=>{});
+
+// ── FORCE HIDE LOADING sau 3.5 giây nếu Firebase chậm ──
+function hideLoader() {
+  const loader = document.getElementById('auth-loading');
+  if (!loader || loader.style.display === 'none') return;
+  loader.classList.add('fade');
+  setTimeout(() => { loader.style.display = 'none'; }, 450);
+}
+setTimeout(hideLoader, 3500); // tối đa 3.5s
 
 // ── STATE ──
 let curUser   = null;
@@ -821,9 +829,7 @@ const NAMES = { account:'Tài khoản', robux:'Robux', gamepass:'GamePass', item
 // ── AUTH STATE ──
 onAuthStateChanged(auth, async user => {
   curUser = user;
-  // #2 Hide loading overlay
-  const loader = document.getElementById('auth-loading');
-  if (loader) { loader.classList.add('fade'); setTimeout(()=>loader.style.display='none',450); }
+  hideLoader(); // ẩn loading ngay khi auth resolve
 
   if (user) {
     const snap = await get(ref(db, `users/${user.uid}`));
@@ -1550,10 +1556,12 @@ window.saveP = async () => {
     admTab('products', document.querySelector('.anb'));
   } catch(e) {
     console.error('saveP error:', e);
-    if (e.code === 'PERMISSION_DENIED') {
-      toast('Firebase từ chối quyền! Vào Firebase Console → Realtime Database → Rules → đổi thành: {"rules":{".read":"auth!=null",".write":"auth!=null"}}', 'error', '🔒 Lỗi quyền truy cập');
+    const code = e?.code || e?.message || '';
+    if (code.includes('PERMISSION_DENIED') || code.includes('permission-denied')) {
+      toast('Vào Firebase Console → Realtime Database → Rules → dán rules mới (xem console)', 'error', '🔒 Cần cấp quyền Firebase');
+      console.warn('📋 Dán rules này vào Firebase Console → Realtime Database → Rules:\n{\n  "rules": {\n    ".read": "auth != null",\n    ".write": "auth != null"\n  }\n}');
     } else {
-      toast(`Lỗi: ${e.message || e.code || 'Không xác định'}`, 'error', '❌ Lưu thất bại');
+      toast(`Lỗi: ${code || 'Không xác định'}`, 'error', '❌ Lưu thất bại');
     }
   }
 };
@@ -1640,12 +1648,19 @@ window.toast = (msg, type='info', title='') => {
 
 window.openM = id => {
   document.getElementById(id).classList.add('open');
+  if (id==='m-auth') {
+    // #6 Reset về login tab và xoá hết input mỗi lần mở
+    ['li-em','li-pw','rg-nm','rg-em','rg-pw','fp-em'].forEach(fid=>{
+      const el=document.getElementById(fid); if(el) el.value='';
+    });
+    switchAuth('login');
+  }
   if (id==='m-cart') renderCart();
   if (id==='m-admin') renderAdm(curAdmTab);
   if (id==='m-orders') loadOrders();
   if (id==='m-topup') {
-    const tb = document.getElementById('topup-bal');
-    if (tb) tb.textContent = fmtP(curBalance);
+    const tb=document.getElementById('topup-bal');
+    if(tb) tb.textContent=fmtP(curBalance);
   }
 };
 window.closeM = id => document.getElementById(id).classList.remove('open');
@@ -1675,7 +1690,12 @@ window.switchTopup = tab => {
   document.getElementById('tu-t2').classList.toggle('active',tab==='qr');
   document.getElementById('tu-card').classList.toggle('hidden',tab!=='card');
   document.getElementById('tu-qr').classList.toggle('hidden',tab!=='qr');
-  if (tab==='qr') buildQR(selQR_val);
+  // #3 NOT calling buildQR automatically — user must click button
+  if (tab==='qr') {
+    const codeEl = document.getElementById('user-code-display');
+    if (codeEl && curUser) codeEl.textContent = getUserCode();
+    document.getElementById('qr-result').style.display = 'none'; // reset
+  }
 };
 
 window.selQRAmt = (btn, val) => {
@@ -1798,7 +1818,7 @@ window.switchHistory = tab => {
 const IMGBB_KEY = '596ccf3842830fc7dee77cbb070dee9d';
 
 // ── BANK CONFIG ──
-const BANK = { bank:'MB', stk:'2008777777777', ctk:'NGUYEN THE ANH', prefix:'AbubuRoblox' };
+const BANK = { bank:'MB', stk:'0123456789', ctk:'NGUYEN VAN A', prefix:'AbubuRoblox' };
 
 window.uploadImgBB = async (inputEl, targetId) => {
   const file = inputEl.files[0];
@@ -1834,9 +1854,9 @@ loadProducts();
 <!-- #11 CSKH FLOATING -->
 <div id="cskh-wrap" style="position:fixed;bottom:96px;right:22px;z-index:498;display:flex;flex-direction:column;align-items:center;gap:9px">
   <div id="cskh-menu" style="display:none;flex-direction:column;gap:9px;align-items:center">
-    <a href="https://t.me/yourusername" target="_blank" class="cskh-opt" style="background:#229ED9" title="Telegram"><i class="fab fa-telegram"></i></a>
-    <a href="https://zalo.me/0000000000" target="_blank" class="cskh-opt" style="background:#0068FF" title="Zalo"><span style="font-weight:800;font-size:12px">ZL</span></a>
-    <a href="https://discord.gg/yourserver" target="_blank" class="cskh-opt" style="background:#7289DA" title="Discord"><i class="fab fa-discord"></i></a>
+    <a href="https://t.me/+84965126881" target="_blank" class="cskh-opt" style="background:#229ED9" title="Telegram"><i class="fab fa-telegram"></i></a>
+    <a href="https://zalo.me/" target="_blank" class="cskh-opt" style="background:#0068FF" title="Zalo"><span style="font-weight:800;font-size:12px">ZL</span></a>
+    <a href="https://discord.gg/abuburoblox" target="_blank" class="cskh-opt" style="background:#7289DA" title="Discord"><i class="fab fa-discord"></i></a>
   </div>
   <button id="cskh-btn" onclick="toggleCSKH()" style="width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--pink));border:none;border-radius:50%;cursor:pointer;font-size:20px;box-shadow:0 4px 18px var(--pglow);transition:transform .2s;display:flex;align-items:center;justify-content:center" title="Hỗ trợ">💬</button>
 </div>
