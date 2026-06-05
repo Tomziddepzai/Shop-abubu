@@ -308,11 +308,7 @@ select.fi3{cursor:pointer;}
 @keyframes fShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px) rotate(-5deg)}40%{transform:translateX(5px) rotate(5deg)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
 
 /* ── LOADING OVERLAY #2 ── */
-#auth-loading{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;transition:opacity .4s ease;}
-#auth-loading.fade{opacity:0;pointer-events:none;}
-.load-logo{display:flex;align-items:center;gap:10px;}
-.load-logo-ic{width:50px;height:50px;background:var(--primary);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 0 30px var(--pglow);animation:lpulse 1.5s ease-in-out infinite;}
-@keyframes lpulse{0%,100%{box-shadow:0 0 20px var(--pglow)}50%{box-shadow:0 0 40px rgba(255,30,80,.8)}}
+/* ── LOADING OVERLAY CSS removed ── */
 
 
 /* SPINNER */
@@ -484,10 +480,10 @@ select.fi3{cursor:pointer;}
         <a class="logo" href="#"><div class="logo-ic">🎮</div><span class="logo-tx">Abubu Roblox</span></a>
         <p>Shop bán đồ Roblox uy tín số 1 Việt Nam. Cam kết giá tốt nhất, giao hàng tự động, hỗ trợ 24/7.</p>
         <div class="fsoc">
-          <a class="fsb" href="#"><i class="fab fa-facebook-f"></i></a>
-          <a class="fsb" href="#"><i class="fab fa-discord"></i></a>
-          <a class="fsb" href="#"><i class="fab fa-youtube"></i></a>
-          <a class="fsb" href="#"><i class="fab fa-tiktok"></i></a>
+          <a class="fsb" href="https://www.facebook.com/AbubuReal/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a class="fsb" href="https://discord.gg/abuburoblox" target="_blank"><i class="fab fa-discord"></i></a>
+          <a class="fsb" href="https://www.tiktok.com/@abuburbl" target="_blank"><i class="fab fa-tiktok"></i></a>
+          <a class="fsb" href="https://t.me/+84965126881" target="_blank"><i class="fab fa-telegram"></i></a>
         </div>
       </div>
       <div class="fcol">
@@ -512,16 +508,17 @@ select.fi3{cursor:pointer;}
       <div class="fcol">
         <h4>Liên hệ</h4>
         <ul>
-          <li><a href="#"><i class="fab fa-facebook" style="color:#1877f2"></i> Facebook Fanpage</a></li>
-          <li><a href="#"><i class="fab fa-discord" style="color:#7289da"></i> Discord Server</a></li>
-          <li><a href="#"><i class="fab fa-tiktok" style="color:#ff0050"></i> TikTok</a></li>
-          <li><a href="#"><svg style="width:14px;height:14px;fill:#00b4d8;vertical-align:middle;margin-right:2px" viewBox="0 0 24 24"><path d="M12.5 2C7 2 2.5 6.5 2.5 12S7 22 12.5 22c1.5 0 3-.3 4.3-.9l4.2 1.1-1.1-4.1c.7-1.4 1.1-2.9 1.1-4.6C21 6.5 17.8 2 12.5 2zm5.5 13.7l.7 2.6-2.6-.7-.4.2c-1 .5-2.1.8-3.2.8-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7c0 1.2-.3 2.3-.9 3.3l-.3.4-.3-.6z"/></svg> Zalo</a></li>
-          <li><a href="#"><i class="fas fa-envelope" style="color:var(--primary)"></i> Email hỗ trợ</a></li>
+          <li><a href="https://www.facebook.com/AbubuReal/" target="_blank"><i class="fab fa-facebook" style="color:#1877f2"></i> Facebook Fanpage</a></li>
+          <li><a href="https://discord.gg/abuburoblox" target="_blank"><i class="fab fa-discord" style="color:#7289da"></i> Discord Server</a></li>
+          <li><a href="https://www.tiktok.com/@abuburbl" target="_blank"><i class="fab fa-tiktok" style="color:#ff0050"></i> TikTok</a></li>
+          <li><a href="https://zalo.me/0357778391" target="_blank"><svg style="width:14px;height:14px;fill:#0068FF;vertical-align:middle;margin-right:2px" viewBox="0 0 24 24"><path d="M12.5 2C7 2 2.5 6.5 2.5 12S7 22 12.5 22c1.5 0 3-.3 4.3-.9l4.2 1.1-1.1-4.1c.7-1.4 1.1-2.9 1.1-4.6C21 6.5 17.8 2 12.5 2zm5.5 13.7l.7 2.6-2.6-.7-.4.2c-1 .5-2.1.8-3.2.8-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7c0 1.2-.3 2.3-.9 3.3l-.3.4-.3-.6z"/></svg> Zalo</a></li>
+          <li><a href="https://t.me/+84965126881" target="_blank"><i class="fab fa-telegram" style="color:#229ED9"></i> Telegram</a></li>
+          <li><a href="mailto:Phongnamtran210@gmail.com"><i class="fas fa-envelope" style="color:var(--primary)"></i> Phongnamtran210@gmail.com</a></li>
         </ul>
       </div>
     </div>
     <div class="fbot">
-      <span>© 2026 Abubu Roblox. All rights reserved.</span>
+      <span>© 2024 Abubu Roblox. All rights reserved.</span>
       <span>Không liên kết chính thức với Roblox Corporation.</span>
     </div>
   </div>
@@ -795,15 +792,6 @@ const auth = getAuth(app);
 const db   = getDatabase(app);
 setPersistence(auth, browserLocalPersistence).catch(()=>{});
 
-// ── FORCE HIDE LOADING sau 3.5 giây nếu Firebase chậm ──
-function hideLoader() {
-  const loader = document.getElementById('auth-loading');
-  if (!loader || loader.style.display === 'none') return;
-  loader.classList.add('fade');
-  setTimeout(() => { loader.style.display = 'none'; }, 450);
-}
-setTimeout(hideLoader, 3500); // tối đa 3.5s
-
 // ── STATE ──
 let curUser   = null;
 let isAdmin   = false;
@@ -829,7 +817,6 @@ const NAMES = { account:'Tài khoản', robux:'Robux', gamepass:'GamePass', item
 // ── AUTH STATE ──
 onAuthStateChanged(auth, async user => {
   curUser = user;
-  hideLoader(); // ẩn loading ngay khi auth resolve
 
   if (user) {
     const snap = await get(ref(db, `users/${user.uid}`));
@@ -1818,7 +1805,7 @@ window.switchHistory = tab => {
 const IMGBB_KEY = '596ccf3842830fc7dee77cbb070dee9d';
 
 // ── BANK CONFIG ──
-const BANK = { bank:'MB', stk:'0123456789', ctk:'NGUYEN VAN A', prefix:'AbubuRoblox' };
+const BANK = { bank:'MB', stk:'2008777777777', ctk:'NGUYEN THE ANH', prefix:'AbubuRoblox' };
 
 window.uploadImgBB = async (inputEl, targetId) => {
   const file = inputEl.files[0];
@@ -1855,7 +1842,7 @@ loadProducts();
 <div id="cskh-wrap" style="position:fixed;bottom:96px;right:22px;z-index:498;display:flex;flex-direction:column;align-items:center;gap:9px">
   <div id="cskh-menu" style="display:none;flex-direction:column;gap:9px;align-items:center">
     <a href="https://t.me/+84965126881" target="_blank" class="cskh-opt" style="background:#229ED9" title="Telegram"><i class="fab fa-telegram"></i></a>
-    <a href="https://zalo.me/" target="_blank" class="cskh-opt" style="background:#0068FF" title="Zalo"><span style="font-weight:800;font-size:12px">ZL</span></a>
+    <a href="https://zalo.me/0357778391" target="_blank" class="cskh-opt" style="background:#0068FF" title="Zalo"><span style="font-weight:800;font-size:12px">ZL</span></a>
     <a href="https://discord.gg/abuburoblox" target="_blank" class="cskh-opt" style="background:#7289DA" title="Discord"><i class="fab fa-discord"></i></a>
   </div>
   <button id="cskh-btn" onclick="toggleCSKH()" style="width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--pink));border:none;border-radius:50%;cursor:pointer;font-size:20px;box-shadow:0 4px 18px var(--pglow);transition:transform .2s;display:flex;align-items:center;justify-content:center" title="Hỗ trợ">💬</button>
@@ -1881,16 +1868,6 @@ loadProducts();
       </button>
     </div>
   </div>
-</div>
-
-<!-- LOADING OVERLAY #2 -->
-<div id="auth-loading">
-  <div class="load-logo">
-    <div class="load-logo-ic">🎮</div>
-    <span style="font-family:var(--fd);font-size:22px;font-weight:900;background:linear-gradient(135deg,#fff,var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Abubu Roblox</span>
-  </div>
-  <div class="spin" style="margin:0"></div>
-  <p style="font-size:12.5px;color:var(--text3)">Đang kết nối...</p>
 </div>
 
 <!-- FLOATING CART #8 -->
