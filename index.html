@@ -903,7 +903,10 @@ window.doLogin = async () => {
     await signInWithEmailAndPassword(auth, em, pw);
     closeM('m-auth');
     toast('Đăng nhập thành công! 🎉','success','👋 Chào mừng');
-  } catch(e){ toast(authErr(e.code),'error'); }
+  } catch(e){
+    console.error('Login error:', e.code, e.message);
+    toast(authErr(e.code),'error','❌ Đăng nhập thất bại');
+  }
 };
 
 window.doRegister = async () => {
@@ -960,10 +963,20 @@ window.doChangePw = async () => {
 };
 
 function authErr(code) {
-  return ({ 'auth/email-already-in-use':'Email đã được dùng!',
-    'auth/invalid-email':'Email không hợp lệ!', 'auth/wrong-password':'Sai mật khẩu!',
-    'auth/user-not-found':'Tài khoản không tồn tại!', 'auth/weak-password':'Mật khẩu quá yếu!',
-    'auth/invalid-credential':'Email hoặc mật khẩu không đúng!' })[code] || 'Đã có lỗi xảy ra!';
+  const msgs = {
+    'auth/email-already-in-use':  'Email này đã có tài khoản!',
+    'auth/invalid-email':         'Email không đúng định dạng!',
+    'auth/wrong-password':        'Sai mật khẩu!',
+    'auth/user-not-found':        'Tài khoản không tồn tại!',
+    'auth/weak-password':         'Mật khẩu quá yếu (ít nhất 6 ký tự)!',
+    'auth/invalid-credential':    'Email hoặc mật khẩu không đúng!',
+    'auth/unauthorized-domain':   '⚠️ Domain chưa được cấp phép! Vào Firebase Console → Authentication → Settings → Authorized domains → thêm: tomziddepzai.github.io',
+    'auth/network-request-failed':'Lỗi mạng! Kiểm tra kết nối internet.',
+    'auth/too-many-requests':     'Quá nhiều lần thử! Vui lòng đợi vài phút.',
+    'auth/operation-not-allowed': 'Chưa bật Email/Password trong Firebase Auth!',
+    'auth/popup-closed-by-user':  'Đã đóng cửa sổ đăng nhập.',
+  };
+  return msgs[code] || `Lỗi: ${code || 'Không xác định'}`;
 }
 
 // ── PRODUCTS ──
