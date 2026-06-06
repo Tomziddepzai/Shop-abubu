@@ -1891,7 +1891,6 @@ exports.createPayOS = functions.https.onRequest(async (req, res) => {
         </details>
       </div>`;
   }
-}
 
   else if (tab==='users') {
     el.innerHTML='<div class="spin"></div>';
@@ -1952,7 +1951,8 @@ window.savePayOSCfg = async () => {
   await set(ref(db,'settings/payos'), cfg);
   toast('Đã lưu cài đặt PayOS!','success','✅ Lưu thành công');
 };
-  if (!isAdmin) return toast('Bạn không có quyền Admin!','error');
+
+window.saveP = async () => {
   const nmEl = document.getElementById('p-nm');
   const prEl = document.getElementById('p-pr');
   if (!nmEl || !prEl) return toast('Lỗi: Form không tìm thấy. Hãy mở lại Admin Panel!','error');
